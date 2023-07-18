@@ -1,0 +1,64 @@
+<div class="navbar">
+    <div class="navbar__wrapper">
+        <div class="navbar__section">
+            <a class="navbar__routerLink" [routerLink]="'/home'" name='home'>Start</a>
+        </div>
+    </div>
+    <ng-container *ngIf="!auth.getIsAuthenticated()">
+        <div class="navbar__wrapper">
+            <div class="navbar__section">
+                <a class="navbar__routerLink" [routerLink]="'/user/login'" name='login'>Logowanie</a>
+            </div>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="!auth.getIsAuthenticated()">
+        <div class="navbar__wrapper">
+            <div class="navbar__section">
+                <a class="navbar__routerLink" [routerLink]="'/user/registration'" name='registration'>Rejestracja</a>
+            </div>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="auth.getIsAuthenticated()">
+        <div class="navbar__wrapper">
+            <div class="navbar__section">
+                <a class="navbar__routerLink" (click)="loginOut()" name='loginOut'>Wyloguj</a>
+            </div>
+        </div>
+    </ng-container>
+
+    <ng-template *ngIf="auth.getIsAuthenticated() then isLoggedIn">
+
+       
+    </ng-template>
+    <ng-template #isLoggedIn>
+        <div class="navbar__wrapper">
+            <div class="navbar__section">
+                <a class="navbar__routerLink" [routerLink]="['/receipt/get-list-of-receipt/', currentUser.id ]"
+                    name='listOfReceipts'>Lista paragonów</a>
+            </div>
+        </div>
+        <div class="navbar__wrapper">
+            <div class="navbar__section">
+                <a class="navbar__routerLink" [routerLink]="['/receipt/adding-a-receipt/', currentUser.id ]"
+                    name='addingAReceipt'>Dodaj Paragon</a>
+            </div>
+        </div>
+
+        <div class="navbar__wrapper">
+            <!-- <div class="navbar__section">
+                <a class="navbar__routerLink" [routerLink]=" '/task/add-task/'" name='addTask'>Dodaj Zadanie</a>
+            </div> -->
+        </div>
+        <div class="navbar__wrapper">
+            <!-- <div class="navbar__section">
+                <a class="navbar__routerLink" [routerLink]=" '/administration-panel'" name='administrationPanel'>Panel
+                    Administarcyjny</a>
+            </div> -->
+        </div>
+        <div class="navbar__wrapper">
+            <div class="navbar__section">  
+                <strong> Cześć, {{currentUser.username }}</strong>
+            </div>          
+        </div>
+    </ng-template>
+</div>

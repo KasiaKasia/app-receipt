@@ -1,0 +1,53 @@
+@import "./reset.scss";
+@import "./variables.scss";
+
+.app {
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh;
+    background: #fafafa;
+    font-family: 'Montserrat', sans-serif;
+    .app__page {
+        width: 100%;      
+    }
+}
+
+h2 {
+    font-size: $font-size-xl;
+    color: $black;
+}
+
+h3 {
+    font-size: $font-size-md;
+    color: $black;
+    text-transform: uppercase;
+}
+
+label {
+    font-size: $font-size-sm;
+    color: $black;
+}
+
+.form-group {
+    padding-right: 1rem;
+    margin-top: 1rem;
+}
+
+fieldset {
+    margin-top: 1rem;
+}
+
+@mixin outline--none {
+    outline: none !important;
+    -webkit-appearance: none;
+    outline: 0;
+}
+
+input {
+    &:focus {
+        @include outline--none;
+    }
+    &:active {
+        @include outline--none;
+    }
+}

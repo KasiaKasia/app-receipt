@@ -1,0 +1,93 @@
+<div class="dashboard">
+    <div class="container-fluid"> 
+        <div class="row">
+            <div class="col-12">
+                <div class="dashboard__section dashboard__section--small">
+                    <div class="dashboard__heading dashboard__heading--mail">
+                        <h2>Dodaj paragon</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="dashboard__section">
+                    <div [formGroup]="addReceiptForm" (ngSubmit)="save()">
+                        <table class="table">
+                             <tr class="table__tr">
+                                <th class="table__th" highlight>Nazwa sklepu</th>
+                                <th class="table__th" highlight>NIP</th>
+                                <th class="table__th" highlight>Łączna cena</th>
+                                <th class="table__th" highlight>Data zakupu</th>                           
+                            </tr>
+                            <tbody class="table__tbody">
+                                <tr class="table__tr">
+                                    <td class="table__td">
+                                        <input type="text" class="form-control" formControlName="shopName" />
+                                    </td>
+                                    <td class="table__td">
+                                         <input type="text" class="form-control" formControlName="nip" 
+                                        [value]="(addReceiptForm.get('nip')?.value) | nipFormat"/>
+                                    </td>
+                                    <td class="table__td">
+                                        <input type="text" class="form-control" formControlName="totalPrice" />
+                                    </td>
+                                    <td class="table__td">
+                                        <mat-form-field>
+                                            <mat-label>Wybierz datę zakupu</mat-label>
+                                            <input matInput [matDatepicker]="picker" formControlName="dateOfPurchase">
+                                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker></mat-datepicker>
+                                        </mat-form-field>
+                                    </td>
+                                </tr>     
+                                    <tr class="table__tr">
+                                        <td class="table__td" colspan="4">
+                                            <app-file-upload></app-file-upload>                               
+                                        </td>  
+                                    </tr> 
+                            </tbody>
+                        </table>
+                        <table class="table">
+                            <thead class="table__thead"></thead>
+                            <tr>
+                                <th class="table__th" highlight>Nazwa produktu</th>
+                                <th class="table__th" highlight>Ilość sztuk</th>
+                                <th class="table__th" highlight>Cena za sztukę</th>
+                                <th class="table__th" highlight>Łączna cena</th>
+                                <th class="table__th" highlight>Akcja</th>
+                            </tr>
+                            <tbody class="table__tbody">
+                                <tr  class="table__tr" formArrayName ="listProducts"  *ngFor="let t of listProducts.controls; let i = index">
+                                    <ng-container   [formGroupName]="i">
+                                    <td class="table__td">
+                                        <input type="text" class="form-control" formControlName="productName" />
+                                    </td>
+                                    <td class="table__td">
+                                        <input type="text" class="form-control" formControlName="quantity" />
+                                    </td>
+                                    <td class="table__td">
+                                        <input type="text" class="form-control" formControlName="price" />
+                                    </td>
+                                    <td class="table__td">
+                                        <input type="text" class="form-control" formControlName="totalPrice" />
+                                    </td>
+                                    <td class="table__td">
+                                        <button type="button" class="btn btn-success" (click)="addProduct( )">
+                                            Dodaj paragon
+                                        </button>
+                                        <button type="submit" class="btn btn-danger" (click)="removeProduct(i)">
+                                            Usuń paragon
+                                        </button>
+                                    </td>
+                                </ng-container>  
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button type="button" class="btn btn-success">Zapisz paragon</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

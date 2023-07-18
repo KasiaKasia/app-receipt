@@ -1,0 +1,30 @@
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes, mapToCanActivate } from '@angular/router';
+import { ReceiptComponent } from './pages/receipt/receipt.component';
+import { GuardCanActivateCanDeactivateCanActivateChildCanLoadCanMatch } from 'src/app/shared/guards/guards.service';
+import { ReceiptListComponent } from './pages/receipt-list/receipt-list.component';
+import { ReceiptAdditionComponent } from './pages/receipt-addition/receipt-addition.component';
+
+const routes: Routes = [{
+  path: '',
+  component: ReceiptComponent,
+//  canActivateChild: [GuardCanActivateCanDeactivateCanActivateChildCanLoadCanMatch],
+  children: [
+    {
+      path: 'get-list-of-receipt/:id',
+      data: { title: 'Lista paragonów' },
+      component: ReceiptListComponent
+    },  {
+      path: 'adding-a-receipt/:id',
+      data: { title: 'Dodaj paragon' },
+      component: ReceiptAdditionComponent
+   //   canActivate: mapToCanActivate ([GuardCanActivateCanDeactivateCanActivateChildCanLoadCanMatch]) 
+    }, 
+  ]
+}];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class ReceiptRoutingModule { }

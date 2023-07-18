@@ -1,0 +1,21 @@
+@import "../variables.scss";
+.button {
+    display: inline-block;
+    color: $white;
+    padding: 1rem;
+    font-size: $font-size-md;
+    border-radius: $font-size-md * 2;
+    background: $boxShadow;
+    cursor: pointer;
+    &:hover,
+    &:focus {
+        color: $white;
+        animation: button-hover 1s ease;
+    }
+}
+
+@keyframes button-hover {
+    50% {
+        background-color: 0 0;
+    }
+}
