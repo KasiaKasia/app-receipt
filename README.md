@@ -60,14 +60,14 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 
 3. Enable the Cloud Vision API:
 
-`gcloud services enable vision.googleapis.com`
+   `gcloud services enable vision.googleapis.com`
 
 4. Create local authentication credentials for your Google Account:
 
-`gcloud auth application-default login`
+   `gcloud auth application-default login`
 
 5. Grant roles to your Google Account. Run the following command once for each of the following IAM roles: roles/storage.objectViewer
 
-`gcloud projects add-iam-policy-binding PROJECT_ID --member="user:EMAIL_ADDRESS" --role=ROLE`
+   `gcloud projects add-iam-policy-binding PROJECT_ID --member="user:EMAIL_ADDRESS" --role=ROLE`
 
     ROLE - `--role=roles/storage.objectViewer`
