@@ -11,7 +11,7 @@
 ## before running the server connecting to the database you must install 
 - `npm install msnodesqlv8, jsonwebtoken, express, cors, @google-cloud/vision, express-fileupload` 
 
-or 
+   or 
 - `npm i msnodesqlv8, jsonwebtoken, express, cors, @google-cloud/vision, express-fileupload`
 
 ## Run the server connecting to the MS SQL Server database
@@ -47,6 +47,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 
     - Run command in console `gcloud init`
     - Set the region and zone parameters.
+    
       `gcloud compute project-info add-metadata --metadata google-compute-default-region=europe-central2,google-compute-default-zone=europe-central2-a`
 
       The statement returns a list of zones:
