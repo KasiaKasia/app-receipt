@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, JsonPipe } from '@angular/common';
-
+import { CommonModule } from '@angular/common';
 import { ReceiptRoutingModule } from './receipt-routing.module';
 import { ReceiptComponent } from './pages/receipt/receipt.component';
 import { ReceiptAdditionComponent } from './pages/receipt-addition/receipt-addition.component';
 import { ReceiptListComponent } from './pages/receipt-list/receipt-list.component';
-import { RouterOutlet } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -18,6 +16,8 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { HttpClientModule } from '@angular/common/http';
 import { FileUploadComponent } from '../components/file-upload/file-upload.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -34,8 +34,14 @@ import { FileUploadComponent } from '../components/file-upload/file-upload.compo
     ReceiptRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule,
-    MatIconModule, MatProgressBarModule
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatIconModule,
+    MatProgressBarModule,
+    MatButtonModule,
+    MatSnackBarModule
   ],
   exports: [
     ReceiptComponent,
@@ -45,4 +51,4 @@ import { FileUploadComponent } from '../components/file-upload/file-upload.compo
     FileUploadComponent
   ]
 })
-export class ReceiptModule { }
+export class ReceiptModule {}

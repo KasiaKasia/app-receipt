@@ -14,6 +14,7 @@ export class ReceiptAdditionComponent {
     dateOfPurchase: [''],
     listProducts: this.fb.array([this.createProduct()])
   });
+ 
   get listProducts() {
     return this.addReceiptForm.get('listProducts') as FormArray;
   }

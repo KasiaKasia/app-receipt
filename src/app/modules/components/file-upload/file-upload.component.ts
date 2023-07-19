@@ -2,7 +2,9 @@ import { Component, Input } from '@angular/core';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Subscription, finalize } from 'rxjs';
 import { FileService } from '../../receipt/service/file/file.service';
-import { ClickPosition } from 'src/app/shared/models/interface-receipt';
+import { ClickPosition, Point, Word } from 'src/app/shared/models/interface-receipt';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackBarAnnotatedComponent } from 'src/app/shared/components/snack-bar/snack-bar-annotated/snack-bar-annotated.component';
 
 @Component({
   selector: 'app-file-upload',
@@ -12,13 +14,21 @@ import { ClickPosition } from 'src/app/shared/models/interface-receipt';
 export class FileUploadComponent {
   @Input()
   requiredFileType: string = '';
-
-  fileName = '';
   uploadProgress: number | undefined | null;
   uploadSub: Subscription | undefined | null;
-  constructor(private http: HttpClient,
-    private fileService: FileService) { }
+  textPosition: any = [{}];
+  words: Array<{ word: Word }> = [];
 
+  constructor(private http: HttpClient,
+    private fileService: FileService,
+    private _snackBar: MatSnackBar) {}
+
+  openSnackBar(word: string) {
+    this._snackBar.openFromComponent(SnackBarAnnotatedComponent, {
+      duration: 5000,
+      data: word
+    });
+  }
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
 
@@ -29,7 +39,6 @@ export class FileUploadComponent {
     const file: File = input.files[0];
 
     if (file) {
-      this.fileName = file.name;
       const formData = new FormData();
       formData.append("thumbnail", file);
       const upload$ = this.fileService.upload(formData).pipe(
@@ -59,42 +68,63 @@ export class FileUploadComponent {
     };
   }
   getPositionClick(event: PointerEvent | MouseEvent): ClickPosition {
-    
-    const clickPosition = {
-      x: event.offsetX,
-      y: event.offsetY
-    }
+
+    const clickPosition = new Point(event.offsetX, event.offsetY);
+    this.words.forEach(listWords => {
+      if (listWords.word.isIn(clickPosition)) {
+        this.openSnackBar('Kliknięto w słowo ' + listWords.word.value)
+        navigator.clipboard.writeText(listWords.word.value);  
+      }
+    })
     return clickPosition;
   }
 
   draw(event: any, body: any) {
     const canvas = <HTMLCanvasElement>document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
-    const respons = [{}]
+    this.textPosition = [{}]
     if (ctx) {
       const img = new Image();
-      console.log('body ', body);
       if (body.body.respons) {
-        respons.push(body.body.respons);
+        this.textPosition.push(body.body.respons);
 
         img.onload = () => {
           ctx.drawImage(img, 0, 0);
           ctx.beginPath();
 
-          const flatRespons = respons.flat()
+          const flatRespons = this.textPosition.flat();
           flatRespons.forEach((value: any) => {
 
             if (value.id >= 1) {
+
               ctx.beginPath();
               let startx = value.vertices[0].x;
               let starty = value.vertices[0].y;
+              let minX = startx;
+              let minY = starty;
+              let maxX = startx;
+              let maxY = starty;
               value.vertices.forEach((vertices: any) => {
                 ctx.lineTo(vertices.x, vertices.y);
-              })
+                if (vertices.x < minX) {
+                  minX = vertices.x;
+                }
+                if (vertices.y < minY) {
+                  minY = vertices.y;
+                }
+                if (vertices.x > maxX) {
+                  maxX = vertices.x;
+                }
+                if (vertices.y > maxY) {
+                  maxY = vertices.y;
+                }
+              });
+              const word = new Word(value.description, new Point(minX, minY), new Point(maxX, maxY));
+              this.words.push({ word });
               ctx.lineTo(startx, starty);
             }
             ctx.stroke();
-          })
+          });
         };
       }
       img.src = event;
