@@ -10,6 +10,7 @@
 
 ## before running the server connecting to the database you must install 
 - `npm install msnodesqlv8, jsonwebtoken, express, cors, @google-cloud/vision, express-fileupload` 
+
 or 
 - `npm i msnodesqlv8, jsonwebtoken, express, cors, @google-cloud/vision, express-fileupload`
 
@@ -45,16 +46,18 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
   - Initialize the gcloud CLI. (https://cloud.google.com/sdk/docs/initializing)
 
     - Run command in console `gcloud init`
-    - Set the region and zone parameters. 
-      The statement returns a list of zones
+    - Set the region and zone parameters.
+      `gcloud compute project-info add-metadata --metadata google-compute-default-region=europe-central2,google-compute-default-zone=europe-central2-a`
+
+      The statement returns a list of zones:
 
       `gcloud compute zones list`
-      
-       The statement returns a list of regions
+
+       The statement returns a list of regions:
 
       `gcloud compute regions list`
 
-      `gcloud compute project-info add-metadata --metadata google-compute-default-region=europe-central2,google-compute-default-zone=europe-central2-a`
+      
 
 2. Create or select a Google Cloud project.
 
