@@ -8,13 +8,13 @@ import { Settings } from 'src/app/shared/environments/settings';
 })
 export class FileService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
   upload(formData: FormData) {
     return this.http.post(Settings.BASE_END_POINT + `/upload`, formData, {
       reportProgress: true,
       observe: 'events'
     }).pipe(
-      takeLast(1),
+    //  takeLast(1), jeśli jest właczone nie widać progress-bar, bo strumień pobrany ostatni
       share())
   }
 }

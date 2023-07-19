@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { HttpClient, HttpEventType } from '@angular/common/http';
-import { Subscription, finalize } from 'rxjs';
+import { HttpClient, HttpEvent, HttpEventType, HttpProgressEvent } from '@angular/common/http';
+import { Subscription, finalize, map, tap } from 'rxjs';
 import { FileService } from '../../receipt/service/file/file.service';
 import { ClickPosition, Point, Word } from 'src/app/shared/models/interface-receipt';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -14,14 +14,13 @@ import { SnackBarAnnotatedComponent } from 'src/app/shared/components/snack-bar/
 export class FileUploadComponent {
   @Input()
   requiredFileType: string = '';
-  uploadProgress: number | undefined | null;
+  uploadProgress = 0;
   uploadSub: Subscription | undefined | null;
   textPosition: any = [{}];
   words: Array<{ word: Word }> = [];
 
-  constructor(private http: HttpClient,
-    private fileService: FileService,
-    private _snackBar: MatSnackBar) {}
+  constructor(private fileService: FileService,
+    private _snackBar: MatSnackBar) { }
 
   openSnackBar(word: string) {
     this._snackBar.openFromComponent(SnackBarAnnotatedComponent, {
@@ -41,11 +40,12 @@ export class FileUploadComponent {
     if (file) {
       const formData = new FormData();
       formData.append("thumbnail", file);
+
       const upload$ = this.fileService.upload(formData).pipe(
         finalize(() => this.reset())
       );
 
-      this.uploadSub = upload$.subscribe((eventUpload) => {
+      this.uploadSub = upload$.subscribe((eventUpload: any) => {
         this.handleUpload(event, eventUpload);
         if (eventUpload && eventUpload.type == HttpEventType.UploadProgress && eventUpload.total) {
           this.uploadProgress = Math.round(100 * (eventUpload.loaded / eventUpload.total));
@@ -73,7 +73,7 @@ export class FileUploadComponent {
     this.words.forEach(listWords => {
       if (listWords.word.isIn(clickPosition)) {
         this.openSnackBar('Kliknięto w słowo ' + listWords.word.value)
-        navigator.clipboard.writeText(listWords.word.value);  
+        navigator.clipboard.writeText(listWords.word.value);
       }
     })
     return clickPosition;
@@ -139,7 +139,7 @@ export class FileUploadComponent {
   }
 
   reset() {
-    this.uploadProgress = null;
+    this.uploadProgress = 0;
     this.uploadSub = null;
   }
 }
