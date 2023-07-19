@@ -44,6 +44,18 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
   - Install the gcloud CLI. (https://cloud.google.com/sdk/docs/install)
   - Initialize the gcloud CLI. (https://cloud.google.com/sdk/docs/initializing)
 
+    - Run command in console `gcloud init`
+    - Set the region and zone parameters. 
+      The statement returns a list of zones
+
+      `gcloud compute zones list`
+      
+       The statement returns a list of regions
+
+      `gcloud compute regions list`
+
+      `gcloud compute project-info add-metadata --metadata google-compute-default-region=europe-central2,google-compute-default-zone=europe-central2-a`
+
 2. Create or select a Google Cloud project.
 
   - Create:
