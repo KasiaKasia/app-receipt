@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="dashboard__section">
-                    <div [formGroup]="addReceiptForm" (ngSubmit)="save()">
+                    <form [formGroup]="addReceiptForm" (ngSubmit)="onSubmit()" >
                         <table class="table">
                              <tr class="table__tr">
                                 <th class="table__th" highlight>Nazwa sklepu</th>
@@ -35,8 +35,9 @@
                                     <td class="table__td">
                                         <mat-form-field>
                                             <mat-label>Wybierz datę zakupu</mat-label>
+                                          
                                             <input matInput [matDatepicker]="picker" formControlName="dateOfPurchase">
-                                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                                             <mat-datepicker #picker></mat-datepicker>
                                         </mat-form-field>
                                     </td>
@@ -73,7 +74,7 @@
                                         <input type="text" class="form-control" formControlName="totalPrice" />
                                     </td>
                                     <td class="table__td">
-                                        <button type="button" class="btn btn-success" (click)="addProduct( )">
+                                        <button type="button" class="btn btn-success" (click)="addProduct()">
                                             Dodaj paragon
                                         </button>
                                         <button type="submit" class="btn btn-danger" (click)="removeProduct(i)">
@@ -84,8 +85,8 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <button type="button" class="btn btn-success">Zapisz paragon</button>
-                    </div>
+                        <button type="submit" class="btn btn-success"  >Zapisz paragon</button>
+                    </form>
                 </div>
             </div>
         </div>

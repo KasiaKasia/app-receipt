@@ -1,4 +1,4 @@
-const sql = require("msnodesqlv8");
+const sql = require('msnodesqlv8');
 var express = require('express');
 const cors = require('cors');
 var jwt = require('jsonwebtoken');
@@ -138,7 +138,6 @@ app.post('/register', function (req, res) {
 app.post('/receipt/get-list-of-receipt/:id', (req, res) => {
     // res.send(req.params);
 
-    
 
     const queryInnerleft = "SELECT r.[storeName]"
         + ", r.[dateOfPurchase]"
@@ -160,8 +159,39 @@ app.post('/receipt/get-list-of-receipt/:id', (req, res) => {
         }
     });
 })
- 
- 
+
+
+
+app.put('/receipt/add-receipt/:id', (req, res, next) => {
+
+    const queryInsertReceipt = "INSERT INTO [database].[dbo].[Receipt] ([id], [storeName], [dateOfPurchase], [totalPrice], [userId], [NIP]) VALUES "
+        + " ((SELECT max(id)+1 from [database].[dbo].[Receipt]), '" + req.body.shopName + "' , '" + req.body.dateOfPurchase + "', " + Number(req.body.totalPrice) + " ," + Number(req.params.id) + ",'" + req.body.nip + "'); ";
+    let listProductsForReceipt = '';
+    req.body.listProducts.forEach((value) => {
+
+        let queryInsertProduct = " INSERT INTO [database].[dbo].[Product] ([id], [name], [quantity], [price], [totalPrice], [receiptId]) VALUES "
+            + "( (SELECT max(id)+1 from [database].[dbo].[Product]), '" + value.productName + "' , " + Number(value.quantity) + ", " + Number(value.price) + " ," + Number(value.totalPrice) + ", (SELECT max(id)  from [database].[dbo].[Receipt] where [NIP] = '" + req.body.nip + "') ); ";
+        listProductsForReceipt += queryInsertProduct;
+
+    })
+
+    let queryInsertReceiptAndListProduct = queryInsertReceipt + listProductsForReceipt;
+
+    sql.query(connectionString, queryInsertReceiptAndListProduct, function (err, rows, fields) {
+
+        if (err) {
+            return res.status(400).send({
+                success: false,
+                message: 'Error processing request ' + err
+            });
+
+        } else {
+            return res.status(200).send();
+        }
+    });
+
+})
+
 var server = app.listen(5000, function () {
     console.log('Server is running...');
 });

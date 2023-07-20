@@ -18,4 +18,8 @@ export class ReceiptService {
       tap(listOfReceipts => console.log('The receipts of the logged in user have been retrieved!' + listOfReceipts)), share()
     );
   }
+
+  public addReceipt(receipt: Receipt, userid: string): Observable<any> {
+    return this.httpClient.put<any>(Settings.BASE_END_POINT + `/receipt/add-receipt/${userid}`, receipt,  this.httpOptions)
+  }
 }

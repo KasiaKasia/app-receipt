@@ -7,7 +7,7 @@ import { ReceiptListComponent } from './pages/receipt-list/receipt-list.componen
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatNativeDateModule } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_NATIVE_DATE_FORMATS, MatDateFormats, MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { DatepickerComponent } from '../components/datepicker/datepicker.component';
 import { NipFormatPipe } from './pipe/nip-format.pipe';
@@ -18,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FileUploadComponent } from '../components/file-upload/file-upload.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatIconModule,
     MatProgressBarModule,
     MatButtonModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MomentDateModule
   ],
   exports: [
     ReceiptComponent,
@@ -49,6 +51,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     ReceiptListComponent,
     DatepickerComponent,
     FileUploadComponent
-  ]
+  ],
+  providers: [
+
+
+  ],
 })
 export class ReceiptModule {}

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { HttpClient, HttpEvent, HttpEventType, HttpProgressEvent } from '@angular/common/http';
-import { Subscription, finalize, map, tap } from 'rxjs';
+import { HttpEventType } from '@angular/common/http';
+import { Subscription, finalize } from 'rxjs';
 import { FileService } from '../../receipt/service/file/file.service';
 import { ClickPosition, Point, Word } from 'src/app/shared/models/interface-receipt';
 import { MatSnackBar } from '@angular/material/snack-bar';

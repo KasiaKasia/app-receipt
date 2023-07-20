@@ -7,11 +7,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-datepicker',
-  // standalone: true,
-  // imports: [CommonModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule],
   templateUrl: './datepicker.component.html',
   styleUrls: ['./datepicker.component.scss']
 })
-export class DatepickerComponent {
-
-}
+export class DatepickerComponent {}

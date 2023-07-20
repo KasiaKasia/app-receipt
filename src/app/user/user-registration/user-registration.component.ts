@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { User, UserType } from 'src/app/shared/models/interface-user';
 import { FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/shared/services/auth.service';
