@@ -93,7 +93,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
     | name table | column | type |
 | --- | --- | --- | 
 | `Product` | id | int
-| `Product` | name |varchar(max)
+| `Product` | name | varchar(max)
 | `Product` | quantity | int
 | `Product` | price | money
 | `Product` | totalPrice | money
@@ -103,7 +103,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
     | name table | column | type |
 | --- | --- | --- | 
 | `Receipt` | id | int
-| `Receipt` | storeName |varchar(max)
+| `Receipt` | storeName | varchar(max)
 | `Receipt` | dateOfPurchase | date
 | `Receipt` | NIP | varchar(max)
 | `Receipt` | totalPrice | money
@@ -113,7 +113,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
     | name table | column | type |
 | --- | --- | --- | 
 | `Address` | id | int
-| `Address` | street |varchar(max)
+| `Address` | street | varchar(max)
 | `Address` | houseNumber | varchar(max)
 | `Address` | city | varchar(max) 
 
