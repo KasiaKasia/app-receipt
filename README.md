@@ -47,7 +47,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 
     - Run command in console `gcloud init`
     - Set the region and zone parameters.
-    
+
       `gcloud compute project-info add-metadata --metadata google-compute-default-region=europe-central2,google-compute-default-zone=europe-central2-a`
 
       The statement returns a list of zones:
@@ -87,3 +87,43 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
    `gcloud projects add-iam-policy-binding PROJECT_ID --member="user:EMAIL_ADDRESS" --role=ROLE`
 
     ROLE - `--role=roles/storage.objectViewer`
+
+    ## Database schema
+
+    | name table | column | type |
+| --- | --- | --- | 
+| `Product` | id | int
+| `Product` | name |varchar(max)
+| `Product` | quantity | int
+| `Product` | price | money
+| `Product` | totalPrice | money
+| `Product` | receiptId | int
+
+
+    | name table | column | type |
+| --- | --- | --- | 
+| `Receipt` | id | int
+| `Receipt` | storeName |varchar(max)
+| `Receipt` | dateOfPurchase | date
+| `Receipt` | NIP | varchar(max)
+| `Receipt` | totalPrice | money
+| `Receipt` | userId | int
+
+
+    | name table | column | type |
+| --- | --- | --- | 
+| `Address` | id | int
+| `Address` | street |varchar(max)
+| `Address` | houseNumber | varchar(max)
+| `Address` | city | varchar(max) 
+
+
+  | name table | column | type |
+| --- | --- | --- | 
+| `User` | id | int
+| `User` | username |varchar(max)
+| `User` | password | varchar(max)
+| `User` | description | varchar(max) 
+| `User` | email | varchar(max) 
+| `User` | type | varchar(max) 
+| `User` | address_id | int
