@@ -91,7 +91,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 ## Database schema
 
 
-| name table | column | type |
+| table name | column | type |
 | :---       | :---  |:--- | 
 | `Product`  | id | int
 | `Product`  | name | varchar(max)
@@ -101,7 +101,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 | `Product`  | receiptId | int
 
 
-| name table | column | type |
+| table name | column | type |
 | :---       | :---  |:--- | 
 | `Receipt`  | id | int
 | `Receipt`  | storeName | varchar(max)
@@ -111,7 +111,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 | `Receipt`  | userId | int
 
 
-| name table | column | type |
+| table name | column | type |
 | :---      | :---  |:--- | 
 | `Address` | id | int
 | `Address` | street | varchar(max)
@@ -119,7 +119,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 | `Address` | city | varchar(max) 
 
 
-| name table | column | type |
+| table name | column | type |
 | :---   | :---  |:--- | 
 | `User` | id | int
 | `User` | username |varchar(max)
