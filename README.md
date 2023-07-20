@@ -88,38 +88,39 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 
     ROLE - `--role=roles/storage.objectViewer`
 
-    ## Database schema
-
-    | name table | column | type |
-| --- | --- | --- | 
-| `Product` | id | int
-| `Product` | name | varchar(max)
-| `Product` | quantity | int
-| `Product` | price | money
-| `Product` | totalPrice | money
-| `Product` | receiptId | int
+## Database schema
 
 
-    | name table | column | type |
-| --- | --- | --- | 
-| `Receipt` | id | int
-| `Receipt` | storeName | varchar(max)
-| `Receipt` | dateOfPurchase | date
-| `Receipt` | NIP | varchar(max)
-| `Receipt` | totalPrice | money
-| `Receipt` | userId | int
+| name table | column | type |
+| :---       | :---  |:--- | 
+| `Product`  | id | int
+| `Product`  | name | varchar(max)
+| `Product`  | quantity | int
+| `Product`  | price | money
+| `Product`  | totalPrice | money
+| `Product`  | receiptId | int
 
 
-    | name table | column | type |
-| --- | --- | --- | 
+| name table | column | type |
+| :---       | :---  |:--- | 
+| `Receipt`  | id | int
+| `Receipt`  | storeName | varchar(max)
+| `Receipt`  | dateOfPurchase | date
+| `Receipt`  | NIP | varchar(max)
+| `Receipt`  | totalPrice | money
+| `Receipt`  | userId | int
+
+
+| name table | column | type |
+| :---      | :---  |:--- | 
 | `Address` | id | int
 | `Address` | street | varchar(max)
 | `Address` | houseNumber | varchar(max)
 | `Address` | city | varchar(max) 
 
 
-  | name table | column | type |
-| --- | --- | --- | 
+| name table | column | type |
+| :---   | :---  |:--- | 
 | `User` | id | int
 | `User` | username |varchar(max)
 | `User` | password | varchar(max)
