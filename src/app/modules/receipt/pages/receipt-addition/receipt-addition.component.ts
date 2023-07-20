@@ -5,6 +5,7 @@ import * as _moment from 'moment';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackBarAnnotatedComponent } from 'src/app/shared/components/snack-bar/snack-bar-annotated/snack-bar-annotated.component';
+import { User } from 'src/app/shared/models/interface-user';
 const moment = _moment;
 
 @Component({
@@ -13,7 +14,7 @@ const moment = _moment;
   styleUrls: ['./receipt-addition.component.scss']
 })
 export class ReceiptAdditionComponent {
-  userId: string = ''
+  userId: User = {};
   addReceiptForm: FormGroup = this.fb.group({
     shopName: [''],
     nip: [''],
@@ -61,7 +62,7 @@ export class ReceiptAdditionComponent {
 
     if (this.addReceiptForm.dirty && this.addReceiptForm.valid) {
 
-      this.activateRouter.params.subscribe(params => this.userId = params['id'])
+      this.activateRouter.params.subscribe(params => this.userId = params['id'] )
       let dateOfPurchase = moment(this.addReceiptForm.get('dateOfPurchase')?.value).format('YYYY.MM.DD');
       this.addReceiptForm.controls['dateOfPurchase'].setValue(dateOfPurchase)
 

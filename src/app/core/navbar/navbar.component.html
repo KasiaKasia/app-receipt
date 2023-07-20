@@ -33,13 +33,13 @@
     <ng-template #isLoggedIn>
         <div class="navbar__wrapper">
             <div class="navbar__section">
-                <a class="navbar__routerLink" [routerLink]="['/receipt/get-list-of-receipt/', currentUser.id ]"
+                <a class="navbar__routerLink" [routerLink]="['/receipt/get-list-of-receipt/', currentUser.userid ]"
                     name='listOfReceipts'>Lista paragonów</a>
             </div>
         </div>
         <div class="navbar__wrapper">
             <div class="navbar__section">
-                <a class="navbar__routerLink" [routerLink]="['/receipt/adding-a-receipt/', currentUser.id ]"
+                <a class="navbar__routerLink" [routerLink]="['/receipt/adding-a-receipt/', currentUser.userid ]"
                     name='addingAReceipt'>Dodaj Paragon</a>
             </div>
         </div>

@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 })
 export class ReceiptListComponent {
   private currentUser: User = {} = JSON.parse(this.authService.getCurrentDataUser()) as User ;
-  listOfReceipts = this.receiptService.getListOfReceipts(''+this.currentUser?.id ?? '1') ?? []
+  listOfReceipts = this.receiptService.getListOfReceipts(this.currentUser.userid) // ?? []
   constructor(public receiptService: ReceiptService,
               public authService: AuthService) {}
 }
