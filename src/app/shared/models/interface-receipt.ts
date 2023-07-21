@@ -1,11 +1,13 @@
+import { User } from "./interface-user";
+
 export interface Receipt {
   id?: number;
   storeName?: string;
+  nip?: string;
   dateOfPurchase?: string;
   totalPrice?: number;
-  productId?: Product;
-  barcode?: string;
-}
+  userId?: User;
+ }
 
 export interface Product {
   id?: string;
@@ -13,6 +15,7 @@ export interface Product {
   quantity?: number;
   price?: number;
   totalPrice?: number;
+  receiptId: Receipt;
 }
 
 export interface ClickPosition {

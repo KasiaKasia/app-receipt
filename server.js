@@ -136,26 +136,23 @@ app.post('/register', function (req, res) {
 });
 
 app.post('/receipt/get-list-of-receipt/:id', (req, res) => {
-    // res.send(req.params);
 
-
-    const queryInnerleft = "SELECT r.[storeName]"
-        + ", r.[dateOfPurchase]"
-        + ", r.[totalPrice]"
-        + ", r.[barcode]"
-        + ", r.[productId]"
-        + ", r.[userId]"
-        + " FROM [database].[dbo].[Receipt] as r"
-        + " LEFT JOIN [database].[dbo].[Product] as p"
-        + " ON p.id = r.productId "
-        + " where r.[userId] = '" + req.params.id + "'";
+    const queryInnerleft = "SELECT r.id as receiptId, r.[storeName], r.[dateOfPurchase], r.[userId], r.[NIP], r.[totalPrice], "
+        + "p.id as productId, p.name, p.price, p.quantity, p.[totalPrice] as productTotalPrice , p.[receiptId] "
+        + "FROM [database].[dbo].[Receipt] as r "
+        + "right JOIN [database].[dbo].[Product] as p ON p.[receiptId]= r.id "
+        + "where r.[userId]  = '" + req.params.id + "'";
 
     sql.query(connectionString, queryInnerleft, (err, rows) => {
 
         if (err) {
             return res.status(400).json(err);
         } else {
-            return res.status(200).json(rows);
+            return res.status(200).json({
+                success: true,
+                message: 'The receipt list has been geted',
+                respons: rows
+            });
         }
     });
 })

@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { User } from 'src/app/shared/models/interface-user';
-import { ReceiptService } from 'src/app/modules/receipt/service/receipt/receipt.service';
-import { AuthService } from 'src/app/shared/services/auth.service';
+import { User } from '../../../../shared/models/interface-user';
+import { Receipt } from '../../../../shared/models/interface-receipt';
+import { ReceiptService } from '../../../../modules/receipt/service/receipt/receipt.service';
+import { AuthService } from '../../../../shared/services/auth.service';
+import * as _moment from 'moment';
 
 @Component({
   selector: 'app-receipt-list',
@@ -10,8 +11,15 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   styleUrls: ['./receipt-list.component.scss']
 })
 export class ReceiptListComponent {
-  private currentUser: User = {} = JSON.parse(this.authService.getCurrentDataUser()) as User ;
-  listOfReceipts = this.receiptService.getListOfReceipts(this.currentUser.userid) // ?? []
+  moment = _moment;
+  private currentUser: User = {} = JSON.parse(this.authService.getCurrentDataUser()) as User;
+  listOfReceipts$ = this.receiptService.getListOfReceipts(this.currentUser.userid) ?? []
+  listOfReceipts: Receipt[] = []
   constructor(public receiptService: ReceiptService,
-              public authService: AuthService) {}
+    public authService: AuthService) {
+    this.listOfReceipts$.subscribe((res: any) => {
+      if (res && res.respons)
+        this.listOfReceipts = res.respons
+    })
+  }
 }

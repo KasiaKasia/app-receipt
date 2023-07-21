@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ReceiptService } from '../../service/receipt/receipt.service';
-import * as _moment from 'moment';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackBarAnnotatedComponent } from 'src/app/shared/components/snack-bar/snack-bar-annotated/snack-bar-annotated.component';
 import { User } from 'src/app/shared/models/interface-user';
+import * as _moment from 'moment';
 const moment = _moment;
 
 @Component({

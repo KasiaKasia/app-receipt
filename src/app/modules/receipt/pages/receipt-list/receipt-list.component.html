@@ -18,18 +18,23 @@
                     <table class="table">
                         <tr class="table__tr ">
                             <th class="table__th" highlight>#</th>
+                            <th class="table__th" highlight>ID paragonu</th>
                             <th class="table__th" highlight>Nazwa sklepu</th>
+                            <th class="table__th" highlight>NIP</th>
                             <th class="table__th" highlight>Cena </th>
                             <th class="table__th" highlight>Data zakupu</th>
                             <th class="table__th" highlight>Lista produktów</th>
                         </tr>
                         <tbody class="table__tbody">
-                            <tr class="table__tr" *ngFor="let receipt of listOfReceipts | async; let i = index;">
+                            <tr class="table__tr" *ngFor="let receipt of listOfReceipts; let i = index;">
+                                 
                                 <td class="table__td">{{i+1}}</td>
+                                <td class="table__td">{{receipt.id}}</td>
                                 <td class="table__td">{{receipt.storeName}}</td>
+                                <td class="table__td">{{receipt.nip}}</td>
                                 <td class="table__td">{{receipt.totalPrice}}</td>
-                                <td class="table__td">{{receipt.dateOfPurchase}}</td>
-                                <td class="table__td">{{receipt.productId}}</td>
+                                <td class="table__td">{{ moment(receipt.dateOfPurchase).format('YYYY.MM.DD') }}</td>
+                                <td class="table__td"> </td>
                                 <td class="table__td">
                                     <!-- <button class="matelistAnnouncementsrial-icons table__action-icon" [routerLink]="['/edit-announcement/', listAnnouncement._id]">edit </button>
                                     <button class="material-icons table__action-icon" (click)="removeAnnouncement(listAnnouncement, listAnnouncement._id)">delete</button>  -->
