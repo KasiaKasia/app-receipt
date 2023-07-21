@@ -87,7 +87,7 @@ app.post('/login', function (req, res) {
                 data: user
             }, 'secret', { expiresIn: 60 * 60 });
             const copyUser = {
-                id: user[0]?.id,
+                userid: user[0]?.id,
                 username: user[0]?.username,
                 password: user[0]?.password,
                 description: user[0]?.description,
@@ -159,8 +159,6 @@ app.post('/receipt/get-list-of-receipt/:id', (req, res) => {
         }
     });
 })
-
-
 
 app.put('/receipt/add-receipt/:id', (req, res, next) => {
 
