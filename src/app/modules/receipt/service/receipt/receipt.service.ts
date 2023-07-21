@@ -16,8 +16,8 @@ export class ReceiptService {
   };
   constructor(private httpClient: HttpClient) {}
   
-  public getListOfReceipts(userid?: Pick<User, 'userid'> | string): Observable<Receipt[] | Response> {
-     return this.httpClient.post<Receipt[] | Response>(Settings.BASE_END_POINT + `/receipt/get-list-of-receipt/${userid}`, this.httpOptions).pipe(
+  public getListOfReceipts(userid?: Pick<User, 'userid'> | string): Observable<Receipt  | Response> {
+     return this.httpClient.post<Receipt  | Response>(Settings.BASE_END_POINT + `/receipt/get-list-of-receipt/${userid}`, this.httpOptions).pipe(
       tap(listOfReceipts => console.log('The receipts of the logged in user have been retrieved!' + listOfReceipts)), share()
     );
   }

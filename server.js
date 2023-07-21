@@ -137,14 +137,14 @@ app.post('/register', function (req, res) {
 
 app.post('/receipt/get-list-of-receipt/:id', (req, res) => {
 
-    const queryInnerleft = "SELECT r.id as receiptId, r.[storeName], r.[dateOfPurchase], r.[userId], r.[NIP], r.[totalPrice], "
-        + "p.id as productId, p.name, p.price, p.quantity, p.[totalPrice] as productTotalPrice , p.[receiptId] "
+    const queryInnerleft = "SELECT r.[storeName], r.[dateOfPurchase], r.[userId], r.[NIP], r.[totalPrice], "
+        + "r.[id], p.name, p.price, p.quantity, p.[totalPrice] as productTotalPrice, p.[receiptId] "
         + "FROM [database].[dbo].[Receipt] as r "
         + "right JOIN [database].[dbo].[Product] as p ON p.[receiptId]= r.id "
         + "where r.[userId]  = '" + req.params.id + "'";
-
+      
     sql.query(connectionString, queryInnerleft, (err, rows) => {
-
+ 
         if (err) {
             return res.status(400).json(err);
         } else {
@@ -167,7 +167,6 @@ app.put('/receipt/add-receipt/:id', (req, res, next) => {
         let queryInsertProduct = " INSERT INTO [database].[dbo].[Product] ([id], [name], [quantity], [price], [totalPrice], [receiptId]) VALUES "
             + "( (SELECT max(id)+1 from [database].[dbo].[Product]), '" + value.productName + "' , " + Number(value.quantity) + ", " + Number(value.price) + " ," + Number(value.totalPrice) + ", (SELECT max(id)  from [database].[dbo].[Receipt] where [NIP] = '" + req.body.nip + "') ); ";
         listProductsForReceipt += queryInsertProduct;
-
     })
 
     let queryInsertReceiptAndListProduct = queryInsertReceipt + listProductsForReceipt;
@@ -179,12 +178,10 @@ app.put('/receipt/add-receipt/:id', (req, res, next) => {
                 success: false,
                 message: 'Error processing request ' + err
             });
-
         } else {
             return res.status(200).send();
         }
     });
-
 })
 
 var server = app.listen(5000, function () {

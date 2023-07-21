@@ -49,7 +49,6 @@ export class AuthService  {
     ).pipe(
       take(1),
       tap(state => {
-        console.log('state', state)
         this.setToken(state?.token ?? '');
         this.setCurrentDataUser(state?.respons ?? {});
         this.setIsAuthenticated('true');

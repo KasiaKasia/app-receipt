@@ -10,7 +10,7 @@ export interface Receipt {
  }
 
 export interface Product {
-  id?: string;
+  id?: number;
   name?: string;
   quantity?: number;
   price?: number;
