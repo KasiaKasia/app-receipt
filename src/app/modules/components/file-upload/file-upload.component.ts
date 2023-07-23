@@ -20,7 +20,7 @@ export class FileUploadComponent {
   words: Array<{ word: Word }> = [];
 
   constructor(private fileService: FileService,
-    private _snackBar: MatSnackBar) { }
+    private _snackBar: MatSnackBar) {}
 
   openSnackBar(word: string) {
     this._snackBar.openFromComponent(SnackBarAnnotatedComponent, {
@@ -40,12 +40,12 @@ export class FileUploadComponent {
     if (file) {
       const formData = new FormData();
       formData.append("thumbnail", file);
-
       const upload$ = this.fileService.upload(formData).pipe(
         finalize(() => this.reset())
       );
 
       this.uploadSub = upload$.subscribe((eventUpload: any) => {
+
         this.handleUpload(event, eventUpload);
         if (eventUpload && eventUpload.type == HttpEventType.UploadProgress && eventUpload.total) {
           this.uploadProgress = Math.round(100 * (eventUpload.loaded / eventUpload.total));
@@ -85,13 +85,14 @@ export class FileUploadComponent {
     this.textPosition = [{}]
     if (ctx) {
       const img = new Image();
-      if (body.body.respons) {
+      if (body.body && body.body.respons) {
         this.textPosition.push(body.body.respons);
 
         img.onload = () => {
+          canvas.height = img.height  ;
+          canvas.width = img.width  ;
           ctx.drawImage(img, 0, 0);
           ctx.beginPath();
-
           const flatRespons = this.textPosition.flat();
           flatRespons.forEach((value: any) => {
 
