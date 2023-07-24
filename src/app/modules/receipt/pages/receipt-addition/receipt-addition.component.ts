@@ -66,7 +66,15 @@ export class ReceiptAdditionComponent {
       let dateOfPurchase = moment(this.addReceiptForm.get('dateOfPurchase')?.value).format('YYYY.MM.DD');
       this.addReceiptForm.controls['dateOfPurchase'].setValue(dateOfPurchase)
 
-      this.receiptService.addReceipt(this.addReceiptForm.getRawValue(), this.userId).subscribe(req => {
+console.log('this.addReceiptForm.getRawValue()', this.addReceiptForm.value.listProducts.length )
+   this.addReceiptForm.value.listProducts.length =  this.addReceiptForm.value.listProducts.length
+   console.log('this.addReceiptForm.getRawValue()',this.addReceiptForm.getRawValue())
+let receiptFormValue = {
+  ...this.addReceiptForm.getRawValue(),
+  numberOfAddedProducts: this.addReceiptForm.value.listProducts.length
+}
+      this.receiptService.addReceipt(receiptFormValue, this.userId)
+      .subscribe(req => {
         this.openSnackBar('Paragon został dodany ')
       })
     }

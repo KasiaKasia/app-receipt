@@ -1,7 +1,8 @@
 @import "./app.scss";
- 
+
 .dashboard {
-    margin: 3rem 5rem;
+    margin: 3rem;
+
     .dashboard__heading {
         margin-bottom: 2rem;
         &.dashboard__heading--mail {
@@ -12,7 +13,7 @@
         box-shadow: $boxShadow;
         padding: 2rem 1rem;
         margin-top: 2rem;
-        border-radius: .25rem; 
+        border-radius: 0.25rem;
         &.dashboard__section--small {
             padding-top: 1rem;
             padding-bottom: 1rem;
