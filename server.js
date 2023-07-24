@@ -5,6 +5,7 @@ var jwt = require('jsonwebtoken');
 var app = express();
 const vision = require('@google-cloud/vision');
 const fileUpload = require('express-fileupload');
+
 const connectionString = "server=DESKTOP-561O5CC\\MSSQLSERVER3;Database=database;Trusted_Connection=Yes;Driver={SQL Server Native Client 11.0}";
 
 app.use(cors());
@@ -26,11 +27,12 @@ app.post('/upload', (req, res) => {
             message: 'No files were uploaded',
         });
     } else if (req.files) {
+
         const fileName = req.files.thumbnail.name;
         let objectDetectedTexts$ = detectText(req.files.thumbnail.data)
         const filrName$ = Promise.resolve(fileName);
-
         Promise.all([filrName$, objectDetectedTexts$]).then((values) => {
+
             return res.status(200).json({
                 success: true,
                 message: 'The file has been uploaded ' + values[0],
@@ -45,6 +47,7 @@ async function detectText(fileName) {
     const client = new vision.ImageAnnotatorClient();
     const [result] = await client.textDetection(fileName);
     const detections = result.textAnnotations;
+
     let fileObjectCopy = [];
     let fileObject = [];
     detections.forEach(text => fileObjectCopy.push(text.boundingPoly.vertices));
@@ -63,10 +66,8 @@ async function detectText(fileName) {
 }
 
 app.post('/login', function (req, res) {
-
-    const queryInnerleft = "SELECT * FROM [database].[dbo].[User] u ";
-    + "WHERE u.username ='" + req.body.username + "' AND u.password = '" + req.body.password + "'";
-
+    const queryInnerleft = "SELECT * FROM [database].[dbo].[User] u "
+        + "WHERE u.username ='" + req.body.username + "' AND u.password = '" + req.body.password + "'";
     sql.query(connectionString, queryInnerleft, (err, user) => {
 
         if (err) {
@@ -142,9 +143,9 @@ app.post('/receipt/get-list-of-receipt/:id', (req, res) => {
         + "FROM [database].[dbo].[Receipt] as r "
         + "right JOIN [database].[dbo].[Product] as p ON p.[receiptId]= r.id "
         + "where r.[userId]  = '" + req.params.id + "'";
-      
+
     sql.query(connectionString, queryInnerleft, (err, rows) => {
- 
+
         if (err) {
             return res.status(400).json(err);
         } else {
@@ -156,7 +157,6 @@ app.post('/receipt/get-list-of-receipt/:id', (req, res) => {
         }
     });
 })
-
 app.put('/receipt/add-receipt/:id', (req, res, next) => {
 
     const queryInsertReceipt = "INSERT INTO [database].[dbo].[Receipt] ([id], [storeName], [dateOfPurchase], [totalPrice], [userId], [NIP]) VALUES "
@@ -183,7 +183,6 @@ app.put('/receipt/add-receipt/:id', (req, res, next) => {
         }
     });
 })
-
 var server = app.listen(5000, function () {
     console.log('Server is running...');
 });
