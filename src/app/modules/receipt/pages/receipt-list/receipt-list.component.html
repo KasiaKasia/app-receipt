@@ -1,59 +1,50 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <div class="dashboard__section dashboard__section--small">
-                <div class="dashboard__heading dashboard__heading--mail">
-                    <h2>Lista paragonów</h2>
-                </div>
-            </div>
-        </div>
+<div class="dashboard__section dashboard__section--small">
+    <div class="dashboard__heading dashboard__heading--mail">
+        <h2>Lista paragonów</h2>
     </div>
-    <div class="row">
-        <div class="col-12">
-            <div class="dashboard__section">
-                <div class="dashboard__heading">
-                    <h3>Lista paragonów</h3>
-                </div>
-                <table class="table">
-                    <tr class="table__tr ">
-                        <th class="table__th" highlight>#</th>
-                        <th class="table__th" highlight>ID paragonu</th>
-                        <th class="table__th" highlight>Nazwa sklepu</th>
-                        <th class="table__th" highlight>NIP</th>
-                        <th class="table__th" highlight>Cena </th>
-                        <th class="table__th" highlight>Data zakupu</th>
-                        <th class="table__th" highlight>Lista produktów</th>
-                    </tr>
-                    <tbody class="table__tbody">
-                        <tr class="table__tr" *ngFor="let receipt of listOfReceipts; let i = index;">
+</div>
 
-                            <td class="table__td">{{i+1}}</td>
-                            <td class="table__td">{{receipt.id}}</td>
-                            <td class="table__td">{{receipt.storeName}}</td>
-                            <td class="table__td">{{receipt.NIP}}</td>
-                            <td class="table__td">{{receipt.totalPrice}}</td>
-                            <td class="table__td">{{moment(receipt.dateOfPurchase).format('YYYY.MM.DD')}}</td>
-                            <td class="table__td">
-                                <button (click)="show(receipt.receiptId  )">
-                                    {{ receipt.visible ? 'Ukryj produkty': 'Pokaż produkty' }}
-                                </button>
-                            </td>
-                            <ng-container *ngFor="let products of productsReceipt[receipt.receiptId ]">
-                                <ng-template [ngIf]="products.visible">
-                                    <p>
-                                        <strong> {{products.name}}</strong>
-                                        Ilość sztuk: {{products.quantity}}
-                                        Cena za sztukę: {{products.price}}
-                                        Łączna cena: {{products.productTotalPrice}}
-                                    </p>
-                                </ng-template>
-                                <!--  <button class="matelistAnnouncementsrial-icons table__action-icon" [routerLink]="['/edit-announcement/', listAnnouncement._id]">edit </button>
-                                    <button class="material-icons table__action-icon" (click)="removeAnnouncement(listAnnouncement, listAnnouncement._id)">delete</button>  -->
-                            </ng-container>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+<div class="dashboard__section">
+    <div class="dashboard__heading">
+        <h3>Lista paragonów</h3>
     </div>
+    <table class="table">
+        <tr class="table__tr ">
+            <th class="table__th" highlight>#</th>
+            <th class="table__th" highlight>ID paragonu</th>
+            <th class="table__th" highlight>Nazwa sklepu</th>
+            <th class="table__th" highlight>NIP</th>
+            <th class="table__th" highlight>Cena </th>
+            <th class="table__th" highlight>Data zakupu</th>
+            <th class="table__th" highlight>Lista produktów</th>
+        </tr>
+        <tbody class="table__tbody">
+            <tr class="table__tr" *ngFor="let receipt of listOfReceipts; let i = index;">
+
+                <td class="table__td">{{i+1}}</td>
+                <td class="table__td">{{receipt.id}}</td>
+                <td class="table__td">{{receipt.storeName}}</td>
+                <td class="table__td">{{receipt.NIP}}</td>
+                <td class="table__td">{{receipt.totalPrice}}</td>
+                <td class="table__td">{{moment(receipt.dateOfPurchase).format('YYYY.MM.DD')}}</td>
+                <td class="table__td">
+                    <button (click)="show(receipt.receiptId  )">
+                        {{ receipt.visible ? 'Ukryj produkty': 'Pokaż produkty' }}
+                    </button>
+                </td>
+                <ng-container *ngFor="let products of productsReceipt[receipt.receiptId ]">
+                    <ng-template [ngIf]="products.visible">
+                        <p>
+                            <strong> {{products.name}}</strong>
+                            Ilość sztuk: {{products.quantity}}
+                            Cena za sztukę: {{products.price}}
+                            Łączna cena: {{products.productTotalPrice}}
+                        </p>
+                    </ng-template>
+                    <!--  <button class="matelistAnnouncementsrial-icons table__action-icon" [routerLink]="['/edit-announcement/', listAnnouncement._id]">edit </button>
+                                    <button class="material-icons table__action-icon" (click)="removeAnnouncement(listAnnouncement, listAnnouncement._id)">delete</button>  -->
+                </ng-container>
+            </tr>
+        </tbody>
+    </table>
 </div>

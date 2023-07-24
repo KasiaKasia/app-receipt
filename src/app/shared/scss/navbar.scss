@@ -12,12 +12,14 @@
 }
 
 .navbar {
-    display: flex;
+    position: fixed;
+    top: 0px;
+    width: 100%;
     flex-direction: row;
     justify-content: flex-end; // wartość domyślna flex-start dla justify-content
-
-    //  align-items:end;
-    box-shadow: $boxShadow;
+    background: #ebeef2;
+    box-shadow: $boxShadowPurple;
+    padding-right: 50px;
     animation: animation-navbar 20s ease-in-out;
     .navbar__wrapper {
         display: flex;
