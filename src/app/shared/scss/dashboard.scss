@@ -20,3 +20,10 @@
         }
     }
 }
+
+@media only screen and (max-width: 768px) {
+    .dashboard {
+        display: flex;
+        margin-top: 27rem;
+    }
+}

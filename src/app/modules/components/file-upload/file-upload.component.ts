@@ -89,8 +89,8 @@ export class FileUploadComponent {
         this.textPosition.push(body.body.respons);
 
         img.onload = () => {
-          canvas.height = img.height  ;
-          canvas.width = img.width  ;
+          canvas.height = img.height;
+          canvas.width = img.width;
           ctx.drawImage(img, 0, 0);
           ctx.beginPath();
           const flatRespons = this.textPosition.flat();

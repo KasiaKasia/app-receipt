@@ -1,9 +1,9 @@
-<div class="navbar">
+ <div class="navbar">
     <div class="navbar__wrapper">
         <div class="navbar__section">
             <a class="navbar__routerLink" [routerLink]="'/home'" name='home'>Start</a>
         </div>
-    </div>
+    </div> 
     <ng-container *ngIf="!auth.getIsAuthenticated()">
         <div class="navbar__wrapper">
             <div class="navbar__section">
@@ -25,25 +25,23 @@
             </div>
         </div>
     </ng-container>
-
-    <ng-template *ngIf="auth.getIsAuthenticated() then isLoggedIn">
-
-       
+    <ng-template *ngIf="auth.getIsAuthenticated() then isLoggedIn">       
     </ng-template>
     <ng-template #isLoggedIn>
         <div class="navbar__wrapper">
             <div class="navbar__section">
-                <a class="navbar__routerLink" [routerLink]="['/receipt/get-list-of-receipt/', currentUser.userid ]"
-                    name='listOfReceipts'>Lista paragonów</a>
+                <a class="navbar__routerLink" [routerLink]="['/receipt/get-list-of-receipt/', currentUser.userid ]" name='listOfReceipts'>
+                    Lista paragonów
+                </a>
             </div>
         </div>
         <div class="navbar__wrapper">
             <div class="navbar__section">
-                <a class="navbar__routerLink" [routerLink]="['/receipt/adding-a-receipt/', currentUser.userid ]"
-                    name='addingAReceipt'>Dodaj Paragon</a>
+                <a class="navbar__routerLink" [routerLink]="['/receipt/adding-a-receipt/', currentUser.userid ]" name='addingAReceipt'>
+                    Dodaj Paragon
+                </a>
             </div>
         </div>
-
         <div class="navbar__wrapper">
             <!-- <div class="navbar__section">
                 <a class="navbar__routerLink" [routerLink]=" '/task/add-task/'" name='addTask'>Dodaj Zadanie</a>
@@ -59,6 +57,6 @@
             <div class="navbar__section">  
                 <strong> Cześć, {{currentUser.username }}</strong>
             </div>          
-        </div>
+        </div>     
     </ng-template>
 </div>

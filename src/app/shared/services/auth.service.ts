@@ -7,13 +7,13 @@ import { catchError, share, take, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService  {
   public userSession = new BehaviorSubject<Session>({ token: '' });
   public userSession$ = this.userSession.asObservable();
+
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
