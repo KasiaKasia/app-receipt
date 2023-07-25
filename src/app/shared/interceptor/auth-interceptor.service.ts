@@ -19,20 +19,19 @@ export const RETRY_INTERCEPTOR_CONFIG = new InjectionToken<RetryConfig>(
 export class AuthInterceptorService implements HttpInterceptor {
   private retryConfig = inject(RETRY_INTERCEPTOR_CONFIG);
   constructor(private auth: AuthService,
-    // private logger: LoggerService
-  ) { }
+              private logger: LoggerService) {}
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     return next.handle(this.getAuthorizedRequest(req)).pipe(retry(this.retryConfig),
       catchError((Error: any, caught) => {
         if (Error instanceof HttpErrorResponse && Error.status === 401) {
-          // this.logger.error('Authorization Request ');
+          this.logger.error('Authorization Request ');
           return empty();
         } else if (Error instanceof HttpErrorResponse && Error.status === 403) {
-          // this.logger.error('Forbidden');
+          this.logger.error('Forbidden');
           return empty();
         } else if (Error instanceof HttpErrorResponse && Error.status === 404) {
-          // this.logger.error('Not Found');
+          this.logger.error('Not Found');
           return empty();
         }
         return throwError(Error);

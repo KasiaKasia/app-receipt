@@ -12,14 +12,13 @@ import { Router } from '@angular/router';
 })
 export class UserLoginComponent {
   loginForm: FormGroup = this.fb.group({
-    username: ['', [Validators.required, Validators.minLength(3)]],
-    password: ['', Validators.required]
+    username: ['', { updateOn: 'blur' }, [Validators.required, Validators.minLength(3)]],
+    password: ['', { updateOn: 'submit' }, Validators.required]
   });
   constructor(private fb: FormBuilder, 
     private router: Router,
     private authService: AuthService,
-  //  private logger: LoggerService
-    ) {}
+    private logger: LoggerService ) {}
 
   login() {
     if (this.loginForm.invalid) {  
@@ -31,11 +30,11 @@ export class UserLoginComponent {
         req => {
           switch (req.success && !!req.token) {
             case false: {
-      //       this.logger.error(`Error code ${req.message}`);
+              this.logger.error(`Error code ${req.message}`);
               break;
             }
             case true: {
-        //    this.logger.success('Logged in successfully!');
+              this.logger.success('Logged in successfully!');
               this.router.navigate(['/']);
               break;
             }

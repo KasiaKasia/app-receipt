@@ -62,21 +62,19 @@ export class ReceiptAdditionComponent {
 
     if (this.addReceiptForm.dirty && this.addReceiptForm.valid) {
 
-      this.activateRouter.params.subscribe(params => this.userId = params['id'] )
+      this.activateRouter.params.subscribe(params => this.userId = params['id'])
       let dateOfPurchase = moment(this.addReceiptForm.get('dateOfPurchase')?.value).format('YYYY.MM.DD');
       this.addReceiptForm.controls['dateOfPurchase'].setValue(dateOfPurchase)
 
-console.log('this.addReceiptForm.getRawValue()', this.addReceiptForm.value.listProducts.length )
-   this.addReceiptForm.value.listProducts.length =  this.addReceiptForm.value.listProducts.length
-   console.log('this.addReceiptForm.getRawValue()',this.addReceiptForm.getRawValue())
-let receiptFormValue = {
-  ...this.addReceiptForm.getRawValue(),
-  numberOfAddedProducts: this.addReceiptForm.value.listProducts.length
-}
+      this.addReceiptForm.value.listProducts.length = this.addReceiptForm.value.listProducts.length
+      let receiptFormValue = {
+        ...this.addReceiptForm.getRawValue(),
+        numberOfAddedProducts: this.addReceiptForm.value.listProducts.length
+      }
       this.receiptService.addReceipt(receiptFormValue, this.userId)
-      .subscribe(req => {
-        this.openSnackBar('Paragon został dodany ')
-      })
+        .subscribe(req => {
+          this.openSnackBar('Paragon został dodany ')
+        })
     }
   }
 

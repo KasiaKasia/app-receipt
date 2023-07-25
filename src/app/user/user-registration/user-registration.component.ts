@@ -36,7 +36,7 @@ export class UserRegistrationComponent {
 
 
   constructor(private fb: FormBuilder,
-    //   private logger: LoggerService,
+        private logger: LoggerService,
     private authService: AuthService,
     private router: Router) { }
 
@@ -79,11 +79,11 @@ export class UserRegistrationComponent {
       this.authService.registration(this.registrationForm.value as User).subscribe(data => {
         switch (data.success) {
           case false: {
-            //   this.logger.error(`Error code ${data.message}`)
+            this.logger.error(`Error code ${data.message}`)
             break;
           }
           case true: {
-            //  this.logger.success('User created successfully, please login to access your account.');
+            this.logger.success('User created successfully, please login to access your account.');
             this.router.navigate(['user/login']);
             this.registrationForm.reset();
             break;
@@ -95,9 +95,9 @@ export class UserRegistrationComponent {
         }
       }, (Error: any) => {
         if (Error instanceof HttpErrorResponse) {
-          // this.logger.error('Error name: ' + Error.error);
-          // this.logger.error('Error status text: ' + Error.statusText);
-          // this.logger.error('Error status: ' + Error.status);
+          this.logger.error('Error name: ' + Error.error);
+          this.logger.error('Error status text: ' + Error.statusText);
+          this.logger.error('Error status: ' + Error.status);
         }
       });
     }

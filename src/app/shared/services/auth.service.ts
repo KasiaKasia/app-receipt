@@ -42,8 +42,8 @@ export class AuthService  {
     return JSON.parse(JSON.stringify(localStorage.getItem('user')));
   } 
 
-  constructor(private http: HttpClient, private router: Router ) { }
-//  private logger: LoggerService,
+  constructor(private http: HttpClient, private router: Router, 
+              private logger: LoggerService) {}
   login(user: User) {
     return this.http.post<Session>(Settings.BASE_END_POINT + '/login', JSON.stringify(user), this.httpOptions
     ).pipe(
@@ -73,8 +73,8 @@ export class AuthService  {
   }
   private handleError<T>(operation = 'operation', result?: T): any {
     return (error: any): Observable<T> => {
-      // this.logger.error(error);
-      // this.logger.info(`${operation} failed: ${error.message}`);
+      this.logger.error(error);
+      this.logger.info(`${operation} failed: ${error.message}`);
       return of(result as T);
     };
   }

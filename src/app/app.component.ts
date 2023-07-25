@@ -12,6 +12,7 @@ import { ReceiptModule } from './modules/receipt/receipt.module';
 import { FileService } from './modules/receipt/service/file/file.service';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { MomentDateModule } from '@angular/material-moment-adapter';
+import { LoggerDebugService, LoggerService } from './shared/logger/logger.service';
 
 export const RetryInterceptorProvider: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -52,6 +53,10 @@ export const MY_DATE_FORMATS = {
     AuthService,
     ReceiptService,
     FileService,
+    {
+      provide: LoggerService,
+      useClass: LoggerDebugService,
+    }
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
