@@ -64,7 +64,7 @@ export class FileUploadComponent {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
-      this.draw(reader.result, body)
+      this.draw(reader.result, body);
     };
   }
   getPositionClick(event: PointerEvent | MouseEvent): ClickPosition {

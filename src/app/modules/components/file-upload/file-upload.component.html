@@ -1,8 +1,7 @@
-<input type="file" class="file-input" [accept]="requiredFileType" (change)="onFileSelected($event)" #fileUpload>
-<canvas id="canvas" (click)="getPositionClick($event)"></canvas>
+<div class="file__section">
+    <input type="file" class="file-input" [accept]="requiredFileType" (change)="onFileSelected($event)" #fileUpload>
+    <canvas id="canvas" (click)="getPositionClick($event)"></canvas>
 
-<div class="progress">
-    <mat-progress-bar class="progress-bar" mode="determinate" [value]="uploadProgress" *ngIf="uploadProgress">
-    </mat-progress-bar>
-    <mat-icon class="cancel-upload" (click)="cancelUpload()" *ngIf="uploadProgress">delete_forever</mat-icon>
+    <mat-progress-bar class="progress-bar" mode="determinate" [value]="uploadProgress" *ngIf="uploadProgress"></mat-progress-bar>
+    <mat-icon  (click)="cancelUpload()" *ngIf="uploadProgress">delete_forever</mat-icon>    
 </div>
