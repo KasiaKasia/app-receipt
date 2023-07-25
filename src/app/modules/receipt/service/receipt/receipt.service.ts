@@ -17,12 +17,12 @@ export class ReceiptService {
   constructor(private httpClient: HttpClient) {}
   
   public getListOfReceipts(userid?: Pick<User, 'userid'> | string): Observable<Receipt  | Response> {
-     return this.httpClient.post<Receipt  | Response>(Settings.BASE_END_POINT + `/receipt/get-list-of-receipt/${userid}`, this.httpOptions).pipe(
+     return this.httpClient.post<Receipt  | Response>(Settings.API_LIST_OF_RECEIPTS + `${userid}`, this.httpOptions).pipe(
       tap(listOfReceipts => console.log('The receipts of the logged in user have been retrieved!' + listOfReceipts)), share()
     );
   }
 
   public addReceipt(receipt: Partial<Receipt>, userid: Pick<User, 'userid'>): Observable<any> {
-    return this.httpClient.put<any>(Settings.BASE_END_POINT + `/receipt/add-receipt/${userid}`, receipt,  this.httpOptions)
+    return this.httpClient.put<any>(Settings.API_ADD_RECEIPT + `${userid}`, receipt,  this.httpOptions)
   }
 }

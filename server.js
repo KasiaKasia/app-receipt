@@ -136,7 +136,7 @@ app.post('/register', function (req, res) {
     });
 });
 
-app.post('/receipt/get-list-of-receipt/:id', (req, res) => {
+app.post('/receipt/list-of-receipts/:id', (req, res) => {
 
     const queryInnerleft = "SELECT r.[storeName], r.[dateOfPurchase], r.[userId], r.[NIP], r.[totalPrice], "
         + "r.[id], p.name, p.price, p.quantity, p.[totalPrice] as productTotalPrice, p.[receiptId] "

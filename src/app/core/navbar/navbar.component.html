@@ -30,14 +30,14 @@
     <ng-template #isLoggedIn>
         <div class="navbar__wrapper">
             <div class="navbar__section">
-                <a class="navbar__routerLink" [routerLink]="['/receipt/get-list-of-receipt/', currentUser.userid ]" name='listOfReceipts'>
+                <a class="navbar__routerLink" [routerLink]="['/receipt/list-of-receipts/', currentUser.userid ]" name='listOfReceipts'>
                     Lista paragonów
                 </a>
             </div>
         </div>
         <div class="navbar__wrapper">
             <div class="navbar__section">
-                <a class="navbar__routerLink" [routerLink]="['/receipt/adding-a-receipt/', currentUser.userid ]" name='addingAReceipt'>
+                <a class="navbar__routerLink" [routerLink]="['/receipt/add-receipt/', currentUser.userid ]" name='addingAReceipt'>
                     Dodaj Paragon
                 </a>
             </div>

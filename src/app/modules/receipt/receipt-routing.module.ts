@@ -11,11 +11,11 @@ const routes: Routes = [{
 //  canActivateChild: [GuardCanActivateCanDeactivateCanActivateChildCanLoadCanMatch],
   children: [
     {
-      path: 'get-list-of-receipt/:id',
+      path: 'list-of-receipts/:id',
       data: { title: 'Lista paragonów' },
       component: ReceiptListComponent
     },  {
-      path: 'adding-a-receipt/:id',
+      path: 'add-receipt/:id',
       data: { title: 'Dodaj paragon' },
       component: ReceiptAdditionComponent
    //   canActivate: mapToCanActivate ([GuardCanActivateCanDeactivateCanActivateChildCanLoadCanMatch]) 
