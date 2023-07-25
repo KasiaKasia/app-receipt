@@ -28,7 +28,7 @@
                 <td class="table__td">{{receipt.totalPrice}}</td>
                 <td class="table__td">{{moment(receipt.dateOfPurchase).format('YYYY.MM.DD')}}</td>
                 <td class="table__td">
-                    <button (click)="show(receipt.receiptId  )">
+                    <button type="submit" class="btn btn-success" (click)="show(receipt.receiptId  )">
                         {{ receipt.visible ? 'Ukryj produkty': 'Pokaż produkty' }}
                     </button>
                 </td>
