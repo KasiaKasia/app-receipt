@@ -19,33 +19,36 @@
     flex-direction: row;
     justify-content: flex-end; // wartość domyślna flex-start dla justify-content
     background: #ebeef2;
-    box-shadow: $boxShadowPurple;
+    box-shadow: $boxShadowBlack;
     padding-right: 50px;
     animation: animation-navbar 20s ease-in-out;
     .navbar__wrapper {
         display: flex;
-        height: 100%;
-        padding: 20px 0 20px 0;
+        margin: 5px 10px;
+        padding: 10px 0 10px 0;
+        border: 1px solid white;
+        border-radius: 5px;
 
         .navbar__section {
-            margin-left: 1rem;
+            margin: 5px 10px;
+
             .navbar__routerLink {
                 color: #000;
                 text-decoration: none;
- 
             }
+        }
+        &:last-child {
+            border: none;
+            border-radius: none;
         }
     }
 }
 
 @media only screen and (max-width: 768px) {
-    .navbar { 
+    .navbar {
         flex-direction: column;
-        .burger--line {
-            width: 35px;
-            height: 5px;
-            background-color: black;
-            margin: 6px 0;
+        .navbar__wrapper {
+            width: 200px;
         }
     }
 }

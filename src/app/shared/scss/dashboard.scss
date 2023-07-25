@@ -10,7 +10,7 @@
         }
     }
     .dashboard__section {
-        box-shadow: $boxShadowPurple;
+        box-shadow: $boxShadowBlack;
         padding: 2rem 1rem;
         margin-top: 5rem;
         border-radius: 0.25rem;
@@ -24,6 +24,6 @@
 @media only screen and (max-width: 768px) {
     .dashboard {
         display: flex;
-        margin-top: 27rem;
+        margin-top: 21rem;
     }
 }
