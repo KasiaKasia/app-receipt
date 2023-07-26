@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { User } from '../../../../shared/models/interface-user';
 import { ReceiptService } from '../../../../modules/receipt/service/receipt/receipt.service';
 import { AuthService } from '../../../../shared/services/auth.service';
@@ -19,7 +20,7 @@ export class ReceiptListComponent {
   visible: boolean[] = [];
   constructor(public receiptService: ReceiptService,
     public authService: AuthService) {
-    this.listOfReceipts$.subscribe((res: any) => {
+    this.listOfReceipts$.pipe(takeUntilDestroyed()).subscribe((res: any) => {
       if (res && res.respons)
         this.listOfReceiptsWithProducts = res.respons;
         this.listOfReceiptsWithProducts.map(value => value.visible = false)
@@ -39,3 +40,4 @@ export class ReceiptListComponent {
     })
   }
 }
+
