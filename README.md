@@ -93,6 +93,13 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 
 | table name | column | type |
 | :---       | :---  |:--- | 
+| `Image`  | id | int
+| `Image`  | name | varchar(max)
+| `Image`  | base64 | varbinary(MAX)
+
+
+| table name | column | type |
+| :---       | :---  |:--- | 
 | `Product`  | id | int
 | `Product`  | name | varchar(max)
 | `Product`  | quantity | int
@@ -109,6 +116,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 | `Receipt`  | NIP | varchar(max)
 | `Receipt`  | totalPrice | money
 | `Receipt`  | userId | int
+| `Receipt`  | imageId | int
 
 
 | table name | column | type |
