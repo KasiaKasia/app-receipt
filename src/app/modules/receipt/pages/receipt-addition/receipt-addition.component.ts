@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ReceiptService } from '../../service/receipt/receipt.service';
 import { ActivatedRoute } from '@angular/router';
@@ -7,23 +7,30 @@ import { SnackBarAnnotatedComponent } from 'src/app/shared/components/snack-bar/
 import { User } from 'src/app/shared/models/interface-user';
 import * as _moment from 'moment';
 import { Subscription } from 'rxjs';
+import { FileUploadComponent } from 'src/app/modules/components/file-upload/file-upload.component';
 const moment = _moment;
-
+import { forkJoin } from 'rxjs';
 @Component({
   selector: 'app-receipt-addition',
   templateUrl: './receipt-addition.component.html',
   styleUrls: ['./receipt-addition.component.scss']
 })
-export class ReceiptAdditionComponent implements OnDestroy {
+export class ReceiptAdditionComponent implements OnDestroy, AfterViewChecked {
   readonly subscriptions$ = new Subscription()
+  @ViewChild(FileUploadComponent)
+  base64Ref!: FileUploadComponent;
   userId: User = {};
   addReceiptForm: FormGroup = this.fb.group({
     shopName: [''],
     nip: [''],
     totalPrice: [''],
-    dateOfPurchase: [''],
-    listProducts: this.fb.array([this.createProduct()])
-  });
+    dateOfPurchase: null,
+    listProducts: this.fb.array([this.createProduct()]),
+    image: this.fb.group({
+      name: [''],
+      base64: ['']
+    })
+  }, { updateOn: 'submit' });
 
   get listProducts() {
     return this.addReceiptForm.get('listProducts') as FormArray;
@@ -33,9 +40,13 @@ export class ReceiptAdditionComponent implements OnDestroy {
     private receiptService: ReceiptService,
     private activateRouter: ActivatedRoute) {}
 
-  ngOnDestroy(){
+  ngAfterViewChecked(): void {
+    this.addReceiptForm.controls['image'].get('name')?.setValue(this.base64Ref.imageName)
+    this.addReceiptForm.controls['image'].get('base64')?.setValue(this.base64Ref.base64)
+  }
+  ngOnDestroy() {
     this.subscriptions$.unsubscribe()
-  }  
+  }
   openSnackBar(word: string) {
     this._snackBar.openFromComponent(SnackBarAnnotatedComponent, {
       duration: 5000,
@@ -47,7 +58,7 @@ export class ReceiptAdditionComponent implements OnDestroy {
       productName: [''],
       quantity: [''],
       price: [''],
-      totalPrice: [''],
+      totalPrice: ['']
     })
     return listProductsForm
   }
@@ -67,19 +78,23 @@ export class ReceiptAdditionComponent implements OnDestroy {
     }
 
     if (this.addReceiptForm.dirty && this.addReceiptForm.valid) {
-
-      this.subscriptions$.add(this.activateRouter.params.subscribe(params => this.userId = params['id']))
       let dateOfPurchase = moment(this.addReceiptForm.get('dateOfPurchase')?.value).format('YYYY.MM.DD');
       this.addReceiptForm.controls['dateOfPurchase'].setValue(dateOfPurchase)
+      this.subscriptions$.add(this.activateRouter.params.subscribe(params => this.userId = params['id']))
+
 
       this.addReceiptForm.value.listProducts.length = this.addReceiptForm.value.listProducts.length
       let receiptFormValue = {
         ...this.addReceiptForm.getRawValue(),
         numberOfAddedProducts: this.addReceiptForm.value.listProducts.length
       }
-      this.subscriptions$.add(this.receiptService.addReceipt(receiptFormValue, this.userId)
+
+      this.subscriptions$.add(forkJoin({
+        requestImage: this.receiptService.addReceiptImage(receiptFormValue, this.userId),
+        requestReceipt: this.receiptService.addReceipt(receiptFormValue, this.userId)
+      })
         .subscribe(req => {
-          this.openSnackBar('Paragon został dodany')
+          this.openSnackBar('Paragon oraz obraz został dodany do bazy danych')
         }))
     }
   }

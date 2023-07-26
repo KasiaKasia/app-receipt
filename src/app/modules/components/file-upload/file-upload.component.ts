@@ -18,6 +18,8 @@ export class FileUploadComponent {
   uploadSub: Subscription | undefined | null;
   textPosition: any = [{}];
   words: Array<{ word: Word }> = [];
+  base64: ArrayBuffer[] = [];
+  imageName = ''
 
   constructor(private fileService: FileService,
     private _snackBar: MatSnackBar) {}
@@ -40,6 +42,7 @@ export class FileUploadComponent {
     if (file) {
       const formData = new FormData();
       formData.append("thumbnail", file);
+ 
       const upload$ = this.fileService.upload(formData).pipe(
         finalize(() => this.reset())
       );
@@ -63,7 +66,8 @@ export class FileUploadComponent {
     const file = input.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onload = () => {
+    this.imageName = file.name;
+    reader.onload = () => {      
       this.draw(reader.result, body);
     };
   }
@@ -129,7 +133,10 @@ export class FileUploadComponent {
         };
       }
       img.src = event;
+      
+      this.base64.push( event as ArrayBuffer);
     }
+  
   }
 
   cancelUpload() {

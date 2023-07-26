@@ -9,6 +9,9 @@ const fileUpload = require('express-fileupload');
 const connectionString = "server=DESKTOP-561O5CC\\MSSQLSERVER3;Database=database;Trusted_Connection=Yes;Driver={SQL Server Native Client 11.0}";
 
 app.use(cors());
+
+app.use(express.json({limit: '50mb'}));
+app.use(express.urlencoded({limit: '50mb'}));
 app.use(express.json());
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -36,7 +39,8 @@ app.post('/upload', (req, res) => {
             return res.status(200).json({
                 success: true,
                 message: 'The file has been uploaded ' + values[0],
-                respons: values[1]
+                respons: values[1],
+                data: req.files.thumbnail.data
             });
         });
     }
@@ -157,15 +161,36 @@ app.post('/receipt/list-of-receipts/:id', (req, res) => {
         }
     });
 })
-app.put('/receipt/add-receipt/:id', (req, res, next) => {
 
-    const queryInsertReceipt = "INSERT INTO [database].[dbo].[Receipt] ([id], [storeName], [dateOfPurchase], [totalPrice], [userId], [NIP]) VALUES "
-        + " ((SELECT max(id)+1 from [database].[dbo].[Receipt]), '" + req.body.shopName + "' , '" + req.body.dateOfPurchase + "', " + Number(req.body.totalPrice) + " ," + Number(req.params.id) + ",'" + req.body.nip + "'); ";
+
+app.put('/receipt/add-receipt-image/:id', (req, res) => {
+
+    const queryInsertImage = " INSERT INTO [database].[dbo].[Images] ([id], [name], [base64]) VALUES ( (select max([id]) + 1 from [database].[dbo].[Images]), '" +  req.body.image.name + "'  , CONVERT(varbinary(max),'" + req.body.image.base64+ "', 0)) ";
+ 
+    sql.query(connectionString, queryInsertImage, (err, rows) => {
+
+        if (err) {
+            return res.status(400).json(err);
+        } else { 
+            return res.status(200).json({
+                success: true,
+                message: 'The receipt image has been added to the database',
+                respons: rows
+            });
+        }
+    });
+})
+
+
+app.put('/receipt/add-receipt/:id', (req, res, next) => {
+ 
+    const queryInsertReceipt = "INSERT INTO [database].[dbo].[Receipt] ([id], [storeName], [dateOfPurchase], [totalPrice], [userId], [NIP], [imageId]) VALUES "
+        + " ((SELECT max(id)+1 from [database].[dbo].[Receipt]), '" + req.body.shopName + "' , '" + req.body.dateOfPurchase + "', " + Number(req.body.totalPrice) + " ," + Number(req.params.id) + ",'" + req.body.nip + "', (SELECT max([id]) from [database].[dbo].[Images] where [name] ='" +  req.body.image.name + "' )) ";
     let listProductsForReceipt = '';
     req.body.listProducts.forEach((value) => {
 
         let queryInsertProduct = " INSERT INTO [database].[dbo].[Product] ([id], [name], [quantity], [price], [totalPrice], [receiptId]) VALUES "
-            + "( (SELECT max(id)+1 from [database].[dbo].[Product]), '" + value.productName + "' , " + Number(value.quantity) + ", " + Number(value.price) + " ," + Number(value.totalPrice) + ", (SELECT max(id)  from [database].[dbo].[Receipt] where [NIP] = '" + req.body.nip + "') ); ";
+            + "( (SELECT max(id)+1 from [database].[dbo].[Product]), '" + value.productName + "' , " + Number(value.quantity) + ", " + Number(value.price) + " ," + Number(value.totalPrice) + ", (SELECT max(id)  from [database].[dbo].[Receipt] where [NIP] = '" + req.body.nip + "') ) ";
         listProductsForReceipt += queryInsertProduct;
     })
 

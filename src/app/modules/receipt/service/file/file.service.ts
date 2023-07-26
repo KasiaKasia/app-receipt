@@ -14,7 +14,7 @@ export class FileService {
       reportProgress: true,
       observe: 'events'
     }).pipe(
-    //  takeLast(1), jeśli jest właczone nie widać progress-bar, bo strumień pobrany ostatni
+      takeLast(1), // jeśli jest właczone nie widać progress-bar, bo strumień pobrany ostatni
       share())
   }
 }
