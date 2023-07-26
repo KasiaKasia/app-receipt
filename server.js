@@ -165,7 +165,7 @@ app.post('/receipt/list-of-receipts/:id', (req, res) => {
 
 app.put('/receipt/add-receipt-image/:id', (req, res) => {
 
-    const queryInsertImage = " INSERT INTO [database].[dbo].[Images] ([id], [name], [base64]) VALUES ( (select max([id]) + 1 from [database].[dbo].[Images]), '" +  req.body.image.name + "'  , CONVERT(varbinary(max),'" + req.body.image.base64+ "', 0)) ";
+    const queryInsertImage = " INSERT INTO [database].[dbo].[Image] ([id], [name], [base64]) VALUES ( (select max([id]) + 1 from [database].[dbo].[Image]), '" +  req.body.image.name + "'  , CONVERT(varbinary(max),'" + req.body.image.base64+ "', 0)) ";
  
     sql.query(connectionString, queryInsertImage, (err, rows) => {
 
@@ -185,7 +185,7 @@ app.put('/receipt/add-receipt-image/:id', (req, res) => {
 app.put('/receipt/add-receipt/:id', (req, res, next) => {
  
     const queryInsertReceipt = "INSERT INTO [database].[dbo].[Receipt] ([id], [storeName], [dateOfPurchase], [totalPrice], [userId], [NIP], [imageId]) VALUES "
-        + " ((SELECT max(id)+1 from [database].[dbo].[Receipt]), '" + req.body.shopName + "' , '" + req.body.dateOfPurchase + "', " + Number(req.body.totalPrice) + " ," + Number(req.params.id) + ",'" + req.body.nip + "', (SELECT max([id]) from [database].[dbo].[Images] where [name] ='" +  req.body.image.name + "' )) ";
+        + " ((SELECT max(id)+1 from [database].[dbo].[Receipt]), '" + req.body.shopName + "' , '" + req.body.dateOfPurchase + "', " + Number(req.body.totalPrice) + " ," + Number(req.params.id) + ",'" + req.body.nip + "', (SELECT max([id]) from [database].[dbo].[Image] where [name] ='" +  req.body.image.name + "' )) ";
     let listProductsForReceipt = '';
     req.body.listProducts.forEach((value) => {
 
