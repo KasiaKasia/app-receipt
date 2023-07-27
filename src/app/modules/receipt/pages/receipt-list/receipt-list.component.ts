@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, SecurityContext } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { User } from '../../../../shared/models/interface-user';
 import { ReceiptService } from '../../../../modules/receipt/service/receipt/receipt.service';
@@ -25,10 +25,10 @@ export class ReceiptListComponent {
     this.listOfReceipts$.pipe(takeUntilDestroyed()).subscribe((res: any) => {
       if (res && res.respons)
         this.listOfReceiptsWithProducts = res.respons;
-        this.listOfReceiptsWithProducts.map(value => value.visible = false)
+        this.listOfReceiptsWithProducts.map(value => { value.visibleReceipts = false; value.visibleImage = false })
 
         this.listOfReceipts = res.respons.filter((objectProduct: any, index: number, receipts: any) =>
-          receipts.findIndex((v2: any) => (v2.receiptId === objectProduct.id)) === index)
+        receipts.findIndex((v2: any) => (v2.receiptId === objectProduct.id)) === index)
     })
   }
 
@@ -43,12 +43,12 @@ export class ReceiptListComponent {
   }
 
   showImage(receiptId: number) {
-    this.imageReceipt[receiptId] = this.listOfReceiptsWithProducts.filter(image =>
+    this.imageReceipt[receiptId] = [] = this.listOfReceiptsWithProducts.filter(image =>
       image.receiptId === receiptId);
-    this.imageReceipt[receiptId].find((image: any) => {
-      if (image.receiptId === receiptId) {
-        image.visibleImage = !image.visibleImage
-        image.base64 = this._sanitizer.bypassSecurityTrustResourceUrl(image.base64);
+    this.imageReceipt[receiptId].find((imageBase64: any) => {
+      if (imageBase64.receiptId === receiptId) {
+        imageBase64.visibleImage = !imageBase64.visibleImage
+        imageBase64.base64 = this._sanitizer.sanitize(SecurityContext.RESOURCE_URL, this._sanitizer.bypassSecurityTrustResourceUrl(imageBase64.base64))
       }
     })
   }
