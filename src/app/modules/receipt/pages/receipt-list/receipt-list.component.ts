@@ -4,6 +4,7 @@ import { User } from '../../../../shared/models/interface-user';
 import { ReceiptService } from '../../../../modules/receipt/service/receipt/receipt.service';
 import { AuthService } from '../../../../shared/services/auth.service';
 import * as _moment from 'moment';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-receipt-list',
@@ -17,9 +18,10 @@ export class ReceiptListComponent {
   listOfReceipts: any[] = []
   listOfReceiptsWithProducts: any[] = []
   productsReceipt: any[] = []
-  visible: boolean[] = [];
+  imageReceipt: any[] = [];
   constructor(public receiptService: ReceiptService,
-    public authService: AuthService) {
+              public authService: AuthService,
+              private _sanitizer: DomSanitizer) {
     this.listOfReceipts$.pipe(takeUntilDestroyed()).subscribe((res: any) => {
       if (res && res.respons)
         this.listOfReceiptsWithProducts = res.respons;
@@ -30,12 +32,23 @@ export class ReceiptListComponent {
     })
   }
 
-  show(receiptId: number) {
+  showProducts(receiptId: number) {
     this.productsReceipt[receiptId] = this.listOfReceiptsWithProducts.filter(listReceipts =>
       listReceipts.receiptId === receiptId);
     this.productsReceipt[receiptId].find((listReceipts: any) => {
       if (listReceipts.receiptId === receiptId) {
-        listReceipts.visible = !listReceipts.visible
+        listReceipts.visibleReceipts = !listReceipts.visibleReceipts
+      }
+    })
+  }
+
+  showImage(receiptId: number) {
+    this.imageReceipt[receiptId] = this.listOfReceiptsWithProducts.filter(image =>
+      image.receiptId === receiptId);
+    this.imageReceipt[receiptId].find((image: any) => {
+      if (image.receiptId === receiptId) {
+        image.visibleImage = !image.visibleImage
+        image.base64 = this._sanitizer.bypassSecurityTrustResourceUrl(image.base64);
       }
     })
   }

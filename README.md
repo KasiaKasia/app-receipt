@@ -95,7 +95,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 | :---       | :---  |:--- | 
 | `Image`  | id | int
 | `Image`  | name | varchar(max)
-| `Image`  | base64 | varbinary(MAX)
+| `Image`  | base64 | varchar(max)
 
 
 | table name | column | type |

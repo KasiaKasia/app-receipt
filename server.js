@@ -10,8 +10,8 @@ const connectionString = "server=DESKTOP-561O5CC\\MSSQLSERVER3;Database=database
 
 app.use(cors());
 
-app.use(express.json({limit: '50mb'}));
-app.use(express.urlencoded({limit: '50mb'}));
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb' }));
 app.use(express.json());
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -143,9 +143,11 @@ app.post('/register', function (req, res) {
 app.post('/receipt/list-of-receipts/:id', (req, res) => {
 
     const queryInnerleft = "SELECT r.[storeName], r.[dateOfPurchase], r.[userId], r.[NIP], r.[totalPrice], "
-        + "r.[id], p.name, p.price, p.quantity, p.[totalPrice] as productTotalPrice, p.[receiptId] "
+        + "r.[id], p.[name], p.[price], p.[quantity], p.[totalPrice] as productTotalPrice, p.[receiptId], "
+        + "i.[name] as nameImage, i.[base64] "
         + "FROM [database].[dbo].[Receipt] as r "
         + "right JOIN [database].[dbo].[Product] as p ON p.[receiptId]= r.id "
+        + "right JOIN [database].[dbo].[Image] as i ON i.[id]= r.[imageId] "
         + "where r.[userId]  = '" + req.params.id + "'";
 
     sql.query(connectionString, queryInnerleft, (err, rows) => {
@@ -162,16 +164,13 @@ app.post('/receipt/list-of-receipts/:id', (req, res) => {
     });
 })
 
-
 app.put('/receipt/add-receipt-image/:id', (req, res) => {
-
-    const queryInsertImage = " INSERT INTO [database].[dbo].[Image] ([id], [name], [base64]) VALUES ( (select max([id]) + 1 from [database].[dbo].[Image]), '" +  req.body.image.name + "'  , CONVERT(varbinary(max),'" + req.body.image.base64+ "', 0)) ";
- 
+    const queryInsertImage = " INSERT INTO [database].[dbo].[Image] ([id], [name], [base64]) VALUES ( (select max([id]) + 1 from [database].[dbo].[Image]), '" + req.body.image.name + "'  ,  '" + req.body.image.base64 + "' ) ";
     sql.query(connectionString, queryInsertImage, (err, rows) => {
 
         if (err) {
             return res.status(400).json(err);
-        } else { 
+        } else {
             return res.status(200).json({
                 success: true,
                 message: 'The receipt image has been added to the database',
@@ -181,11 +180,11 @@ app.put('/receipt/add-receipt-image/:id', (req, res) => {
     });
 })
 
-
 app.put('/receipt/add-receipt/:id', (req, res, next) => {
- 
+
     const queryInsertReceipt = "INSERT INTO [database].[dbo].[Receipt] ([id], [storeName], [dateOfPurchase], [totalPrice], [userId], [NIP], [imageId]) VALUES "
-        + " ((SELECT max(id)+1 from [database].[dbo].[Receipt]), '" + req.body.shopName + "' , '" + req.body.dateOfPurchase + "', " + Number(req.body.totalPrice) + " ," + Number(req.params.id) + ",'" + req.body.nip + "', (SELECT max([id]) from [database].[dbo].[Image] where [name] ='" +  req.body.image.name + "' )) ";
+        + " ((SELECT max(id)+1 from [database].[dbo].[Receipt]), '" + req.body.shopName + "' , '" + req.body.dateOfPurchase + "', " + Number(req.body.totalPrice) + " ," + Number(req.params.id) + ",'" + req.body.nip + "', (SELECT max([id]) from [database].[dbo].[Image] where [name] ='" + req.body.image.name + "' )) ";
+  
     let listProductsForReceipt = '';
     req.body.listProducts.forEach((value) => {
 
@@ -193,7 +192,6 @@ app.put('/receipt/add-receipt/:id', (req, res, next) => {
             + "( (SELECT max(id)+1 from [database].[dbo].[Product]), '" + value.productName + "' , " + Number(value.quantity) + ", " + Number(value.price) + " ," + Number(value.totalPrice) + ", (SELECT max(id)  from [database].[dbo].[Receipt] where [NIP] = '" + req.body.nip + "') ) ";
         listProductsForReceipt += queryInsertProduct;
     })
-
     let queryInsertReceiptAndListProduct = queryInsertReceipt + listProductsForReceipt;
 
     sql.query(connectionString, queryInsertReceiptAndListProduct, function (err, rows, fields) {
