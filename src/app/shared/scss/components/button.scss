@@ -1,3 +1,41 @@
+@import "../variables.scss";
+@keyframes button-hover {
+    50% {
+        opacity: 0.6;
+    }
+}
+
+@mixin hover-focus {
+    color: $white;
+    animation: button-hover 1s ease;
+}
+
 .button-border-color {
     border-color: #cecece;
+}
+
+.button-success-color {
+    @extend .button-border-color;
+    background-color: #54b98a;
+    &:hover,
+    &:focus {
+        @include hover-focus;
+        background-color: #37a572;
+    }
+}
+
+.button-danger-color {
+    @extend .button-border-color;
+    background-color: #ed5d6b;
+    &:hover,
+    &:focus {
+        @include hover-focus;
+        background-color: #f54455;
+    }
+}
+.btn-light {
+    &:hover,
+    &:focus {
+        @include hover-focus;
+    }
 }
