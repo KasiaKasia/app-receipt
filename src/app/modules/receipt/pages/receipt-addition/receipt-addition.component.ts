@@ -17,6 +17,7 @@ const moment = _moment;
 })
 export class ReceiptAdditionComponent implements OnDestroy, AfterViewChecked {
   readonly subscriptions$ = new Subscription()
+  title ='Dodaj paragon';
   @ViewChild(FileUploadComponent)
   base64Ref!: FileUploadComponent;
   userId: User = {};

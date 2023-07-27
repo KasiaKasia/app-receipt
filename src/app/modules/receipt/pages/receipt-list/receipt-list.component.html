@@ -1,9 +1,4 @@
-<div class="dashboard__section dashboard__section--small">
-    <div class="dashboard__heading dashboard__heading--mail">
-        <h2>Lista paragonów</h2>
-    </div>
-</div>
-
+<app-dashboard-heading [titleDashboard]="title"></app-dashboard-heading>
 <div class="dashboard__section">
     <div class="dashboard__heading">
         <h3>Lista paragonów</h3>
@@ -29,7 +24,7 @@
                 <td class="table__td">{{receipt.totalPrice}}</td>
                 <td class="table__td">{{moment(receipt.dateOfPurchase).format('YYYY.MM.DD')}}</td>
                 <td class="table__td">
-                    <button type="submit" class="btn btn-success" (click)="showProducts(receipt.receiptId  )">
+                    <button type="button" class="btn btn-light button-border-color" (click)="showProducts(receipt.receiptId  )">
                         {{ receipt.visibleReceipts ? 'Ukryj produkty': 'Pokaż produkty' }}
                     </button>
                 </td>
@@ -45,7 +40,7 @@
                 </ng-container>
                 
                 <td class="table__td">
-                    <button type="submit" class="btn btn-success" (click)="showImage(receipt.receiptId  )">
+                    <button type="button" class="btn btn-light button-border-color" (click)="showImage(receipt.receiptId  )">
                         {{ receipt.visibleImage ? 'Ukryj obraz': 'Pokaż obraz' }}
                     </button>
                 </td>

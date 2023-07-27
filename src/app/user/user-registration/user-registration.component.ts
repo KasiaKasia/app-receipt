@@ -12,6 +12,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./user-registration.component.scss']
 })
 export class UserRegistrationComponent {
+  title = 'Rejestracja';
   CustomerType = UserType;
   registrationForm = this.fb.group({
     username: this.fb.control('', [Validators.required, Validators.minLength(3)]),

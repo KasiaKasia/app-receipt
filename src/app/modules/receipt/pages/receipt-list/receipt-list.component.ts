@@ -12,6 +12,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./receipt-list.component.scss']
 })
 export class ReceiptListComponent {
+  title = 'Lista paragonów';
   moment = _moment;
   private currentUser: User = {} = JSON.parse(this.authService.getCurrentDataUser()) as User;
   listOfReceipts$ = this.receiptService.getListOfReceipts(this.currentUser.userid) ?? []

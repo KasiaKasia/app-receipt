@@ -19,38 +19,40 @@ import { FileUploadComponent } from '../components/file-upload/file-upload.compo
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MomentDateModule } from '@angular/material-moment-adapter';
+import { SharedModule } from "../../shared/shared.module";
 
 @NgModule({
-  declarations: [
-    ReceiptComponent,
-    ReceiptAdditionComponent,
-    ReceiptListComponent,
-    DatepickerComponent,
-    NipFormatPipe,
-    HighlightDirective,
-    FileUploadComponent
-  ],
-  imports: [
-    CommonModule,
-    ReceiptRoutingModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatIconModule,
-    MatProgressBarModule,
-    MatButtonModule,
-    MatSnackBarModule,
-    MomentDateModule
-  ],
-  exports: [
-    ReceiptComponent,
-    ReceiptAdditionComponent,
-    ReceiptListComponent,
-    DatepickerComponent,
-    FileUploadComponent
-  ]
+    declarations: [
+        ReceiptComponent,
+        ReceiptAdditionComponent,
+        ReceiptListComponent,
+        DatepickerComponent,
+        NipFormatPipe,
+        HighlightDirective,
+        FileUploadComponent
+    ],
+    exports: [
+        ReceiptComponent,
+        ReceiptAdditionComponent,
+        ReceiptListComponent,
+        DatepickerComponent,
+        FileUploadComponent
+    ],
+    imports: [
+        CommonModule,
+        ReceiptRoutingModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatIconModule,
+        MatProgressBarModule,
+        MatButtonModule,
+        MatSnackBarModule,
+        MomentDateModule,
+        SharedModule
+    ]
 })
 export class ReceiptModule {}

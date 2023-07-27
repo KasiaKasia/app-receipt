@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./user-login.component.scss']
 })
 export class UserLoginComponent {
+  title = 'Logowanie użytkownika';
   loginForm: FormGroup = this.fb.group({
     username: ['', { updateOn: 'blur' }, [Validators.required, Validators.minLength(3)]],
     password: ['', { updateOn: 'submit' }, Validators.required]

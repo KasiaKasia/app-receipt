@@ -5,7 +5,7 @@ import { UserRegistrationComponent } from './user-registration/user-registration
 import { UserLoginComponent } from './user-login/user-login.component';
 import { UserRoutingModule } from './user-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -17,7 +17,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule, 
     UserRoutingModule,
-    ReactiveFormsModule     
+    ReactiveFormsModule,
+    SharedModule     
   ],
   exports: [
     UserComponent,

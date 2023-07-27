@@ -1,8 +1,4 @@
-<div class="dashboard__section dashboard__section--small">
-    <div class="dashboard__heading dashboard__heading--mail">
-        <h2>Dodaj paragon</h2>
-    </div>
-</div>
+<app-dashboard-heading [titleDashboard]="title"></app-dashboard-heading>
 <div class="dashboard__section">
     <form [formGroup]="addReceiptForm" (ngSubmit)="onSubmit()">
         <table class="table">
