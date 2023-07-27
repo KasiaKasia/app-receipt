@@ -8,5 +8,6 @@ import { Component } from '@angular/core';
 export class HomeComponent {
   title = 'Projekt wykonała Katarzyna Bulicka';
   titleCard = 'Lista technologii';
-  databaseSchema = 'Schemat bazy danych'
+  databaseSchema = 'Schemat bazy danych';
+  libraryList = 'Lista bibliotek - Front-end';
 }
