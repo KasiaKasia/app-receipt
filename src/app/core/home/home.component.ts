@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-  title = 'Projekt wykonała Katarzyna Bulicka'
+  title = 'Projekt wykonała Katarzyna Bulicka';
+  titleCard = 'Lista technologii';
+  databaseSchema = 'Schemat bazy danych'
 }

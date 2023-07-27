@@ -1,1 +1,23 @@
 <app-dashboard-heading [titleDashboard]="title"></app-dashboard-heading>
+
+<app-card [title]="titleCard">
+    <ul>
+        <li>Front-end - Angular</li>
+        <li>Beck-end - NodeJS (JavaScript)</li>
+        <li>Baza danych - Microsoft SQL Server</li>
+        <li>Cloud Version API - Optyczne rozpoznawanie znaków (OCR)</li>
+    </ul>
+</app-card>
+
+<app-card [title]="databaseSchema">
+    <ul>
+        <li>Image</li>
+        <li>Product</li>
+        <li>Receipt</li>
+        <li>Address</li>
+        <li>User</li>
+    </ul>
+    <div ngProjectAs="panel-footer">
+         Język programowania Bazy danych Transact-SQL 
+    </div>
+</app-card>
