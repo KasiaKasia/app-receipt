@@ -1,2 +1,12 @@
 @import "../../../../shared/scss/variables.scss";
 @import "../../../../shared/scss/components/table.scss"; 
+ 
+td .ng-invalid.ng-touched,
+td .ng-invalid.ng-dirty {
+    border: 2px solid #ed5d6b !important;
+}
+
+td .ng-invalid.ng-touched~.validation-feedback,
+td  .ng-invalid.ng-dirty~.validation-feedback {
+    color: #ed5d6b;
+}
