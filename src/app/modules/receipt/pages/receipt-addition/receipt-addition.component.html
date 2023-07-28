@@ -18,7 +18,12 @@
                             [value]="(addReceiptForm.get('nip')?.value) | nipFormat" />
                     </td>
                     <td class="table__td">
-                        <input type="text" class="form-control" formControlName="totalPrice" />
+                        <input type="text" class="form-control" formControlName="totalPrice" validatorCharacterIsNumber />
+                        <div class="validation-feedback" *ngIf="addReceiptForm.controls['totalPrice'].touched || addReceiptForm.controls['totalPrice'].dirty">
+                            <div *ngIf="addReceiptForm.controls['totalPrice'].getError('characterIsNumber')">
+                                Podany znak nie jest liczbą
+                            </div>
+                        </div>
                     </td>
                     <td class="table__td">
                         <mat-form-field >
@@ -56,10 +61,20 @@
                             <input type="text" class="form-control" formControlName="quantity" />
                         </td>
                         <td class="table__td">
-                            <input type="text" class="form-control" formControlName="price" />
+                            <input type="text" class="form-control" formControlName="price" validatorCharacterIsNumber />
+                            <div class="validation-feedback" *ngIf=" listProducts.controls[i].get('price')?.touched || listProducts.controls[i].get('price')?.dirty">
+                                <div *ngIf=" listProducts.controls[i].get('price')?.getError('characterIsNumber')">
+                                    Podany znak nie jest liczbą
+                                </div>
+                            </div>
                         </td>
                         <td class="table__td">
-                            <input type="text" class="form-control" formControlName="totalPrice" />
+                            <input type="text" class="form-control" formControlName="totalPrice" validatorCharacterIsNumber />
+                            <div class="validation-feedback" *ngIf="listProducts.controls[i].get('totalPrice')?.touched || listProducts.controls[i].get('totalPrice')?.dirty">
+                                <div *ngIf="listProducts.controls[i].get('totalPrice')?.getError('characterIsNumber')">
+                                    Podany znak nie jest liczbą
+                                </div>
+                            </div>
                         </td>
                         <td class="table__td">
                             <button type="button" class="btn button-success-color" (click)="addProduct()">

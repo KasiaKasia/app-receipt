@@ -45,7 +45,7 @@ export class UserLoginComponent {
           }
         },
         error => {
-      //    this.logger.error('error.message ' + error.message)
+          this.logger.error('error.message ' + error.message)
         }
       )
     }

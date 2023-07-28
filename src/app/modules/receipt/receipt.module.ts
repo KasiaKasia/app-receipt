@@ -20,6 +20,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MomentDateModule } from '@angular/material-moment-adapter';
 import { SharedModule } from "../../shared/shared.module";
+import { ValidatorCharacterIsNumberDirective } from 'src/app/shared/validator-directive/validator-character-is-number.directive';
 
 @NgModule({
     declarations: [
@@ -29,7 +30,8 @@ import { SharedModule } from "../../shared/shared.module";
         DatepickerComponent,
         NipFormatPipe,
         HighlightDirective,
-        FileUploadComponent
+        FileUploadComponent,
+        ValidatorCharacterIsNumberDirective
     ],
     exports: [
         ReceiptComponent,
