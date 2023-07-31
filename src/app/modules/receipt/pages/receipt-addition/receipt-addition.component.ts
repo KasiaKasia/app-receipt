@@ -9,7 +9,7 @@ import * as _moment from 'moment';
 import { Subscription, forkJoin } from 'rxjs';
 import { FileUploadComponent } from 'src/app/modules/components/file-upload/file-upload.component';
 const moment = _moment;
-
+ 
 @Component({
   selector: 'app-receipt-addition',
   templateUrl: './receipt-addition.component.html',
@@ -17,7 +17,7 @@ const moment = _moment;
 })
 export class ReceiptAdditionComponent implements OnDestroy, AfterViewChecked {
   readonly subscriptions$ = new Subscription()
-  title ='Dodaj paragon';
+  title = 'Dodaj paragon';
   @ViewChild(FileUploadComponent)
   base64Ref!: FileUploadComponent;
   userId: User = {};
@@ -36,6 +36,7 @@ export class ReceiptAdditionComponent implements OnDestroy, AfterViewChecked {
   get listProducts() {
     return this.addReceiptForm.get('listProducts') as FormArray;
   }
+
   constructor(private fb: FormBuilder,
     private _snackBar: MatSnackBar,
     private receiptService: ReceiptService,

@@ -1,19 +1,21 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, booleanAttribute  } from '@angular/core';
 import { HttpEventType } from '@angular/common/http';
 import { Subscription, finalize } from 'rxjs';
 import { FileService } from '../../receipt/service/file/file.service';
 import { ClickPosition, Point, Word } from 'src/app/shared/models/interface-receipt';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackBarAnnotatedComponent } from 'src/app/shared/components/snack-bar/snack-bar-annotated/snack-bar-annotated.component';
+ 
 
 @Component({
   selector: 'app-file-upload',
   templateUrl: './file-upload.component.html',
   styleUrls: ['./file-upload.component.scss']
 })
-export class FileUploadComponent {
-  @Input()
-  requiredFileType: string = '';
+export class FileUploadComponent { 
+
+  @Input( )
+  requiredFileType = "image/*";
   uploadProgress = 0;
   uploadSub: Subscription | undefined | null;
   textPosition: any = [{}];
@@ -22,7 +24,7 @@ export class FileUploadComponent {
   imageName = ''
 
   constructor(private fileService: FileService,
-    private _snackBar: MatSnackBar) {}
+              private _snackBar: MatSnackBar) {}
 
   openSnackBar(word: string) {
     this._snackBar.openFromComponent(SnackBarAnnotatedComponent, {
@@ -132,11 +134,9 @@ export class FileUploadComponent {
           });
         };
       }
-      img.src = event;
-      
+      img.src = event;      
       this.base64.push( event as ArrayBuffer);
-    }
-  
+    }  
   }
 
   cancelUpload() {

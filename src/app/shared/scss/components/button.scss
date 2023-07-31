@@ -18,7 +18,9 @@
     @extend .button-border-color;
     background-color: #54b98a;
     &:hover,
-    &:focus {
+    &:focus,
+    &:active,
+    &:visited {
         @include hover-focus;
         background-color: #37a572;
     }
@@ -28,14 +30,19 @@
     @extend .button-border-color;
     background-color: #ed5d6b;
     &:hover,
-    &:focus {
+    &:focus,
+    &:active,
+    &:visited  {
         @include hover-focus;
         background-color: #f54455;
     }
 }
 .btn-light {
+    margin-right: 10px;
     &:hover,
-    &:focus {
+    &:focus,
+    &:active,
+    &:visited {
         @include hover-focus;
     }
 }

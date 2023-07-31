@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReceiptRoutingModule } from './receipt-routing.module';
 import { ReceiptComponent } from './pages/receipt/receipt.component';
 import { ReceiptAdditionComponent } from './pages/receipt-addition/receipt-addition.component';
 import { ReceiptListComponent } from './pages/receipt-list/receipt-list.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -18,9 +16,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { FileUploadComponent } from '../components/file-upload/file-upload.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MomentDateModule } from '@angular/material-moment-adapter';
 import { SharedModule } from "../../shared/shared.module";
 import { ValidatorCharacterIsNumberDirective } from 'src/app/shared/validator-directive/validator-character-is-number.directive';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MomentDateModule } from '@angular/material-moment-adapter';
+import { ReceiptRoutingModule } from './receipt-routing.module';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
     declarations: [
@@ -42,7 +43,6 @@ import { ValidatorCharacterIsNumberDirective } from 'src/app/shared/validator-di
     ],
     imports: [
         CommonModule,
-        ReceiptRoutingModule,
         ReactiveFormsModule,
         HttpClientModule,
         MatFormFieldModule,
@@ -54,7 +54,9 @@ import { ValidatorCharacterIsNumberDirective } from 'src/app/shared/validator-di
         MatButtonModule,
         MatSnackBarModule,
         MomentDateModule,
-        SharedModule
-    ]
+        SharedModule,
+        ReceiptRoutingModule        
+    ],
+    providers: [NgbActiveModal, NgbModal]
 })
 export class ReceiptModule {}

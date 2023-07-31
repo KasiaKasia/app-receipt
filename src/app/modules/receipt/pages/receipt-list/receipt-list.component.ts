@@ -5,6 +5,8 @@ import { ReceiptService } from '../../../../modules/receipt/service/receipt/rece
 import { AuthService } from '../../../../shared/services/auth.service';
 import * as _moment from 'moment';
 import { DomSanitizer } from '@angular/platform-browser';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalContentComponent } from 'src/app/shared/components/modal/modal-content/modal-content.component';
 
 @Component({
   selector: 'app-receipt-list',
@@ -21,14 +23,16 @@ export class ReceiptListComponent {
   productsReceipt: any[] = []
   imageReceipt: any[] = [];
   constructor(public receiptService: ReceiptService,
-              public authService: AuthService,
-              private _sanitizer: DomSanitizer) {
+    public authService: AuthService,
+    private _sanitizer: DomSanitizer,
+    public modalService: NgbModal,
+    public activeModal: NgbActiveModal) {
     this.listOfReceipts$.pipe(takeUntilDestroyed()).subscribe((res: any) => {
       if (res && res.respons)
         this.listOfReceiptsWithProducts = res.respons;
-        this.listOfReceiptsWithProducts.map(value => { value.visibleReceipts = false; value.visibleImage = false })
+      this.listOfReceiptsWithProducts.map(value => { value.visibleReceipts = false; value.visibleImage = false })
 
-        this.listOfReceipts = res.respons.filter((objectProduct: any, index: number, receipts: any) =>
+      this.listOfReceipts = res.respons.filter((objectProduct: any, index: number, receipts: any) =>
         receipts.findIndex((v2: any) => (v2.receiptId === objectProduct.id)) === index)
     })
   }
@@ -48,10 +52,18 @@ export class ReceiptListComponent {
       image.receiptId === receiptId);
     this.imageReceipt[receiptId].find((imageBase64: any) => {
       if (imageBase64.receiptId === receiptId) {
-        imageBase64.visibleImage = !imageBase64.visibleImage
-        imageBase64.base64 = this._sanitizer.sanitize(SecurityContext.RESOURCE_URL, this._sanitizer.bypassSecurityTrustResourceUrl(imageBase64.base64))
+          imageBase64.visibleImage = !imageBase64.visibleImage
+          imageBase64.base64 = this._sanitizer.sanitize(SecurityContext.RESOURCE_URL, this._sanitizer.bypassSecurityTrustResourceUrl(imageBase64.base64))
       }
     })
+  }
+
+  openModal(receiptId: number) {
+    const modalRef = this.modalService.open(ModalContentComponent);
+    this.imageReceipt[receiptId] = [] = this.listOfReceiptsWithProducts.filter(image =>
+      image.receiptId === receiptId);
+    modalRef.componentInstance.receiptId = receiptId;
+    modalRef.componentInstance.imageReceipt = this.imageReceipt[receiptId];
   }
 }
 
