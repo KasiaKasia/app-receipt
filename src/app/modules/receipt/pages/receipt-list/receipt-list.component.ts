@@ -57,13 +57,5 @@ export class ReceiptListComponent {
       }
     })
   }
-
-  openModal(receiptId: number) {
-    const modalRef = this.modalService.open(ModalContentComponent);
-    this.imageReceipt[receiptId] = [] = this.listOfReceiptsWithProducts.filter(image =>
-      image.receiptId === receiptId);
-    modalRef.componentInstance.receiptId = receiptId;
-    modalRef.componentInstance.imageReceipt = this.imageReceipt[receiptId];
-  }
 }
 

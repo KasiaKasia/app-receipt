@@ -11,5 +11,5 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class SnackBarAnnotatedComponent {
   constructor(@Inject(MAT_SNACK_BAR_DATA) public data: any,
-    public snackBarRef: MatSnackBarRef<any>) { }
+    public snackBarRef: MatSnackBarRef<any>) {}
 }
