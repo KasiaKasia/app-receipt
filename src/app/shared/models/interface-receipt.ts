@@ -1,16 +1,28 @@
 import { User } from "./interface-user";
 
+export interface Image {
+  readonly id?: number;
+  readonly base64?: string;
+  nameImage?: string;
+}
+
+export interface Visible {
+  visibleImage?: boolean;
+  visibleReceipts?: boolean;
+}
+
 export interface Receipt {
-  id?: number;
+  readonly id?: number;
   storeName?: string;
-  nip?: string;
+  NIP?: string;
   dateOfPurchase?: string;
   totalPrice?: number;
   userId?: User;
- }
+  imageId?: Image;
+}
 
 export interface Product {
-  id?: number;
+  readonly id?: number;
   name?: string;
   quantity?: number;
   price?: number;
@@ -19,8 +31,8 @@ export interface Product {
 }
 
 export interface ClickPosition {
-  x?: number;
-  y?: number;
+  readonly x?: number;
+  readonly y?: number;
 }
 
 export class Point {
