@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, InjectionToken, Injector, inject } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Session, User } from '../models/interface-user';
 import { Settings } from '../environments/settings';
@@ -7,6 +7,9 @@ import { catchError, share, take, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+
+
+
 @Injectable({
   providedIn: 'root'
 })

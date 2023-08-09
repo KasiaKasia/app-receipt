@@ -2,6 +2,7 @@
   <div class="app__page">
     <app-navbar></app-navbar>
     <div class="dashboard">
+      <ng-container *ngComponentOutlet="dynamicComponent; injector: componentInjector "></ng-container>
       <router-outlet></router-outlet>
     </div>
     <app-footer></app-footer>

@@ -26,8 +26,8 @@ export interface Product {
   name?: string;
   quantity?: number;
   price?: number;
-  totalPrice?: number;
-  receiptId: Receipt;
+  productTotalPrice?: number;
+  receiptId?: Receipt;
 }
 
 export interface ClickPosition {

@@ -5,14 +5,30 @@ import { DashboardHeadingComponent } from './components/dashboard-heading/dashbo
 import { CardComponent } from './components/card/card.component';
 import { ModalContentComponent } from './components/modal/modal-content/modal-content.component';
 import { ModalContainerComponent } from './components/modal/modal-container/modal-container.component';
+import { DynamicTokenComponent } from './components/dynamic-token/dynamic-token.component';
+import { DynamicTokenOutdatedComponent } from './components/dynamic-token-outdated/dynamic-token-outdated.component';
 
 
 @NgModule({
-  declarations: [DashboardHeadingComponent, CardComponent, ModalContentComponent, ModalContainerComponent],
+  declarations: [
+    DashboardHeadingComponent,
+    CardComponent,
+    ModalContentComponent,
+    ModalContainerComponent,
+    DynamicTokenComponent,
+    DynamicTokenOutdatedComponent
+  ],
   imports: [
     CommonModule,
     MatSnackBarModule,
   ],
-  exports: [DashboardHeadingComponent, CardComponent, ModalContentComponent, ModalContainerComponent]
+  exports: [
+    DashboardHeadingComponent,
+    CardComponent,
+    ModalContentComponent,
+    ModalContainerComponent,
+    DynamicTokenComponent,
+    DynamicTokenOutdatedComponent
+  ]
 })
-export class SharedModule {}
+export class SharedModule { }

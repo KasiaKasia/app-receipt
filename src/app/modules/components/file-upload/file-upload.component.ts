@@ -2,9 +2,9 @@ import { Component, Input, booleanAttribute  } from '@angular/core';
 import { HttpEventType } from '@angular/common/http';
 import { Subscription, finalize } from 'rxjs';
 import { FileService } from '../../receipt/service/file/file.service';
-import { ClickPosition, Point, Word } from 'src/app/shared/models/interface-receipt';
+import { ClickPosition, Point, Word } from '../../../shared/models/interface-receipt';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { SnackBarAnnotatedComponent } from 'src/app/shared/components/snack-bar/snack-bar-annotated/snack-bar-annotated.component';
+import { SnackBarAnnotatedComponent } from '../../../shared/components/snack-bar/snack-bar-annotated/snack-bar-annotated.component';
  
 
 @Component({

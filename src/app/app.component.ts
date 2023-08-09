@@ -1,5 +1,5 @@
-import { Component, Provider } from '@angular/core';
-import { CommonModule, JsonPipe } from '@angular/common';
+import { Component, HostListener, InjectionToken, Injector, OnInit, Provider, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { CoreModule } from './core/core.module';
 import { UserModule } from './user/user.module';
@@ -13,6 +13,8 @@ import { FileService } from './modules/receipt/service/file/file.service';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { MomentDateModule } from '@angular/material-moment-adapter';
 import { LoggerDebugService, LoggerService } from './shared/logger/logger.service';
+import { DynamicTokenComponent } from './shared/components/dynamic-token/dynamic-token.component';
+import { DynamicTokenOutdatedComponent } from './shared/components/dynamic-token-outdated/dynamic-token-outdated.component';
 
 export const RetryInterceptorProvider: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -30,6 +32,17 @@ export const MY_DATE_FORMATS = {
     monthYearA11yLabel: 'MMMM YYYY'
   },
 };
+
+export const INJECTION_TOKEN = new InjectionToken<string>('INJECTION_TOKEN')
+
+export const dynamicInjectionFn = () => {
+  const injector = inject(Injector);
+
+  return () => Injector.create({
+    providers: [{ provide: INJECTION_TOKEN, useValue: 'dynamically injected content' }],
+    parent: injector
+  })
+}
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -61,4 +74,29 @@ export const MY_DATE_FORMATS = {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent { } 
+export class AppComponent implements OnInit {
+  injector = inject(Injector)
+  componentInjector!: Injector;
+  dynamicInjector = dynamicInjectionFn()
+  dynamicComponent = DynamicTokenComponent;
+  clickStatus = false;
+
+  ngOnInit() {
+    this.refreshToken();
+  }
+
+  refreshToken() {
+    if (!this.clickStatus) {
+      setInterval(() => {
+        this.clickStatus = false;
+        this.dynamicComponent = DynamicTokenOutdatedComponent;
+        this.componentInjector = this.dynamicInjector()
+      }, 9000);
+    }
+  }
+
+  @HostListener("document:click") outClickHandler() {
+    this.clickStatus = true;
+    this.refreshToken()
+  }
+} 
