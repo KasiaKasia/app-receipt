@@ -12,7 +12,6 @@ import { NipFormatPipe } from './pipe/nip-format.pipe';
 import { HighlightDirective } from 'src/app/shared/directive/highlight.directive';
 import { MatIconModule } from '@angular/material/icon'
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { HttpClientModule } from '@angular/common/http';
 import { FileUploadComponent } from '../components/file-upload/file-upload.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -43,8 +42,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
     ],
     imports: [
         CommonModule,
-        ReactiveFormsModule,
-        HttpClientModule,
+        ReactiveFormsModule, 
         MatFormFieldModule,
         MatInputModule,
         MatDatepickerModule,

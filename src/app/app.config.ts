@@ -4,7 +4,7 @@ import { routes } from './app.routes';
 import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { INJECTION_TOKEN } from './app.component';
-
+ 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
