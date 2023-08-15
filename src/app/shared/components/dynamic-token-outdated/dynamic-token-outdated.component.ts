@@ -4,7 +4,6 @@ import { Component, inject } from '@angular/core';
 @Component({
   selector: 'app-dynamic-token-outdated', 
   templateUrl: './dynamic-token-outdated.component.html',
-  styleUrls: ['./dynamic-token-outdated.component.scss']
 })
 export class DynamicTokenOutdatedComponent {
   data = inject(INJECTION_TOKEN);  

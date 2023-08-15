@@ -7,6 +7,7 @@ import { ModalContentComponent } from './components/modal/modal-content/modal-co
 import { ModalContainerComponent } from './components/modal/modal-container/modal-container.component';
 import { DynamicTokenComponent } from './components/dynamic-token/dynamic-token.component';
 import { DynamicTokenOutdatedComponent } from './components/dynamic-token-outdated/dynamic-token-outdated.component';
+import { LoggerDebugService, LoggerService } from './logger/logger.service';
 
 
 @NgModule({
@@ -29,6 +30,12 @@ import { DynamicTokenOutdatedComponent } from './components/dynamic-token-outdat
     ModalContainerComponent,
     DynamicTokenComponent,
     DynamicTokenOutdatedComponent
+  ],
+  providers:[
+    {
+      provide: LoggerService,
+      useClass: LoggerDebugService,
+    }
   ]
 })
-export class SharedModule { }
+export class SharedModule {}

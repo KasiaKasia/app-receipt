@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { LoggerService } from '../../../../shared/logger/logger.service';
 
 @Component({
   selector: 'app-modal-content',
@@ -11,7 +12,8 @@ export class ModalContentComponent {
   @Input() public imageReceipt!: any[];
   width = 400
   height = 400
-  constructor(public activeModal: NgbActiveModal) {}
+  constructor(public activeModal: NgbActiveModal,
+              private logger: LoggerService) {}
 
   ngOnInit() {
     let img = new Image();
@@ -24,5 +26,8 @@ export class ModalContentComponent {
 
   passBack() {
     this.activeModal.close();
+  }
+  notLoaded(){
+    this.logger.error('The image could not be loaded');
   }
 }

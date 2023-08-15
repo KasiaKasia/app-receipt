@@ -4,6 +4,7 @@ import { routes } from './app.routes';
 import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { INJECTION_TOKEN } from './app.component';
+import { provideClientHydration } from '@angular/platform-browser';
  
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -11,6 +12,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     { provide: MAT_DATE_LOCALE, useValue: 'pl-PL' },
     importProvidersFrom(MatNativeDateModule),
-    { provide: INJECTION_TOKEN, useValue: 'dynamically injected content' }
+    { provide: INJECTION_TOKEN, useValue: 'dynamically injected content' },
+    provideClientHydration() // Server-side rendering
   ]
 };

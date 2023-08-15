@@ -2,7 +2,7 @@
   [ngStyle]="{'height' : 'calc('+height +'px + 20%)','min-width' : 'calc('+width +'px + 20%)','border' : 'none'} ">
 
   <div class="modal-body">
-    <img [src]="imageReceipt[0].base64" height="height" width="width">
+    <img [src]="imageReceipt[0].base64" height="height" width="width" onerror="notLoaded()">
   </div>
 
   <div class="text-center pb-4">

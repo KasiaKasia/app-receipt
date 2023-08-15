@@ -7,6 +7,7 @@ import * as _moment from 'moment';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Visible, Image, Receipt, Product } from '../../../../shared/models/interface-receipt';
+import { LoggerService } from '../../../../shared/logger/logger.service';
 
 
 @Component({
@@ -27,7 +28,8 @@ export class ReceiptListComponent {
               public authService: AuthService,
               private _sanitizer: DomSanitizer,
               public modalService: NgbModal,
-              public activeModal: NgbActiveModal) {
+              public activeModal: NgbActiveModal,
+              private logger: LoggerService) {
     this.listOfReceipts$.pipe(takeUntilDestroyed()).subscribe((res: any) => {
       if (res && res.respons)
         this.listOfReceiptsWithProducts = [...res.respons];
@@ -56,5 +58,8 @@ export class ReceiptListComponent {
         imageBase64.base64 = this._sanitizer.sanitize(SecurityContext.RESOURCE_URL, this._sanitizer.bypassSecurityTrustResourceUrl(imageBase64.base64))
       }
     })
+  }
+  notLoaded(){
+    this.logger.error('The image could not be loaded');
   }
 }
