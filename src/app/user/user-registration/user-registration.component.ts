@@ -5,6 +5,8 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { LoggerService } from 'src/app/shared/logger/logger.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { injectDestroy } from 'src/app/shared/injectDestroy/injectDestory';
+import { takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-user-registration',
@@ -35,6 +37,7 @@ export class UserRegistrationComponent {
     }
   });
 
+  private destroy$ = injectDestroy();
 
   constructor(private fb: FormBuilder,
         private logger: LoggerService,
@@ -77,7 +80,7 @@ export class UserRegistrationComponent {
 
   registration(): void {
     if (this.registrationForm.dirty && this.registrationForm.valid) {
-      this.authService.registration(this.registrationForm.value as User).subscribe(data => {
+      this.authService.registration(this.registrationForm.value as User).pipe(takeUntil(this.destroy$)).subscribe(data => {
         switch (data.success) {
           case false: {
             this.logger.error(`Error code ${data.message}`)
