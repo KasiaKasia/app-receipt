@@ -61,7 +61,8 @@ export const dynamicInjectionFn = () => {
     SharedModule,
     HttpClientModule,
     ReceiptModule,
-    MomentDateModule
+    MomentDateModule,
+
   ],
   providers: [
  

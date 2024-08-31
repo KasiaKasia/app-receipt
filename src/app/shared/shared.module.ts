@@ -12,22 +12,19 @@ import { LoggerDebugService, LoggerService } from './logger/logger.service';
 
 @NgModule({
   declarations: [
-    DashboardHeadingComponent,
-    CardComponent,
-    ModalContentComponent,
-    ModalContainerComponent,
+    ModalContentComponent, 
     DynamicTokenComponent,
     DynamicTokenOutdatedComponent
   ],
   imports: [
     CommonModule,
     MatSnackBarModule,
+    CardComponent,
+    DashboardHeadingComponent,
+    ModalContainerComponent,
   ],
   exports: [
-    DashboardHeadingComponent,
-    CardComponent,
     ModalContentComponent,
-    ModalContainerComponent,
     DynamicTokenComponent,
     DynamicTokenOutdatedComponent
   ],

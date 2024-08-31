@@ -1,15 +1,18 @@
 import { Component } from '@angular/core';
 import { User, UserType } from 'src/app/shared/models/interface-user';
-import { FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { LoggerService } from 'src/app/shared/logger/logger.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { injectDestroy } from 'src/app/shared/injectDestroy/injectDestory';
 import { takeUntil } from 'rxjs';
+import { DashboardHeadingComponent } from 'src/app/shared/components/dashboard-heading/dashboard-heading.component';
 
 @Component({
   selector: 'app-user-registration',
+  standalone: true,
+  imports:[DashboardHeadingComponent, ReactiveFormsModule],
   templateUrl: './user-registration.component.html',
   styleUrls: ['./user-registration.component.scss']
 })

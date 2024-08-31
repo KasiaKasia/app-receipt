@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'nipFormat' 
+  name: 'nipFormat',
+  standalone: true
 })
 export class NipFormatPipe implements PipeTransform {
 

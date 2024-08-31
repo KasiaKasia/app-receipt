@@ -14,8 +14,8 @@
                         <input type="text" class="table__td--input" formControlName="shopName" />
                     </td>
                     <td class="table__td">
-                        <input type="text" class="table__td--input" formControlName="nip"
-                            [value]="(addReceiptForm.get('nip')?.value) | nipFormat" />
+                          <input type="text" class="table__td--input" formControlName="nip"
+                            [value]="(addReceiptForm.get('nip')?.value) | nipFormat" />  
                     </td>
                     <td class="table__td">
                         <input type="text" class="table__td--input" formControlName="totalPrice" validatorCharacterIsNumber />
@@ -34,11 +34,11 @@
                         </mat-form-field>        
                     </td>
                 </tr> 
-                <!-- <tr class="table__tr">
+                 <tr class="table__tr">
                     <td class="table__td" colspan="4">
                         <app-file-upload/>
                     </td>
-                </tr> -->
+                </tr>  
               </tbody>
         </table>
         <table class="table">

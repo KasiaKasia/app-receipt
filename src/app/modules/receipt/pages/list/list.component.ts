@@ -7,6 +7,10 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Visible, Image, Receipt, Product } from '../../../../shared/models/interface-receipt';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ModalContainerComponent } from 'src/app/shared/components/modal/modal-container/modal-container.component';
+import { CommonModule } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
+import { MatColumnDef, MatTable } from '@angular/material/table';
 
 
 export enum KeyType {
@@ -56,6 +60,8 @@ type DerivedType = Exclude<BaseTypeColumns, ValueType.expand>;
 
 @Component({
   selector: 'app-list',
+  standalone: true,
+  imports:[ModalContainerComponent, CommonModule, MatIcon, MatTable, MatColumnDef],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
   animations: [

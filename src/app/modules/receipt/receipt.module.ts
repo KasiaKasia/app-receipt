@@ -8,14 +8,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { DatepickerComponent } from '../components/datepicker/datepicker.component';
-import { NipFormatPipe } from './pipe/nip-format.pipe';
 import { HighlightDirective } from 'src/app/shared/directive/highlight.directive';
 import { MatIconModule } from '@angular/material/icon'
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FileUploadComponent } from '../components/file-upload/file-upload.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { SharedModule } from "../../shared/shared.module";
 import { ValidatorCharacterIsNumberDirective } from 'src/app/shared/validator-directive/validator-character-is-number.directive';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MomentDateModule } from '@angular/material-moment-adapter';
@@ -23,29 +21,25 @@ import { ReceiptRoutingModule } from './receipt-routing.module';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MatTableModule } from '@angular/material/table';
 import { ListComponent } from './pages/list/list.component';
+import { NipFormatPipe } from './pipe/nip-format.pipe';
  
 @NgModule({
     declarations: [
-        ReceiptComponent,
-        ReceiptAdditionComponent,
-        ReceiptListComponent,
-        ListComponent,
-        DatepickerComponent,
-        NipFormatPipe,
+        DatepickerComponent,     
         HighlightDirective,
-        FileUploadComponent,
-        ValidatorCharacterIsNumberDirective
+        ValidatorCharacterIsNumberDirective 
     ],
-    exports: [
-        ReceiptComponent,
-        ReceiptAdditionComponent,
-        ReceiptListComponent,
-        ListComponent,
-        DatepickerComponent,
-        FileUploadComponent
+    exports: [  
+        DatepickerComponent
     ],
     imports: [
         CommonModule,
+        ListComponent,
+        ReceiptComponent,
+        NipFormatPipe,
+        FileUploadComponent,
+        ReceiptAdditionComponent,
+        ReceiptListComponent,
         ReactiveFormsModule,
         MatFormFieldModule,
         MatInputModule,
@@ -56,9 +50,8 @@ import { ListComponent } from './pages/list/list.component';
         MatButtonModule,
         MatSnackBarModule,
         MomentDateModule,
-        SharedModule,
         ReceiptRoutingModule,
-        MatTableModule,
+        MatTableModule
     ],
     providers: [NgbActiveModal, NgbModal]
 })

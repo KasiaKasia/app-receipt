@@ -5,10 +5,14 @@ import { FileService } from '../../receipt/service/file/file.service';
 import { ClickPosition, Point, Word } from '../../../shared/models/interface-receipt';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackBarAnnotatedComponent } from '../../../shared/components/snack-bar/snack-bar-annotated/snack-bar-annotated.component';
+import { MatIcon } from '@angular/material/icon';
+import { MatProgressBar } from '@angular/material/progress-bar';
  
 
 @Component({
   selector: 'app-file-upload',
+  standalone: true,
+  imports:[MatIcon,MatProgressBar],
   templateUrl: './file-upload.component.html',
   styleUrls: ['./file-upload.component.scss']
 })

@@ -8,10 +8,15 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Visible, Image, Receipt, Product } from '../../../../shared/models/interface-receipt';
 import { LoggerService } from '../../../../shared/logger/logger.service';
+import { DashboardHeadingComponent } from 'src/app/shared/components/dashboard-heading/dashboard-heading.component';
+import { ModalContainerComponent } from 'src/app/shared/components/modal/modal-container/modal-container.component';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-receipt-list',
+  standalone: true,
+  imports: [DashboardHeadingComponent, ModalContainerComponent, CommonModule],
   templateUrl: './receipt-list.component.html',
   styleUrls: ['./receipt-list.component.scss']
 })
@@ -25,12 +30,12 @@ export class ReceiptListComponent {
   productsReceipt: any[] = []
   imageReceipt: any[] = [];
   constructor(public receiptService: ReceiptService,
-              public authService: AuthService,
-              private _sanitizer: DomSanitizer,
-              public modalService: NgbModal,
-              public activeModal: NgbActiveModal,
-              private logger: LoggerService
-             ) {
+    public authService: AuthService,
+    private _sanitizer: DomSanitizer,
+    public modalService: NgbModal,
+    public activeModal: NgbActiveModal,
+    private logger: LoggerService
+  ) {
     this.listOfReceipts$.pipe(takeUntilDestroyed()).subscribe((res: any) => {
       if (res && res.respons)
         this.listOfReceiptsWithProducts = [...res.respons];
@@ -59,7 +64,7 @@ export class ReceiptListComponent {
       }
     })
   }
-  notLoaded(){
+  notLoaded() {
     this.logger.error('The image could not be loaded');
   }
 }

@@ -28,7 +28,7 @@
                     (click)="showImage(element.receiptId)">
                     {{ element.visibleImage ? 'Ukryj obraz': 'Pokaż obraz' }}
                 </button> 
-                <app-modal-container [listOfReceiptsWithProducts]="listOfReceiptsWithProducts" [receiptId]="element.receiptId"></app-modal-container>
+                <app-modal-container [listOfReceiptsWithProducts]="listOfReceiptsWithProducts" [receiptId]="element.receiptId"/>
                 </div>
                 <div>
                     <ng-container *ngFor="let image of imageReceipt[element.receiptId]">

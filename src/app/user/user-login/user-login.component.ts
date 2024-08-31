@@ -6,11 +6,12 @@ import { Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { NgIf } from '@angular/common';
+import { DashboardHeadingComponent } from 'src/app/shared/components/dashboard-heading/dashboard-heading.component';
 
 @Component({
   selector: 'app-user-login',
   standalone: true,
-  imports: [SharedModule, ReactiveFormsModule, NgIf],
+  imports: [SharedModule, ReactiveFormsModule, NgIf,DashboardHeadingComponent],
   templateUrl: './user-login.component.html',
   styleUrls: ['./user-login.component.scss']
 })

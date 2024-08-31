@@ -1,5 +1,5 @@
-import { AfterViewChecked, Component, OnDestroy, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { AfterViewChecked, Component, OnDestroy, Pipe, ViewChild } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ReceiptService } from '../../service/receipt/receipt.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -8,10 +8,19 @@ import { User } from 'src/app/shared/models/interface-user';
 import * as _moment from 'moment';
 import { Subscription, forkJoin } from 'rxjs';
 import { FileUploadComponent } from 'src/app/modules/components/file-upload/file-upload.component';
+import { DashboardHeadingComponent } from 'src/app/shared/components/dashboard-heading/dashboard-heading.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { NipFormatPipe } from '../../pipe/nip-format.pipe';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { CommonModule } from '@angular/common';
 const moment = _moment;
  
 @Component({
   selector: 'app-receipt-addition',
+  standalone: true,
+  imports: [ CommonModule, NipFormatPipe, MatProgressBarModule,ReactiveFormsModule,FileUploadComponent,DashboardHeadingComponent, MatButtonModule,MatInputModule,MatDatepickerModule,],
   templateUrl: './receipt-addition.component.html',
   styleUrls: ['./receipt-addition.component.scss']
 })

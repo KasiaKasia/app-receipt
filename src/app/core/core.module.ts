@@ -13,18 +13,18 @@ import { SharedModule } from '../shared/shared.module';
     NavbarComponent,
     FooterComponent,
     NotFoundComponent,
-    HomeComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
+    HomeComponent,
     SharedModule
   ],
   exports: [
     NavbarComponent,
     FooterComponent,
     NotFoundComponent,
-    HomeComponent
+
   ]
 })
 export class CoreModule {}
