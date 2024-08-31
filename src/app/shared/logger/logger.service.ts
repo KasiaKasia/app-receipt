@@ -1,4 +1,3 @@
-
 /**
  * Głowny Interfejs Logger
  */

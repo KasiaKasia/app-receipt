@@ -21,12 +21,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MomentDateModule } from '@angular/material-moment-adapter';
 import { ReceiptRoutingModule } from './receipt-routing.module';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
+import { MatTableModule } from '@angular/material/table';
+import { ListComponent } from './pages/list/list.component';
+ 
 @NgModule({
     declarations: [
         ReceiptComponent,
         ReceiptAdditionComponent,
         ReceiptListComponent,
+        ListComponent,
         DatepickerComponent,
         NipFormatPipe,
         HighlightDirective,
@@ -37,12 +40,13 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
         ReceiptComponent,
         ReceiptAdditionComponent,
         ReceiptListComponent,
+        ListComponent,
         DatepickerComponent,
         FileUploadComponent
     ],
     imports: [
         CommonModule,
-        ReactiveFormsModule, 
+        ReactiveFormsModule,
         MatFormFieldModule,
         MatInputModule,
         MatDatepickerModule,
@@ -53,7 +57,8 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
         MatSnackBarModule,
         MomentDateModule,
         SharedModule,
-        ReceiptRoutingModule        
+        ReceiptRoutingModule,
+        MatTableModule,
     ],
     providers: [NgbActiveModal, NgbModal]
 })

@@ -18,13 +18,13 @@ export class ReceiptService {
       'Content-Type': 'application/json',
       'Accept': 'application/json, text/plain' })
   };
-  constructor(public httpClient: HttpClient,private logger: LoggerService ) {}
+  constructor(public httpClient: HttpClient,private logger: LoggerService) {}
   
   public getListOfReceipts(userid?: Pick<User, 'userid'> | string): Observable<Response> {
      return this.httpClient.get<Response>(Settings.API_LIST_OF_RECEIPTS + `${userid}`, {
       context: new HttpContext().set(IS_CACHE_ENABLED, true)
      }).pipe(
-      tap(listOfReceipts => this.logger.success('The receipts of the logged in user have been retrieved!' + listOfReceipts)), share()
+      tap(listOfReceipts => this.logger.info('The receipts of the logged in user have been retrieved!' + listOfReceipts)), share()
     );
   }
 

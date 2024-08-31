@@ -4,6 +4,8 @@ import { Observable, RetryConfig, catchError, empty, retry, throwError } from 'r
 import { InjectionToken } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { LoggerService } from '../logger/logger.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 export const RETRY_INTERCEPTOR_CONFIG = new InjectionToken<RetryConfig>(
   'retryConfig',
   {
@@ -18,13 +20,21 @@ export const RETRY_INTERCEPTOR_CONFIG = new InjectionToken<RetryConfig>(
 })
 export class AuthInterceptorService implements HttpInterceptor {
   private retryConfig = inject(RETRY_INTERCEPTOR_CONFIG);
-  constructor(private auth: AuthService,
-              private logger: LoggerService) {}
+  constructor(private auth: AuthService, 
+    private snackBar: MatSnackBar,
+    private logger: LoggerService) {}
+
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return next.handle(this.getAuthorizedRequest(req)).pipe(retry(this.retryConfig),
+
+    return next.handle(req).pipe(retry(this.retryConfig),
+
+      //  return next.handle(this.getAuthorizedRequest(req)).pipe(
       catchError((Error: any, caught) => {
-        if (Error instanceof HttpErrorResponse && Error.status === 401) {
-          this.logger.error('Authorization Request ');
+        if (Error instanceof HttpErrorResponse && Error.status === 0) {
+          this.snackBar.open('Server is currently offline. Please try again later.', 'Close', {
+            duration: 5000,
+          });
+        } else if (Error instanceof HttpErrorResponse && Error.status === 401) {
           return empty();
         } else if (Error instanceof HttpErrorResponse && Error.status === 403) {
           this.logger.error('Forbidden');

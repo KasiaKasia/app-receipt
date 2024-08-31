@@ -10,7 +10,7 @@ import { UserRegistrationComponent } from 'src/app/user/user-registration/user-r
 })
 export class GuardCanActivateCanDeactivateCanActivateChildCanLoadCanMatch {
   readonly #authService = inject(AuthService);
-  readonly #logger = inject(LoggerService);
+ // readonly #logger = inject(LoggerService);
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
     return this.#authService.getIsAuthenticated();
@@ -27,7 +27,7 @@ export class GuardCanActivateCanDeactivateCanActivateChildCanLoadCanMatch {
   canLoad(route: Route, segments: UrlSegment[]): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
     let urlPath = route.path;
     if (urlPath !== 'user') {
-      this.#logger.error('unauthorised the page');
+      console.error('unauthorised the page');
       return false;
     }
     return true;

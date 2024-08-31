@@ -1,0 +1,58 @@
+@import "./button.scss";
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto auto;
+    gap: 3px 0px;
+    align-items: center;
+}
+.panel--form {
+    text-align: center;
+}
+.panel--label {
+    grid-column: 1 / 2;
+    text-align: right;
+    margin-right: 10px;
+}
+.panel--input {
+    grid-column: 2 / 3;
+    width: 70%;
+    height: 100%;
+    border-width: 2px;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to right, #25a5d5, rgb(17 59 95 / 91%) 20%);
+}
+.panel--select {
+    width: 72%;
+    height: 127%;
+    border-width: 2px;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to right, #25a5d5, rgb(17 59 95 / 91%) 20%);
+}
+.validation-feedback {
+    grid-column: 2 / 3;
+    color: red;
+    font-size: x-small;
+    min-height: 20px;
+    text-align: left;
+}
+.grid-container > .panel--input.ng-invalid.ng-touched,
+.grid-container > .panel--input.ng-invalid.ng-dirty {
+    border-width: 2px;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to right, #f59095e8 0%, #f13e3e 20%);
+}
+
+@media only screen and (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
+
+    .panel--label,
+    .panel--input,
+    .validation-feedback {
+        grid-column: 1 / -1; /* Wszystkie elementy zajmują całą szerokość */
+        text-align: left;
+    }
+}

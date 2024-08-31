@@ -1,13 +1,9 @@
 @keyframes animation-navbar {
     0% {
-        background: white;
+        background-position: 0% 50%;
     }
-    50% {
-        background: #c2c9d1;
-    }
-
     100% {
-        background: #ebeef2;
+        background-position: 100% 50%;
     }
 }
 
@@ -18,22 +14,26 @@
     width: 100%;
     flex-direction: row;
     justify-content: flex-end; // wartość domyślna flex-start dla justify-content
-    background: #ebeef2;
+   // background: linear-gradient(to right, rgb(17 17 95 / 91%) 0%, #25a5d5 100%);
+   background: linear-gradient(to right,#25a5d5, rgb(17 59 95 / 91%) 11%);
+
     box-shadow: $boxShadowBlack;
     padding-right: 50px;
-    animation: animation-navbar 20s ease-in-out;
+    // animation: animation-navbar 20s ease-in-out;
+    animation: gradient-animation 5s linear infinite;
+
     .navbar__wrapper {
         display: flex;
         margin: 5px 10px;
         padding: 10px 0 10px 0;
         border: 1px solid white;
         border-radius: 5px;
-
-        .navbar__section {
+       
+         .navbar__section {
             margin: 5px 10px;
-
+            color: #fff;
             .navbar__routerLink {
-                color: #000;
+                color: #fff;
                 text-decoration: none;
             }
         }

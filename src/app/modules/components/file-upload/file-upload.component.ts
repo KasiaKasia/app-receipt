@@ -1,6 +1,6 @@
-import { Component, Input, booleanAttribute  } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { HttpEventType } from '@angular/common/http';
-import { Subscription, finalize } from 'rxjs';
+import { Subscription, finalize, tap } from 'rxjs';
 import { FileService } from '../../receipt/service/file/file.service';
 import { ClickPosition, Point, Word } from '../../../shared/models/interface-receipt';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -39,18 +39,19 @@ export class FileUploadComponent {
       return;
     }
 
+
     const file: File = input.files[0];
 
-    if (file) {
-      const formData = new FormData();
-      formData.append("thumbnail", file);
- 
-      const upload$ = this.fileService.upload(formData).pipe(
-        finalize(() => this.reset())
+    if (file) { 
+
+      const formData = new FormData(); 
+      const upload$ = this.fileService.upload(formData)
+      .pipe(
+        finalize(() => this.reset()),
       );
 
       this.uploadSub = upload$.subscribe((eventUpload: any) => {
-
+ 
         this.handleUpload(event, eventUpload);
         if (eventUpload && eventUpload.type == HttpEventType.UploadProgress && eventUpload.total) {
           this.uploadProgress = Math.round(100 * (eventUpload.loaded / eventUpload.total));
@@ -151,3 +152,5 @@ export class FileUploadComponent {
     this.uploadSub = null;
   }
 }
+
+ 

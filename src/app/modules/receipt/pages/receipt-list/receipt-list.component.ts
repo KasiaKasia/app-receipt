@@ -29,11 +29,11 @@ export class ReceiptListComponent {
               private _sanitizer: DomSanitizer,
               public modalService: NgbModal,
               public activeModal: NgbActiveModal,
-              private logger: LoggerService) {
+              private logger: LoggerService
+             ) {
     this.listOfReceipts$.pipe(takeUntilDestroyed()).subscribe((res: any) => {
       if (res && res.respons)
         this.listOfReceiptsWithProducts = [...res.respons];
-
       this.listOfReceipts = this.listOfReceiptsWithProducts.filter((objectProduct: any, index: number, receipts: any) =>
         receipts.findIndex((v2: any) => (v2.receiptId === objectProduct.id)) === index)
     })

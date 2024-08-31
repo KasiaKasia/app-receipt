@@ -40,8 +40,9 @@ export class UserRegistrationComponent {
   private destroy$ = injectDestroy();
 
   constructor(private fb: FormBuilder,
-        private logger: LoggerService,
+        
     private authService: AuthService,
+    private logger: LoggerService,
     private router: Router) { }
 
 
@@ -87,7 +88,7 @@ export class UserRegistrationComponent {
             break;
           }
           case true: {
-            this.logger.success('User created successfully, please login to access your account.');
+            this.logger.info('User created successfully, please login to access your account.');
             this.router.navigate(['user/login']);
             this.registrationForm.reset();
             break;

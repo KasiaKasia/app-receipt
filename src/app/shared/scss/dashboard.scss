@@ -10,14 +10,15 @@
         }
     }
     .dashboard__section {
-        box-shadow: $boxShadowBlack;
+        border-width:3px;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to right,#25a5d5, rgb(17 59 95 / 91%) 11%);
+    border-style: solid;
+        // box-shadow: $boxShadowBlack;
         padding: 2rem 1rem;
-        margin-top: 5rem;
-        border-radius: 0.25rem;
-        &.dashboard__section--small {
-            padding-top: 1rem;
-            padding-bottom: 1rem;
-        }
+        margin: 15px;
+        box-shadow: 0 0 2px 0 rgb(135, 160, 212);
+    
     }
 }
 
@@ -25,5 +26,6 @@
     .dashboard {
         display: flex;
         margin-top: 21rem;
+        justify-content: center;
     }
 }

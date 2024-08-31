@@ -1,17 +1,85 @@
 .table {
     width: 100%;
-    background: white;
+    border-collapse: collapse;
+    table-layout: fixed;
+
     .table__tr {
-        border-bottom: 1px solid grey;
-        .table__th {
-            padding: 15px;
+        .table__td {
+            padding: 0px 15px 0px 15px;
+            vertical-align: middle;
+            font-size: $font-size-sm;
+            color: $dark-secondary;
+            .table__td--group {
+                display: flex;
+                flex-direction: row;
+            }
+            .table__td--input {
+                width: 70%;
+                height: 20px;
+                border-width: 2px;
+                border-image-slice: 1;
+                border-image-source: linear-gradient(to right, #25a5d5, rgb(17 59 95 / 91%) 20%);
+            }
+            mat-form-field {
+                width: 100%;
+                white-space: normal;
+            }
+
+            mat-label {
+                white-space: normal;
+            }
+
+            input[matInput] {
+                width: 100%;
+            }
         }
     }
-    .table__td {
-        padding: 0 0.25rem;
-        height: 3.5rem;
-        vertical-align: middle;
-        font-size: $font-size-sm;
-        color: $dark-secondary;
+
+    .table__tr {
+        border-bottom: 1px solid grey;
+
+        .table__th {
+            text-align: left;
+            padding: 15px;
+            width: 25%;
+        }
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .table {
+        border: none;
+        display: flex;
+
+        .table__tr {
+            display: flex;
+            flex-direction: column;
+
+            .table__th {
+                display: flex;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+                width: auto;
+                white-space: nowrap;
+            }
+        }
+        .table__tbody {
+            .table__tr {
+                display: flex;
+                flex-direction: column;
+                .table__td {
+                    display: flex;
+                    text-align: left;
+                    height: 36px;
+                    padding-top: 10px;
+                    border-bottom: 1px solid #ddd;
+                }
+                .table__td:last-child {
+                    height: auto;
+                    width: 70%;
+                    white-space: normal;
+                }
+            }
+        }
     }
 }

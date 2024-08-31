@@ -3,31 +3,40 @@
     <div class="dashboard__heading">
         <h3>Wprowadź dane</h3>
     </div>
-    <div class="panel-body">
-        <form id="login-form" class="example-form" [formGroup]="loginForm" (ngSubmit)="login()">
-            <div class="form-group">
-                <label for="username">Nazwa klienta<sup>*</sup></label>
-                <input required type="text" class="form-control" formControlName="username" name="username" />
-                <div class="validation-feedback" *ngIf="loginForm.controls['username'].touched || loginForm.controls['username'].dirty">
-                    <div *ngIf="loginForm.controls['username'].getError('required')">
-                        Nazwa użytkownika jest wymagana!
+    <div class="panel--form">
+        <form id="login-form" [formGroup]="loginForm" (ngSubmit)="login()">
+            <div class="grid-container">
+                <label class="panel--label" for="username">Nazwa klienta<sup>*</sup></label>
+                <input class="panel--input" type="text" formControlName="username" name="username" />
+
+                <div class="validation-feedback">
+                    <div *ngIf="loginForm.controls['username'].touched || loginForm.controls['username'].dirty">
+                        <div *ngIf="loginForm.controls['username'].getError('required')">
+                            Nazwa użytkownika jest wymagana!
+                        </div>
+                        <div *ngIf="loginForm.controls['username'].getError('minlength') as error">
+                            Długość znaków musi być {{error.requiredLength}}. Brakuje {{error.requiredLength -
+                            error.actualLength}} znaku/ów!
+                        </div>
                     </div>
-                    <div *ngIf="loginForm.controls['username'].getError('minlength') as error">
-                        Długość znaków musi być {{error.requiredLength}}. Brakuje {{error.requiredLength - error.actualLength}} znaku/ów!
+                </div>
+
+                <label class="panel--label" for="password">Hasło<sup>*</sup></label>
+                <input class="panel--input" type="password" formControlName="password" name="password" />
+
+                <div class="validation-feedback">
+                    <div *ngIf="loginForm.controls['password'].touched || loginForm.controls['password'].dirty">
+                        <div *ngIf="loginForm.controls['password'].getError('required')">
+                            Hasło użytkownika jest wymagane!
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="password">Hasło<sup>*</sup></label>
-                <input type="password" class="form-control" formControlName="password" name="password" />
-                <div class="validation-feedback" *ngIf="loginForm.controls['password'].touched || loginForm.controls['password'].dirty">
-                    <div *ngIf="loginForm.controls['password'].getError('required')">
-                        Hasło użytkownika jest wymagane!
-                    </div>
-                </div>
+            <div class="validation-feedback" *ngIf="incorrectPasswordOrLogin.status">
+                {{incorrectPasswordOrLogin.text}}
             </div>
-            <div class="form-group">
-                <button type="submit" class="btn button-success-color" id="Login" title="Login">Login</button>
+            <div class="grid-container">
+                <button type="submit" class="button--save" id="Login" title="Login">Login</button>
             </div>
         </form>
     </div>

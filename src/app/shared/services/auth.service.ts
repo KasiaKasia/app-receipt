@@ -1,4 +1,4 @@
-import { Injectable, InjectionToken, Injector, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Session, User } from '../models/interface-user';
 import { Settings } from '../environments/settings';

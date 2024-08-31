@@ -1,3 +1,30 @@
-.card {
-   margin-top: 20px;
+@mixin border__linear-gradient {
+   border-width: 3px;
+   border-image-slice: 1;
+   border-image-source: linear-gradient(to right, #25a5d5, rgb(17 59 95 / 91%) 11%);
+   box-shadow: 0 0 2px 0 rgb(135, 160, 212);
+}
+
+.panel {
+   @include border__linear-gradient;
+   display: flex;
+   flex-direction: column;
+   border-style: solid;
+   margin: 15px;
+   .panel--section {
+      min-height: 40px;
+      &.panel--section__title {
+         @include border__linear-gradient;
+         border-bottom-style: solid;
+         padding: 10px;
+      }
+      &.panel--section__body {
+         padding: 10px;
+      }
+      &.panel--section__footer {
+         @include border__linear-gradient;
+         border-top-style: solid;
+         padding: 10px;
+      }
+   }
 }

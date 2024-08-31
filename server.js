@@ -32,26 +32,34 @@ app.post('/upload', (req, res) => {
     } else if (req.files) {
 
         const fileName = req.files.thumbnail.name;
-        let objectDetectedTexts$ = detectText(req.files.thumbnail.data)
-        const filrName$ = Promise.resolve(fileName);
-        Promise.all([filrName$, objectDetectedTexts$]).then((values) => {
+        try {
+            let objectDetectedTexts$ = detectText(req.files.thumbnail.data)
+            const filrName$ = Promise.resolve(fileName);
+            Promise.all([filrName$, objectDetectedTexts$]).then((values) => {
 
-            return res.status(200).json({
-                success: true,
-                message: 'The file has been uploaded ' + values[0],
-                respons: values[1],
-                data: req.files.thumbnail.data
+                return res.status(200).json({
+                    success: true,
+                    message: 'The file has been uploaded ' + values[0],
+                    respons: values[1],
+                    data: req.files.thumbnail.data
+                });
             });
-        });
+        } catch (error) {
+            return res.status(500).json({
+                success: false,
+                message: 'Error detecting text',
+                error: error.message
+            });
+        }
     }
 });
-
+ 
 async function detectText(fileName) {
     // Creates a client
     const client = new vision.ImageAnnotatorClient();
     const [result] = await client.textDetection(fileName);
+   // const detections = result[0]['textAnnotations'];
     const detections = result.textAnnotations;
-
     let fileObjectCopy = [];
     let fileObject = [];
     detections.forEach(text => fileObjectCopy.push(text.boundingPoly.vertices));
@@ -67,26 +75,28 @@ async function detectText(fileName) {
         })
     });
     return fileObject;
-}
+  }
 
 app.post('/login', function (req, res) {
     const queryInnerleft = "SELECT * FROM [database].[dbo].[User] u "
         + "WHERE u.username ='" + req.body.username + "' AND u.password = '" + req.body.password + "'";
     sql.query(connectionString, queryInnerleft, (err, user) => {
-
         if (err) {
-            return res.status(400).json({
+      
+            return res.status(500).json({
                 success: false,
+                code: 500,
                 message: 'Error processing request ' + err,
                 respons: user
             });
-        } if (!user) {
-            return res.status(304).json({
+        } if (!user.length) {
+            return res.status(200).json({
                 success: false,
-                message: 'Not Modified.',
+                code: 200,
+                message: 'Invalid username or password.',
                 respons: user
             });
-        } else if (user) {
+        } else if (user.length) {
 
             const token = jwt.sign({
                 data: user
@@ -103,6 +113,7 @@ app.post('/login', function (req, res) {
 
             return res.status(200).json({
                 success: true,
+                code: 200,
                 message: 'Login was successful.',
                 respons: copyUser,
                 token: token
@@ -184,7 +195,7 @@ app.put('/receipt/add-receipt/:id', (req, res, next) => {
 
     const queryInsertReceipt = "INSERT INTO [database].[dbo].[Receipt] ([id], [storeName], [dateOfPurchase], [totalPrice], [userId], [NIP], [imageId]) VALUES "
         + " ((SELECT max(id)+1 from [database].[dbo].[Receipt]), '" + req.body.shopName + "' , '" + req.body.dateOfPurchase + "', " + Number(req.body.totalPrice) + " ," + Number(req.params.id) + ",'" + req.body.nip + "', (SELECT max([id]) from [database].[dbo].[Image] where [name] ='" + req.body.image.name + "' )) ";
-  
+
     let listProductsForReceipt = '';
     req.body.listProducts.forEach((value) => {
 
@@ -208,4 +219,4 @@ app.put('/receipt/add-receipt/:id', (req, res, next) => {
 })
 var server = app.listen(5000, function () {
     console.log('Server is running...');
-});
+})

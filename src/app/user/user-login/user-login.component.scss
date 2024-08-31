@@ -1,9 +1,16 @@
-form .ng-invalid.ng-touched,
-form .ng-invalid.ng-dirty {
-    border: 2px solid #ed5d6b !important;
-}
+// .panel--group .ng-invalid.ng-touched,
+// .panel--group .ng-invalid.ng-dirty {
+//     border: 1px solid #ed5d6b;
+//     display: flex;
+//     justify-content: center;
+// }
 
-form .ng-invalid.ng-touched ~ .validation-feedback,
-form .ng-invalid.ng-dirty ~ .validation-feedback {
-    color: #ed5d6b;
-}
+// .panel--group .validation-feedback,
+// .panel--group .ng-invalid.ng-touched ~ .validation-feedback,
+// .panel--group .ng-invalid.ng-dirty ~ .validation-feedback {
+//     color: #ed5d6b;
+//     display: flex;
+//     justify-content: center;
+// }
+
+ 

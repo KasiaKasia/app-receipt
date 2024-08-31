@@ -6,7 +6,7 @@ import { Directive, ElementRef, HostBinding, HostListener } from '@angular/core'
 export class HighlightDirective {
 
   constructor(private elementHtml: ElementRef) {}
-  @HostBinding('style.backgroundColor') bgColor: string = 'white';
+  @HostBinding('style.backgroundColor') bgColor: string = 'initial';
 
   @HostListener('mouseenter')
   hoverHighlight(): void {
@@ -24,6 +24,6 @@ export class HighlightDirective {
   }
   @HostListener('mouseleave')
   onMouseLeave() {
-    this.bgColor = 'white';
+    this.bgColor = 'initial';
   }
 }

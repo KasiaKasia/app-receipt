@@ -1,4 +1,4 @@
-<app-dashboard-heading [titleDashboard]="title"></app-dashboard-heading>
+<app-dashboard-heading [titleDashboard]="title"/>
 <div class="dashboard__section">
     <form [formGroup]="addReceiptForm" (ngSubmit)="onSubmit()">
         <table class="table">
@@ -11,14 +11,14 @@
             <tbody class="table__tbody">
                 <tr class="table__tr">
                     <td class="table__td">
-                        <input type="text" class="form-control" formControlName="shopName" />
+                        <input type="text" class="table__td--input" formControlName="shopName" />
                     </td>
                     <td class="table__td">
-                        <input type="text" class="form-control" formControlName="nip"
+                        <input type="text" class="table__td--input" formControlName="nip"
                             [value]="(addReceiptForm.get('nip')?.value) | nipFormat" />
                     </td>
                     <td class="table__td">
-                        <input type="text" class="form-control" formControlName="totalPrice" validatorCharacterIsNumber />
+                        <input type="text" class="table__td--input" formControlName="totalPrice" validatorCharacterIsNumber />
                         <div class="validation-feedback" *ngIf="addReceiptForm.controls['totalPrice'].touched || addReceiptForm.controls['totalPrice'].dirty">
                             <div *ngIf="addReceiptForm.controls['totalPrice'].getError('characterIsNumber')">
                                 Podany znak nie jest liczbą
@@ -33,13 +33,13 @@
                             <mat-datepicker #picker></mat-datepicker>
                         </mat-form-field>        
                     </td>
-                </tr>
-                <tr class="table__tr">
+                </tr> 
+                <!-- <tr class="table__tr">
                     <td class="table__td" colspan="4">
-                        <app-file-upload></app-file-upload>
+                        <app-file-upload/>
                     </td>
-                </tr>
-            </tbody>
+                </tr> -->
+              </tbody>
         </table>
         <table class="table">
             <tr class="table__tr">
@@ -54,13 +54,13 @@
                     *ngFor="let t of listProducts.controls; let i = index">
                     <ng-container [formGroupName]="i">
                         <td class="table__td">
-                            <input type="text" class="form-control" formControlName="productName" />
+                            <input type="text" class="table__td--input" formControlName="productName" />
                         </td>
                         <td class="table__td">
-                            <input type="text" class="form-control" formControlName="quantity" />
+                            <input type="text" class="table__td--input" formControlName="quantity" />
                         </td>
                         <td class="table__td">
-                            <input type="text" class="form-control" formControlName="price" validatorCharacterIsNumber />
+                            <input type="text" class="table__td--input" formControlName="price" validatorCharacterIsNumber />
                             <div class="validation-feedback" *ngIf=" listProducts.controls[i].get('price')?.touched || listProducts.controls[i].get('price')?.dirty">
                                 <div *ngIf=" listProducts.controls[i].get('price')?.getError('characterIsNumber')">
                                     Podany znak nie jest liczbą
@@ -68,7 +68,7 @@
                             </div>
                         </td>
                         <td class="table__td">
-                            <input type="text" class="form-control" formControlName="totalPrice" validatorCharacterIsNumber />
+                            <input type="text" class="table__td--input" formControlName="totalPrice" validatorCharacterIsNumber />
                             <div class="validation-feedback" *ngIf="listProducts.controls[i].get('totalPrice')?.touched || listProducts.controls[i].get('totalPrice')?.dirty">
                                 <div *ngIf="listProducts.controls[i].get('totalPrice')?.getError('characterIsNumber')">
                                     Podany znak nie jest liczbą
@@ -76,17 +76,22 @@
                             </div>
                         </td>
                         <td class="table__td">
-                            <button type="button" class="btn button-success-color" (click)="addProduct()">
-                                Dodaj produkt
-                            </button>
-                            <button type="submit" class="btn button-danger-color" (click)="removeProduct(i)">
-                                Usuń produkt
-                            </button>
+                            <div class="grid-container">
+                                <button type="button" class="button--save" (click)="addProduct()">
+                                    Dodaj produkt
+                                </button>
+                                <button type="submit" class="button--delete" (click)="removeProduct(i)">
+                                    Usuń produkt
+                                </button>
+                            </div>
+                           
                         </td>
                     </ng-container>
                 </tr>
             </tbody>
         </table>
-        <button type="submit" class="btn button-success-color">Zapisz paragon</button>
+        <div class="grid-container"><button type="submit" class="button--save">Zapisz paragon</button></div>
+        
     </form>
 </div>
+ 

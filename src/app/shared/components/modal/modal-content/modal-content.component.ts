@@ -14,7 +14,6 @@ export class ModalContentComponent {
   height = 400
   constructor(public activeModal: NgbActiveModal,
               private logger: LoggerService) {}
-
   ngOnInit() {
     let img = new Image();
     img.src = this.imageReceipt[0].base64;

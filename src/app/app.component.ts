@@ -64,7 +64,8 @@ export const dynamicInjectionFn = () => {
     MomentDateModule
   ],
   providers: [
-      RetryInterceptorProvider,
+ 
+     // RetryInterceptorProvider,
       CacheInterceptorProvider,
     {
       provide: RETRY_INTERCEPTOR_CONFIG,

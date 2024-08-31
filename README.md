@@ -81,12 +81,43 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 4. Create local authentication credentials for your Google Account:
 
    `gcloud auth application-default login`
+Service Usage API
+   https://console.cloud.google.com/apis/library/serviceusage.googleapis.com?project=app-receipt
+   Enable
+
+ERROR: (gcloud.auth.application-default.login) PERMISSION_DENIED: Service Usage API has not been used in project 443282818645 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/serviceusage.googleapis.com/overview?project=443282818645 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.
+
+Enable a billing account for the project
+ - Billing account for project '443282818645' is not found. Billing must be enabled for activation of service(s) 'compute.googleapis.com,compute.googleapis.com,compute.googleapis.com' to proceed.
 
 5. Grant roles to your Google Account. Run the following command once for each of the following IAM roles: roles/storage.objectViewer
 
    `gcloud projects add-iam-policy-binding PROJECT_ID --member="user:EMAIL_ADDRESS" --role=ROLE`
 
     ROLE - `--role=roles/storage.objectViewer`
+
+
+output:
+
+    forumzxc123@cloudshell:~ (443282818645)$ gcloud projects add-iam-policy-binding 443282818645 --member="user:forumzxc123@gmail.com" --role=roles/storage.objectViewer
+Updated IAM policy for project [443282818645].
+bindings:
+- members:
+  - user:Forumzxc123@gmail.com
+  role: roles/owner
+- members:
+  - user:Forumzxc123@gmail.com
+  role: roles/storage.objectViewer
+etag: BwYZDNvRons=
+version: 1
+forumzxc123@cloudshell:~ (443282818645)$ 
+
+6. Enable a billing account for the project.
+
+  Select Payments in the left menu. If the message appears:
+  "There is no billing account for this project"
+  click the "Connect billing account" button
+
 
 ## Database schema
 

@@ -1,4 +1,4 @@
-<app-dashboard-heading [titleDashboard]="title"></app-dashboard-heading>
+<app-dashboard-heading [titleDashboard]="title"/>
 <div class="dashboard__section">
     <div class="dashboard__heading">
         <h3>Lista paragonów</h3>
@@ -24,7 +24,7 @@
                 <td class="table__td">{{receipt.totalPrice}}</td>
                 <td class="table__td">{{moment(receipt.dateOfPurchase).format('YYYY.MM.DD')}}</td>
                 <td class="table__td">
-                    <button type="button" class="btn btn-light button-border-color"
+                    <button type="button" class="button--save"
                         (click)="showProducts(receipt.receiptId)">
                         {{ receipt.visibleReceipts ? 'Ukryj produkty': 'Pokaż produkty' }}
                     </button>
@@ -41,7 +41,7 @@
                 </ng-container>
 
                 <td class="table__td">
-                    <button type="button" class="btn btn-light button-border-color"
+                    <button type="button" class="button--reset"
                         (click)="showImage(receipt.receiptId)">
                         {{ receipt.visibleImage ? 'Ukryj obraz': 'Pokaż obraz' }}
                     </button> 

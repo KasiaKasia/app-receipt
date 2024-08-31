@@ -12,18 +12,19 @@ import { SharedModule } from '../shared/shared.module';
   declarations: [
     UserComponent,
     UserRegistrationComponent,
-    UserLoginComponent
+ //   UserLoginComponent
   ],
   imports: [
     CommonModule, 
     UserRoutingModule,
     ReactiveFormsModule,
-    SharedModule     
+    SharedModule  ,
+    UserLoginComponent   
   ],
   exports: [
     UserComponent,
     UserRegistrationComponent,
-    UserLoginComponent
+   
   ]
 })
 export class UserModule {}
