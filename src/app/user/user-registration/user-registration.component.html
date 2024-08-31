@@ -1,4 +1,4 @@
-<app-dashboard-heading [titleDashboard]="title"></app-dashboard-heading>
+<app-dashboard-heading [titleDashboard]="title" />
 <div class="dashboard__section">
     <div class="dashboard__heading">
         <h3>Wprowadź dane</h3>
@@ -10,66 +10,65 @@
                 <label class="panel--label" for="userName">Nazwa użytkownika<sup>*</sup></label>
                 <input class="panel--input" required type="text" formControlName="username" />
                 <div class="validation-feedback">
-                    <div
-                        *ngIf="registrationForm.controls['username'].touched || registrationForm.controls['username'].dirty">
-                        <div *ngIf="registrationForm.controls['username'].hasError('required')">
-                            Nazwa użytkownika jest wymagana!
-                        </div>
-                        <div *ngIf="registrationForm.controls['username'].getError('minlength') as error">
+                    @if(registrationForm.controls['username'].touched || registrationForm.controls['username'].dirty){
+
+                        @if(registrationForm.controls['username'].hasError('required')){
+                        <span>Nazwa użytkownika jest wymagana!</span>
+                        }
+                        @if(registrationForm.controls['username'].getError('minlength'); as error){
+                        <span>
                             Długość znaków musi być {{error.requiredLength}}. Brakuje {{error.requiredLength -
                             error.actualLength}} znaku/ów!
-                        </div>
-                    </div>
+                        </span>
+                        }
+                    }
                 </div>
 
 
                 <label class="panel--label" for="password">Hasło<sup>*</sup></label>
                 <input class="panel--input" required type="text" formControlName="password" />
                 <div class="validation-feedback">
-                    <div
-                        *ngIf="registrationForm.controls['password'].touched || registrationForm.controls['password'].dirty">
-                        <div *ngIf="registrationForm.controls['password'].hasError('required')">
-                            Hasło użytkownika jest wymagane!
-                        </div>
+                    @if (registrationForm.controls['password'].touched || registrationForm.controls['password'].dirty) {
 
-                        <div *ngIf="registrationForm.controls['password'].errors">
-                            Hasło musi zawierać
-
-                            <span *ngIf="registrationForm.controls['password'].getError('lowercase') === false ">
-                                małe litery
+                        @if(registrationForm.controls['password'].hasError('required')){
+                            <span>Hasło użytkownika jest wymagane!</span>
+                        }
+                        @if(registrationForm.controls['password'].errors){
+                            <span>
+                                Hasło musi zawierać
+                                @if(registrationForm.controls['password'].getError('lowercase') === false ){
+                                    <span> małe litery</span>
+                                }
+                                @if(registrationForm.controls['password'].getError('uppercase') === false ){
+                                    <span> duże litery </span>
+                                }
                             </span>
-                            <span *ngIf="registrationForm.controls['password'].getError('uppercase') === false ">
-                                duże litery
-                            </span>!
-                        </div>
-                    </div>
+                        }
+                    }
                 </div>
+
 
                 <label class="panel--label" for="password">Powtórz hasło<sup>*</sup></label>
                 <input class="panel--input" required type="text" formControlName="repeatPassword" />
                 <div class="validation-feedback">
-                    <div
-                        *ngIf="registrationForm.controls['repeatPassword'].touched || registrationForm.controls['repeatPassword'].dirty">
-
-
-                        <div *ngIf="registrationForm.hasError('password_match')">
+                    @if(registrationForm.controls['repeatPassword'].touched || registrationForm.controls['repeatPassword'].dirty){
+                        @if(registrationForm.hasError('password_match')){
                             <span>Hasła muszą być identyczne</span>
-                        </div>
-                    </div>
+                        }
+                    }                    
                 </div>
 
                 <label class="panel--label" for="email">Email<sup>*</sup></label>
                 <input class="panel--input" required type="text" formControlName="email" />
                 <div class="validation-feedback">
-                    <div *ngIf="registrationForm.controls['email'].touched || registrationForm.controls['email'].dirty">
-
-                        <div *ngIf="registrationForm.controls['email'].hasError('required')">
-                            Email użytkownika jest wymagany!
-                        </div>
-                        <div *ngIf="registrationForm.controls['email'].hasError('email')">
-                            Adres email jest niepoprawny!
-                        </div>
-                    </div>
+                    @if(registrationForm.controls['email'].touched || registrationForm.controls['email'].dirty){ 
+                        @if(registrationForm.controls['email'].hasError('required')){
+                            <span>Email użytkownika jest wymagany!</span>
+                        }
+                        @if(registrationForm.controls['email'].hasError('email')){
+                            <span>Adres email jest niepoprawny!</span>
+                        }
+                    }
                 </div>
 
                 <label class="panel--label" for="type">Typ<sup>*</sup></label>

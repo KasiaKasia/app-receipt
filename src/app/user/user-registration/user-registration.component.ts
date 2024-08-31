@@ -8,11 +8,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { injectDestroy } from 'src/app/shared/injectDestroy/injectDestory';
 import { takeUntil } from 'rxjs';
 import { DashboardHeadingComponent } from 'src/app/shared/components/dashboard-heading/dashboard-heading.component';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-user-registration',
   standalone: true,
-  imports:[DashboardHeadingComponent, ReactiveFormsModule],
+  imports:[DashboardHeadingComponent, ReactiveFormsModule, NgIf],
   templateUrl: './user-registration.component.html',
   styleUrls: ['./user-registration.component.scss']
 })

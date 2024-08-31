@@ -23,7 +23,7 @@
     <ng-container matColumnDef="expandedDetail">
         <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
             <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-                <div  >
+                <div>
                     <button type="button" class="button--reset"
                     (click)="showImage(element.receiptId)">
                     {{ element.visibleImage ? 'Ukryj obraz': 'Pokaż obraz' }}
@@ -37,7 +37,7 @@
                         </ng-template>
                     </ng-container>
                 </div>
-                <div  >
+                <div>
                     <button type="button" class="button--reset"
                     (click)="showProducts(element.receiptId)">
                     {{ element.visibleReceipts ? 'Ukryj produkty': 'Pokaż produkty' }}

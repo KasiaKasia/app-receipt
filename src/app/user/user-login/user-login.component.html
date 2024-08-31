@@ -1,4 +1,4 @@
-<app-dashboard-heading [titleDashboard]="title"/>
+<app-dashboard-heading [titleDashboard]="title" />
 <div class="dashboard__section">
     <div class="dashboard__heading">
         <h3>Wprowadź dane</h3>
@@ -10,31 +10,35 @@
                 <input class="panel--input" type="text" formControlName="username" name="username" />
 
                 <div class="validation-feedback">
-                    <div *ngIf="loginForm.controls['username'].touched || loginForm.controls['username'].dirty">
-                        <div *ngIf="loginForm.controls['username'].getError('required')">
-                            Nazwa użytkownika jest wymagana!
-                        </div>
-                        <div *ngIf="loginForm.controls['username'].getError('minlength') as error">
-                            Długość znaków musi być {{error.requiredLength}}. Brakuje {{error.requiredLength -
-                            error.actualLength}} znaku/ów!
-                        </div>
-                    </div>
+                    @if(loginForm.controls['username'].touched || loginForm.controls['username'].dirty){
+                        @if(loginForm.controls['username'].getError('required')){
+                            <span>Nazwa użytkownika jest wymagana!</span>
+                        }
+                        @if(loginForm.controls['username'].getError('minlength'); as error ){
+                            <span>
+                                Długość znaków musi być {{error.requiredLength}}. Brakuje {{error.requiredLength -
+                                error.actualLength}} znaku/ów!
+                            </span>
+                        }
+                    }
                 </div>
 
                 <label class="panel--label" for="password">Hasło<sup>*</sup></label>
                 <input class="panel--input" type="password" formControlName="password" name="password" />
-
                 <div class="validation-feedback">
-                    <div *ngIf="loginForm.controls['password'].touched || loginForm.controls['password'].dirty">
-                        <div *ngIf="loginForm.controls['password'].getError('required')">
-                            Hasło użytkownika jest wymagane!
-                        </div>
-                    </div>
+                    @if(loginForm.controls['password'].touched || loginForm.controls['password'].dirty){                
+                        @if(loginForm.controls['password'].getError('required')){
+                            <span>Hasło użytkownika jest wymagane!</span>
+                        }
+                    }
                 </div>
+
             </div>
-            <div class="validation-feedback" *ngIf="incorrectPasswordOrLogin.status">
-                {{incorrectPasswordOrLogin.text}}
-            </div>
+            @if(incorrectPasswordOrLogin.status){
+                <div class="validation-feedback">
+                    {{incorrectPasswordOrLogin.text}}
+                </div>
+            }
             <div class="grid-container">
                 <button type="submit" class="button--save" id="Login" title="Login">Login</button>
             </div>

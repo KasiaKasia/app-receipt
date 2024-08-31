@@ -7,7 +7,8 @@ import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@an
     provide: NG_VALIDATORS,
     useExisting: ValidatorCharacterIsNumberDirective,
     multi: true
-  }]
+  }],
+  standalone: true
 })
 export class ValidatorCharacterIsNumberDirective implements Validator {
 

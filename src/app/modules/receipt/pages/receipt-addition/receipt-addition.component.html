@@ -1,4 +1,4 @@
-<app-dashboard-heading [titleDashboard]="title"/>
+<app-dashboard-heading [titleDashboard]="title" />
 <div class="dashboard__section">
     <form [formGroup]="addReceiptForm" (ngSubmit)="onSubmit()">
         <table class="table">
@@ -14,32 +14,34 @@
                         <input type="text" class="table__td--input" formControlName="shopName" />
                     </td>
                     <td class="table__td">
-                          <input type="text" class="table__td--input" formControlName="nip"
-                            [value]="(addReceiptForm.get('nip')?.value) | nipFormat" />  
+                        <input type="text" class="table__td--input" formControlName="nip"
+                            [value]="(addReceiptForm.get('nip')?.value) | nipFormat" />
                     </td>
                     <td class="table__td">
-                        <input type="text" class="table__td--input" formControlName="totalPrice" validatorCharacterIsNumber />
-                        <div class="validation-feedback" *ngIf="addReceiptForm.controls['totalPrice'].touched || addReceiptForm.controls['totalPrice'].dirty">
+                        <input type="text" class="table__td--input" formControlName="totalPrice"
+                            validatorCharacterIsNumber />
+                        <div class="validation-feedback"
+                            *ngIf="addReceiptForm.controls['totalPrice'].touched || addReceiptForm.controls['totalPrice'].dirty">
                             <div *ngIf="addReceiptForm.controls['totalPrice'].getError('characterIsNumber')">
                                 Podany znak nie jest liczbą
                             </div>
                         </div>
                     </td>
                     <td class="table__td">
-                        <mat-form-field >
+                        <mat-form-field>
                             <mat-label>Wybierz datę zakupu</mat-label>
                             <input matInput [matDatepicker]="picker" formControlName="dateOfPurchase">
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
-                        </mat-form-field>        
+                        </mat-form-field>
                     </td>
-                </tr> 
-                 <tr class="table__tr">
+                </tr>
+                <tr class="table__tr">
                     <td class="table__td" colspan="4">
-                        <app-file-upload/>
+                        <app-file-upload />
                     </td>
-                </tr>  
-              </tbody>
+                </tr>
+            </tbody>
         </table>
         <table class="table">
             <tr class="table__tr">
@@ -50,9 +52,10 @@
                 <th class="table__th" highlight>Akcja</th>
             </tr>
             <tbody class="table__tbody">
-                <tr class="table__tr" formArrayName="listProducts"
-                    *ngFor="let t of listProducts.controls; let i = index">
-                    <ng-container [formGroupName]="i">
+                @for (t of listProducts.controls; track $index){
+                    
+                <tr class="table__tr" formArrayName="listProducts">
+                    <ng-container [formGroupName]="$index">
                         <td class="table__td">
                             <input type="text" class="table__td--input" formControlName="productName" />
                         </td>
@@ -61,37 +64,43 @@
                         </td>
                         <td class="table__td">
                             <input type="text" class="table__td--input" formControlName="price" validatorCharacterIsNumber />
-                            <div class="validation-feedback" *ngIf=" listProducts.controls[i].get('price')?.touched || listProducts.controls[i].get('price')?.dirty">
-                                <div *ngIf=" listProducts.controls[i].get('price')?.getError('characterIsNumber')">
-                                    Podany znak nie jest liczbą
-                                </div>
+                            @if(listProducts.controls[$index].get('price')?.touched ||
+                                listProducts.controls[$index].get('price')?.dirty){
+                            <div class="validation-feedback">
+                                @if(listProducts.controls[$index].get('price')?.getError('characterIsNumber')){
+                                    <div>Podany znak nie jest liczbą</div>
+                                }
                             </div>
+                            }
                         </td>
                         <td class="table__td">
-                            <input type="text" class="table__td--input" formControlName="totalPrice" validatorCharacterIsNumber />
-                            <div class="validation-feedback" *ngIf="listProducts.controls[i].get('totalPrice')?.touched || listProducts.controls[i].get('totalPrice')?.dirty">
-                                <div *ngIf="listProducts.controls[i].get('totalPrice')?.getError('characterIsNumber')">
-                                    Podany znak nie jest liczbą
-                                </div>
+                            <input type="text" class="table__td--input" formControlName="totalPrice"
+                                validatorCharacterIsNumber />
+                            @if(listProducts.controls[$index].get('totalPrice')?.touched ||
+                            listProducts.controls[$index].get('totalPrice')?.dirty){
+                            <div class="validation-feedback">
+                                @if (listProducts.controls[$index].get('totalPrice')?.getError('characterIsNumber')) {
+                                <div> Podany znak nie jest liczbą</div>
+                                }
                             </div>
+                            }
                         </td>
                         <td class="table__td">
                             <div class="grid-container">
                                 <button type="button" class="button--save" (click)="addProduct()">
                                     Dodaj produkt
                                 </button>
-                                <button type="submit" class="button--delete" (click)="removeProduct(i)">
+                                <button type="submit" class="button--delete" (click)="removeProduct($index)">
                                     Usuń produkt
                                 </button>
                             </div>
-                           
+
                         </td>
                     </ng-container>
                 </tr>
+            }
             </tbody>
         </table>
         <div class="grid-container"><button type="submit" class="button--save">Zapisz paragon</button></div>
-        
     </form>
 </div>
- 

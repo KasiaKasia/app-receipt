@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, OnDestroy, Pipe, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, OnDestroy, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ReceiptService } from '../../service/receipt/receipt.service';
 import { ActivatedRoute } from '@angular/router';
@@ -14,13 +14,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NipFormatPipe } from '../../pipe/nip-format.pipe';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { CommonModule } from '@angular/common';
+import { NgIf } from '@angular/common';
+import { ValidatorCharacterIsNumberDirective } from 'src/app/shared/validator-directive/validator-character-is-number.directive';
 const moment = _moment;
- 
+
 @Component({
   selector: 'app-receipt-addition',
   standalone: true,
-  imports: [ CommonModule, NipFormatPipe, MatProgressBarModule,ReactiveFormsModule,FileUploadComponent,DashboardHeadingComponent, MatButtonModule,MatInputModule,MatDatepickerModule,],
+  imports: [NgIf,  NipFormatPipe,ValidatorCharacterIsNumberDirective, MatProgressBarModule, ReactiveFormsModule, FileUploadComponent, DashboardHeadingComponent, MatButtonModule, MatInputModule, MatDatepickerModule],
   templateUrl: './receipt-addition.component.html',
   styleUrls: ['./receipt-addition.component.scss']
 })
@@ -49,7 +50,7 @@ export class ReceiptAdditionComponent implements OnDestroy, AfterViewChecked {
   constructor(private fb: FormBuilder,
     private _snackBar: MatSnackBar,
     private receiptService: ReceiptService,
-    private activateRouter: ActivatedRoute) {}
+    private activateRouter: ActivatedRoute) { }
 
   ngAfterViewChecked(): void {
     this.addReceiptForm.controls['image'].get('name')?.setValue(this.base64Ref.imageName)
@@ -115,5 +116,8 @@ export class ReceiptAdditionComponent implements OnDestroy, AfterViewChecked {
   }
   removeProduct(index: number) {
     this.listProducts.removeAt(index);
+  }
+  trackBy(index: number, listProductsForm: any) {
+    return listProductsForm.productName;
   }
 }

@@ -27,7 +27,7 @@ import { NipFormatPipe } from './pipe/nip-format.pipe';
     declarations: [
         DatepickerComponent,     
         HighlightDirective,
-        ValidatorCharacterIsNumberDirective 
+
     ],
     exports: [  
         DatepickerComponent
@@ -37,6 +37,7 @@ import { NipFormatPipe } from './pipe/nip-format.pipe';
         ListComponent,
         ReceiptComponent,
         NipFormatPipe,
+        ValidatorCharacterIsNumberDirective,
         FileUploadComponent,
         ReceiptAdditionComponent,
         ReceiptListComponent,
