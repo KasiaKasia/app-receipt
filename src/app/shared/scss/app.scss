@@ -1,36 +1,33 @@
 // @import "./reset.scss";
+@import "./components/text-color.scss";
 @import "./variables.scss";
 
 .app {
     display: flex;
     flex-direction: row;
     min-height: 100vh;
-       background: #fff;
-    // background-image: url('./image/tlo.jpg');
-    // background-size: cover; /* Dostosowanie rozmiaru obrazu */
-    // background-position: center; /* Wyśrodkowanie obrazu */
-    // background-repeat: no-repeat; /* Zapobieganie powtarzaniu obrazu */
+    background: #fff;
     font-family: "Montserrat", sans-serif;
-   // color: #fff;
     .app__page {
         width: 100%;
     }
 }
 
 h2 {
+    @extend .gradient-text;
     font-size: $font-size-xl;
-    color: $black;
 }
 
 h3 {
+    @extend .gradient-text;
     font-size: $font-size-md;
-    color: $black;
     text-transform: uppercase;
 }
 
 label {
+    @extend .gradient-text;
     font-size: $font-size-sm;
-    color: $black;
+   
 }
 
 .form-group {

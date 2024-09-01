@@ -9,20 +9,15 @@ import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
-  declarations: [
-    UserComponent,
- //   UserLoginComponent
-  ],
   imports: [
-    CommonModule, 
+    CommonModule,    
+    UserComponent,
+    UserLoginComponent,
     UserRegistrationComponent,
     UserRoutingModule,
     ReactiveFormsModule,
-    SharedModule  ,
-    UserLoginComponent   
+    SharedModule
   ],
-  exports: [
-    UserComponent, 
-  ]
+
 })
 export class UserModule {}

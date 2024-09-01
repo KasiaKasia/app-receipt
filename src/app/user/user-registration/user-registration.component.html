@@ -6,14 +6,14 @@
 
     <div class="panel--form">
         <form [formGroup]="registrationForm" (ngSubmit)="registration()">
-            <div class="grid-container">
+            <div class="grid-container-form">
                 <label class="panel--label" for="userName">Nazwa użytkownika<sup>*</sup></label>
                 <input class="panel--input" required type="text" formControlName="username" />
                 <div class="validation-feedback">
                     @if(registrationForm.controls['username'].touched || registrationForm.controls['username'].dirty){
 
                         @if(registrationForm.controls['username'].hasError('required')){
-                        <span>Nazwa użytkownika jest wymagana!</span>
+                            <span>Nazwa użytkownika jest wymagana!</span>
                         }
                         @if(registrationForm.controls['username'].getError('minlength'); as error){
                         <span>
@@ -79,7 +79,7 @@
                 </select>
 
             </div>
-            <div class="grid-container">
+            <div class="grid-container-button">
                 <button type="submit" class="button--reset">Resetuj</button>
                 <button type="submit" class="button--save">Rejestracja</button>
             </div>

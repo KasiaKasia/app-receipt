@@ -5,7 +5,7 @@
     </div>
     <div class="panel--form">
         <form id="login-form" [formGroup]="loginForm" (ngSubmit)="login()">
-            <div class="grid-container">
+            <div class="grid-container-form">
                 <label class="panel--label" for="username">Nazwa klienta<sup>*</sup></label>
                 <input class="panel--input" type="text" formControlName="username" name="username" />
 
@@ -32,14 +32,13 @@
                         }
                     }
                 </div>
-
             </div>
             @if(incorrectPasswordOrLogin.status){
                 <div class="validation-feedback">
                     {{incorrectPasswordOrLogin.text}}
                 </div>
             }
-            <div class="grid-container">
+            <div class="grid-container-button">
                 <button type="submit" class="button--save" id="Login" title="Login">Login</button>
             </div>
         </form>

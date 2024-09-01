@@ -1,7 +1,17 @@
 @import "./button.scss";
+@mixin grid-container {
+    display: grid;   
+    grid-template-rows: auto auto auto auto;
+    gap: 3px 0px;
+    align-items: center;
+}
 
-.grid-container {
-    display: grid;
+.grid-container-form {
+    @include grid-container;
+    grid-template-columns: 1fr 2fr; 
+}
+.grid-container-button {
+    @include grid-container;
     grid-template-columns: 2fr;
     grid-template-rows: auto auto auto auto;
     gap: 3px 0px;

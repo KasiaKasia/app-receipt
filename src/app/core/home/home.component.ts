@@ -7,11 +7,11 @@ import { DashboardHeadingComponent } from 'src/app/shared/components/dashboard-h
   standalone: true,
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  imports:[CardComponent, DashboardHeadingComponent]
+  imports: [CardComponent, DashboardHeadingComponent]
 })
 export class HomeComponent {
-  title = 'Projekt wykonała Katarzyna Bulicka';
-  titleCard = 'Lista technologii';
-  databaseSchema = 'Schemat bazy danych';
-  libraryList = 'Lista bibliotek - Front-end';
+  protected readonly title = 'Projekt wykonała Katarzyna Bulicka';
+  protected readonly titleCard = 'Lista technologii';
+  protected readonly databaseSchema = 'Schemat bazy danych';
+  protected readonly libraryList = 'Lista bibliotek - Front-end';
 }

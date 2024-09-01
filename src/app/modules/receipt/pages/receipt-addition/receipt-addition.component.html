@@ -20,11 +20,12 @@
                     <td class="table__td">
                         <input type="text" class="table__td--input" formControlName="totalPrice"
                             validatorCharacterIsNumber />
-                        <div class="validation-feedback"
-                            *ngIf="addReceiptForm.controls['totalPrice'].touched || addReceiptForm.controls['totalPrice'].dirty">
-                            <div *ngIf="addReceiptForm.controls['totalPrice'].getError('characterIsNumber')">
-                                Podany znak nie jest liczbą
-                            </div>
+                        <div class="validation-feedback" >
+                            @if(addReceiptForm.controls['totalPrice'].touched || addReceiptForm.controls['totalPrice'].dirty) {
+                                @if(addReceiptForm.controls['totalPrice'].getError('characterIsNumber')){
+                                    <span>Podany znak nie jest liczbą</span>
+                                }                           
+                            }
                         </div>
                     </td>
                     <td class="table__td">
@@ -52,7 +53,7 @@
                 <th class="table__th" highlight>Akcja</th>
             </tr>
             <tbody class="table__tbody">
-                @for (t of listProducts.controls; track $index){
+                @for (t of listProducts.controls; track $index) {
                     
                 <tr class="table__tr" formArrayName="listProducts">
                     <ng-container [formGroupName]="$index">
@@ -68,7 +69,7 @@
                                 listProducts.controls[$index].get('price')?.dirty){
                             <div class="validation-feedback">
                                 @if(listProducts.controls[$index].get('price')?.getError('characterIsNumber')){
-                                    <div>Podany znak nie jest liczbą</div>
+                                    <span>Podany znak nie jest liczbą</span>
                                 }
                             </div>
                             }
@@ -80,13 +81,13 @@
                             listProducts.controls[$index].get('totalPrice')?.dirty){
                             <div class="validation-feedback">
                                 @if (listProducts.controls[$index].get('totalPrice')?.getError('characterIsNumber')) {
-                                <div> Podany znak nie jest liczbą</div>
+                                    <span>Podany znak nie jest liczbą</span>
                                 }
                             </div>
                             }
                         </td>
                         <td class="table__td">
-                            <div class="grid-container">
+                            <div class="grid-container-button">
                                 <button type="button" class="button--save" (click)="addProduct()">
                                     Dodaj produkt
                                 </button>
@@ -101,6 +102,6 @@
             }
             </tbody>
         </table>
-        <div class="grid-container"><button type="submit" class="button--save">Zapisz paragon</button></div>
+        <div class="grid-container-button"><button type="submit" class="button--save">Zapisz paragon</button></div>
     </form>
 </div>
