@@ -1,13 +1,13 @@
 <app-dashboard-heading [titleDashboard]="title" />
-<div class="dashboard__section">
-    <div class="dashboard__heading">
+<div class='dashboard__section'>
+    <div class='dashboard__heading'>
         <h3>Wprowadź dane</h3>
     </div>
-    <div class="panel--form">
-        <form id="login-form" [formGroup]="loginForm" (ngSubmit)="login()">
-            <div class="grid-container-form">
-                <label class="panel--label" for="username">Nazwa klienta<sup>*</sup></label>
-                <input class="panel--input" type="text" formControlName="username" name="username" />
+    <div class='panel--form'>
+        <form id='login-form' [formGroup]="loginForm" (ngSubmit)="login()">
+            <div class='grid-container-form'>
+                <label class='panel--label' for='username'>Nazwa klienta<sup>*</sup></label>
+                <input class='panel--input' type='text' formControlName='username' name='username' />
 
                 <div class="validation-feedback">
                     @if(loginForm.controls['username'].touched || loginForm.controls['username'].dirty){
@@ -23,22 +23,22 @@
                     }
                 </div>
 
-                <label class="panel--label" for="password">Hasło<sup>*</sup></label>
-                <input class="panel--input" type="password" formControlName="password" name="password" />
-                <div class="validation-feedback">
+                <label class='panel--label' for='password'>Hasło<sup>*</sup></label>
+                <input class='panel--input' type='password' formControlName='password' name="password" />
                     @if(loginForm.controls['password'].touched || loginForm.controls['password'].dirty){                
                         @if(loginForm.controls['password'].getError('required')){
-                            <span>Hasło użytkownika jest wymagane!</span>
+                            <div class='validation-feedback'>
+                                <span>Hasło użytkownika jest wymagane!</span>
+                            </div>
                         }
                     }
-                </div>
             </div>
             @if(incorrectPasswordOrLogin.status){
-                <div class="validation-feedback">
+                <div class='validation-feedback'>
                     {{incorrectPasswordOrLogin.text}}
                 </div>
             }
-            <div class="grid-container-button">
+            <div class='grid-container-button'>
                 <button type="submit" class="button--save" id="Login" title="Login">Login</button>
             </div>
         </form>

@@ -1,5 +1,5 @@
 import { AfterViewChecked, Component, OnDestroy, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ReceiptService } from '../../service/receipt/receipt.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -21,7 +21,7 @@ const moment = _moment;
 @Component({
   selector: 'app-receipt-addition',
   standalone: true,
-  imports: [NgIf,  NipFormatPipe,ValidatorCharacterIsNumberDirective, MatProgressBarModule, ReactiveFormsModule, FileUploadComponent, DashboardHeadingComponent, MatButtonModule, MatInputModule, MatDatepickerModule],
+  imports: [NgIf, NipFormatPipe, ValidatorCharacterIsNumberDirective, MatProgressBarModule, ReactiveFormsModule, FileUploadComponent, DashboardHeadingComponent, MatButtonModule, MatInputModule, MatDatepickerModule],
   templateUrl: './receipt-addition.component.html',
   styleUrls: ['./receipt-addition.component.scss']
 })
@@ -32,16 +32,16 @@ export class ReceiptAdditionComponent implements OnDestroy, AfterViewChecked {
   base64Ref!: FileUploadComponent;
   userId: User = {};
   addReceiptForm: FormGroup = this.fb.group({
-    shopName: [''],
-    nip: [''],
-    totalPrice: [''],
-    dateOfPurchase: null,
+    shopName: ['', Validators.required],
+    nip: ['', Validators.required],
+    totalPrice: ['', Validators.required],
+    dateOfPurchase: [''],
     listProducts: this.fb.array([this.createProduct()]),
     image: this.fb.group({
       name: [''],
       base64: ['']
     })
-  }, { updateOn: 'submit' });
+  }, { updateOn:  'submit'});
 
   get listProducts() {
     return this.addReceiptForm.get('listProducts') as FormArray;
@@ -50,7 +50,8 @@ export class ReceiptAdditionComponent implements OnDestroy, AfterViewChecked {
   constructor(private fb: FormBuilder,
     private _snackBar: MatSnackBar,
     private receiptService: ReceiptService,
-    private activateRouter: ActivatedRoute) { }
+    private activateRouter: ActivatedRoute) {console.log('this.addReceiptForm ', this.addReceiptForm)
+    }
 
   ngAfterViewChecked(): void {
     this.addReceiptForm.controls['image'].get('name')?.setValue(this.base64Ref.imageName)
@@ -67,10 +68,10 @@ export class ReceiptAdditionComponent implements OnDestroy, AfterViewChecked {
   }
   createProduct(): FormGroup {
     const listProductsForm = this.fb.group({
-      productName: [''],
-      quantity: [''],
-      price: [''],
-      totalPrice: ['']
+      productName: ['', Validators.required],
+      quantity: ['', Validators.required],
+      price: ['', Validators.required],
+      totalPrice: ['', Validators.required]
     })
     return listProductsForm
   }
@@ -84,7 +85,9 @@ export class ReceiptAdditionComponent implements OnDestroy, AfterViewChecked {
   }]
 
   onSubmit() {
-
+    this.addReceiptForm.markAllAsTouched();
+    this.listProducts.markAllAsTouched()
+console.log('this.addReceiptForm ', this.addReceiptForm)
     if (this.addReceiptForm.invalid) {
       return;
     }

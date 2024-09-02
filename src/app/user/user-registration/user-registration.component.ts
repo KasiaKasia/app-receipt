@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { User, UserType } from 'src/app/shared/models/interface-user';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, NgForm, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { LoggerService } from 'src/app/shared/logger/logger.service';
 import { Router } from '@angular/router';
@@ -24,7 +24,7 @@ export class UserRegistrationComponent {
     username: this.fb.control('', [Validators.required, Validators.minLength(3)]),
     password: this.fb.control('', [
       Validators.required,
-      this.validatePassword.bind(this)
+      this.validatePassword
     ]), // duża litera, mała litera i liczbę  Validators.pattern('^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$')
     repeatPassword: this.fb.control(''),
     email: this.fb.control('', [Validators.required, Validators.email]),
@@ -43,11 +43,10 @@ export class UserRegistrationComponent {
 
   private destroy$ = injectDestroy();
 
-  constructor(private fb: FormBuilder,
-        
-    private authService: AuthService,
-    private logger: LoggerService,
-    private router: Router) { }
+  constructor(public fb: FormBuilder,        
+              private authService: AuthService,
+              private logger: LoggerService,
+              private router: Router) { }
 
 
   makeFormControl(): FormControl {
@@ -56,8 +55,8 @@ export class UserRegistrationComponent {
   }
 
   validatePassword<ValidatorFn>(control: FormControl): ValidationErrors {
-    const hasUppercase = control.value.match(/[A-Z]/);
-    const hasLowercase = control.value.match(/[a-z]/);
+    const hasUppercase = control?.value.match(/[A-Z]/);
+    const hasLowercase = control?.value.match(/[a-z]/);
 
     if (hasUppercase && hasLowercase) {
       return {};
@@ -84,6 +83,8 @@ export class UserRegistrationComponent {
 
 
   registration(): void {
+    this.registrationForm.markAllAsTouched();
+
     if (this.registrationForm.dirty && this.registrationForm.valid) {
       this.authService.registration(this.registrationForm.value as User).pipe(takeUntil(this.destroy$)).subscribe(data => {
         switch (data.success) {
@@ -110,6 +111,6 @@ export class UserRegistrationComponent {
         }
       });
     }
-  }
+  }   
 }
 

@@ -11,8 +11,7 @@ import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@an
   standalone: true
 })
 export class ValidatorCharacterIsNumberDirective implements Validator {
-
-  constructor() {}
+ 
   validate(control: AbstractControl<any, any>): ValidationErrors | null {
     if (control.value === null || control.value === '') {
       return null;

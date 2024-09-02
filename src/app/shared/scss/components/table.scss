@@ -5,7 +5,8 @@
 
     .table__tr {
         .table__td {
-            padding: 0px 15px 0px 15px;
+            padding: 0px 0px 0px 10px;
+            justify-content: left;
             vertical-align: middle;
             font-size: $font-size-sm;
             color: $dark-secondary;

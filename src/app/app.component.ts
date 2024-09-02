@@ -16,6 +16,7 @@ import { LoggerDebugService, LoggerService } from './shared/logger/logger.servic
 import { DynamicTokenComponent } from './shared/components/dynamic-token/dynamic-token.component';
 import { DynamicTokenOutdatedComponent } from './shared/components/dynamic-token-outdated/dynamic-token-outdated.component';
 import { CacheInterceptorService } from './shared/interceptors/cache-interceptor.service';
+import { NavbarComponent } from './core/navbar/navbar.component';
 
 export const RetryInterceptorProvider: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -54,15 +55,13 @@ export const dynamicInjectionFn = () => {
   selector: 'app-root',
   standalone: true,
   imports: [
-    CommonModule,
+   CommonModule,
     RouterOutlet,
     CoreModule,
     UserModule,
     SharedModule,
     HttpClientModule,
-    ReceiptModule,
-    MomentDateModule,
-
+    ReceiptModule
   ],
   providers: [
  

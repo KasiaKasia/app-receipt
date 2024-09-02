@@ -4,27 +4,25 @@ import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { RouterModule } from '@angular/router'; 
+import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
-  declarations: [
-    NavbarComponent,
-    FooterComponent,
-    NotFoundComponent,
-  ],
   imports: [
     CommonModule,
+    NavbarComponent,
     RouterModule,
     HomeComponent,
-    SharedModule
+    SharedModule,
+    NotFoundComponent,
+    FooterComponent
   ],
   exports: [
-    NavbarComponent,
-    FooterComponent,
+    NavbarComponent, 
+    HomeComponent, 
     NotFoundComponent,
-
+    FooterComponent
   ]
 })
-export class CoreModule {}
+export class CoreModule { }

@@ -23,13 +23,14 @@ export class UserLoginComponent {
   loginForm: FormGroup = this.fb.group({
     username: ['',  [Validators.required, Validators.minLength(3)]],
     password: ['', Validators.required]
-  });
+  }, { updateOn: 'submit'});
   constructor(
     private router: Router,
     private authService: AuthService,
     private logger: LoggerService) { }
 
   login() {
+    this.loginForm.markAllAsTouched();
     if (this.loginForm.invalid) {
       return;
     }

@@ -12,16 +12,34 @@
                 <tr class="table__tr">
                     <td class="table__td">
                         <input type="text" class="table__td--input" formControlName="shopName" />
+                    
+                        <div class='validation-feedback'>
+                            @if(addReceiptForm.controls['shopName'].touched && addReceiptForm.controls['shopName'].invalid) {
+                                @if(addReceiptForm.controls['shopName'].getError('required')){
+                                    <span>Nazwa sklepu jest wymagana!</span>
+                                }                           
+                            }
+                        </div>
                     </td>
                     <td class="table__td">
                         <input type="text" class="table__td--input" formControlName="nip"
                             [value]="(addReceiptForm.get('nip')?.value) | nipFormat" />
+                            <div class='validation-feedback'>
+                                @if(addReceiptForm.controls['nip'].touched && addReceiptForm.controls['nip'].invalid) {
+                                    @if(addReceiptForm.controls['nip'].getError('required')){
+                                        <span>NIP jest wymagana!</span>
+                                    }                           
+                                }
+                            </div>
                     </td>
                     <td class="table__td">
                         <input type="text" class="table__td--input" formControlName="totalPrice"
                             validatorCharacterIsNumber />
-                        <div class="validation-feedback" >
-                            @if(addReceiptForm.controls['totalPrice'].touched || addReceiptForm.controls['totalPrice'].dirty) {
+                            <div class='validation-feedback'>
+                            @if(addReceiptForm.controls['totalPrice'].touched && addReceiptForm.controls['totalPrice'].invalid) {
+                                @if(addReceiptForm.controls['totalPrice'].getError('required')){
+                                    <span>Łączna cena jest wymagana!</span>
+                                } 
                                 @if(addReceiptForm.controls['totalPrice'].getError('characterIsNumber')){
                                     <span>Podany znak nie jest liczbą</span>
                                 }                           
@@ -59,32 +77,59 @@
                     <ng-container [formGroupName]="$index">
                         <td class="table__td">
                             <input type="text" class="table__td--input" formControlName="productName" />
+                            <div class='validation-feedback'>
+                                @if(listProducts.controls[$index].get('productName')?.touched &&
+                                listProducts.controls[$index].get('productName')?.invalid){
+                                    @if(listProducts.controls[$index].get('productName')?.getError('required')){
+                                        <span>Nazwa produktu jest wymagana!</span>
+                                    }                           
+                                }
+                            </div>                        
                         </td>
                         <td class="table__td">
                             <input type="text" class="table__td--input" formControlName="quantity" />
+                            touched {{listProducts.controls[$index].get('quantity')?.touched}}
+                            invalid {{listProducts.controls[$index].get('quantity')?.invalid}}
+                            <div class='validation-feedback'> 
+                                @if(listProducts.controls[$index].get('quantity')?.touched &&
+                                    listProducts.controls[$index].get('quantity')?.invalid){
+                                    @if(listProducts.controls[$index].get('quantity')?.getError('required')){
+                                        <span>Ilość sztuk wymagana!</span>
+                                    } 
+                                    @if(listProducts.controls[$index].get('quantity')?.getError('characterIsNumber')){
+                                        <span>Podany znak nie jest liczbą</span>
+                                    }                            
+                                }
+                            </div>                        
                         </td>
                         <td class="table__td">
                             <input type="text" class="table__td--input" formControlName="price" validatorCharacterIsNumber />
-                            @if(listProducts.controls[$index].get('price')?.touched ||
-                                listProducts.controls[$index].get('price')?.dirty){
-                            <div class="validation-feedback">
-                                @if(listProducts.controls[$index].get('price')?.getError('characterIsNumber')){
-                                    <span>Podany znak nie jest liczbą</span>
+                            <div class='validation-feedback'> 
+                                @if(listProducts.controls[$index].get('price')?.touched &&
+                                    listProducts.controls[$index].get('price')?.invalid){
+                                    @if(listProducts.controls[$index].get('price')?.getError('required')){
+                                        <span>Cena za sztukę jest wymagana!</span>
+                                    } 
+                                    @if(listProducts.controls[$index].get('price')?.getError('characterIsNumber')){
+                                        <span>Podany znak nie jest liczbą</span>
+                                    }                            
                                 }
                             </div>
-                            }
                         </td>
                         <td class="table__td">
                             <input type="text" class="table__td--input" formControlName="totalPrice"
                                 validatorCharacterIsNumber />
-                            @if(listProducts.controls[$index].get('totalPrice')?.touched ||
-                            listProducts.controls[$index].get('totalPrice')?.dirty){
-                            <div class="validation-feedback">
-                                @if (listProducts.controls[$index].get('totalPrice')?.getError('characterIsNumber')) {
-                                    <span>Podany znak nie jest liczbą</span>
+                            <div class='validation-feedback'> 
+                                @if(listProducts.controls[$index].get('totalPrice')?.touched &&
+                                    listProducts.controls[$index].get('totalPrice')?.invalid){
+                                    @if(listProducts.controls[$index].get('totalPrice')?.getError('required')){
+                                        <span>Łączna cena jest wymagana!</span>
+                                    } 
+                                    @if (listProducts.controls[$index].get('totalPrice')?.getError('characterIsNumber')) {
+                                        <span>Podany znak nie jest liczbą</span>
+                                    }                            
                                 }
                             </div>
-                            }
                         </td>
                         <td class="table__td">
                             <div class="grid-container-button">

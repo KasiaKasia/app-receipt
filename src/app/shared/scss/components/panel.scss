@@ -1,6 +1,6 @@
 @import "./button.scss";
 @mixin grid-container {
-    display: grid;   
+    display: grid;
     grid-template-rows: auto auto auto auto;
     gap: 3px 0px;
     align-items: center;
@@ -8,8 +8,9 @@
 
 .grid-container-form {
     @include grid-container;
-    grid-template-columns: 1fr 2fr; 
+    grid-template-columns: 1fr 2fr;
 }
+
 .grid-container-button {
     @include grid-container;
     grid-template-columns: 2fr;
@@ -17,14 +18,17 @@
     gap: 3px 0px;
     align-items: center;
 }
+
 .panel--form {
     text-align: center;
 }
+
 .panel--label {
     grid-column: 1 / 2;
     text-align: right;
     margin-right: 10px;
 }
+
 .panel--input {
     grid-column: 2 / 3;
     width: 70%;
@@ -33,6 +37,7 @@
     border-image-slice: 1;
     border-image-source: linear-gradient(to right, #25a5d5, rgb(17 59 95 / 91%) 20%);
 }
+
 .panel--select {
     width: 72%;
     height: 127%;
@@ -40,6 +45,7 @@
     border-image-slice: 1;
     border-image-source: linear-gradient(to right, #25a5d5, rgb(17 59 95 / 91%) 20%);
 }
+
 .validation-feedback {
     grid-column: 2 / 3;
     color: red;
@@ -47,8 +53,9 @@
     min-height: 20px;
     text-align: left;
 }
-.grid-container > .panel--input.ng-invalid.ng-touched,
-.grid-container > .panel--input.ng-invalid.ng-dirty {
+
+.grid-container-form .panel--input.ng-invalid.ng-touched,
+.grid-container-form .panel--input.ng-invalid.ng-dirty {
     border-width: 2px;
     border-image-slice: 1;
     border-image-source: linear-gradient(to right, #f59095e8 0%, #f13e3e 20%);

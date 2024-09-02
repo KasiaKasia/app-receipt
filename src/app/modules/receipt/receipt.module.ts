@@ -24,17 +24,17 @@ import { ListComponent } from './pages/list/list.component';
 import { NipFormatPipe } from './pipe/nip-format.pipe';
  
 @NgModule({
-    declarations: [
-        DatepickerComponent,     
+    declarations: [    
         HighlightDirective,
 
     ],
     exports: [  
-        DatepickerComponent
+        
     ],
     imports: [
         CommonModule,
         ListComponent,
+        DatepickerComponent,
         ReceiptComponent,
         NipFormatPipe,
         ValidatorCharacterIsNumberDirective,
