@@ -88,9 +88,7 @@
                         </td>
                         <td class="table__td">
                             <input type="text" class="table__td--input" formControlName="quantity" />
-                            touched {{listProducts.controls[$index].get('quantity')?.touched}}
-                            invalid {{listProducts.controls[$index].get('quantity')?.invalid}}
-                            <div class='validation-feedback'> 
+                             <div class='validation-feedback'> 
                                 @if(listProducts.controls[$index].get('quantity')?.touched &&
                                     listProducts.controls[$index].get('quantity')?.invalid){
                                     @if(listProducts.controls[$index].get('quantity')?.getError('required')){
