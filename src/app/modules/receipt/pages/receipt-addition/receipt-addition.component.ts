@@ -41,17 +41,16 @@ export class ReceiptAdditionComponent implements OnDestroy, AfterViewChecked {
       name: [''],
       base64: ['']
     })
-  }, { updateOn:  'submit'});
+  }, { updateOn: 'submit'});
 
   get listProducts() {
     return this.addReceiptForm.get('listProducts') as FormArray;
   }
 
   constructor(private fb: FormBuilder,
-    private _snackBar: MatSnackBar,
-    private receiptService: ReceiptService,
-    private activateRouter: ActivatedRoute) {console.log('this.addReceiptForm ', this.addReceiptForm)
-    }
+              private _snackBar: MatSnackBar,
+              private receiptService: ReceiptService,
+              private activateRouter: ActivatedRoute) {}
 
   ngAfterViewChecked(): void {
     this.addReceiptForm.controls['image'].get('name')?.setValue(this.base64Ref.imageName)
@@ -87,7 +86,6 @@ export class ReceiptAdditionComponent implements OnDestroy, AfterViewChecked {
   onSubmit() {
     this.addReceiptForm.markAllAsTouched();
     this.listProducts.markAllAsTouched()
-console.log('this.addReceiptForm ', this.addReceiptForm)
     if (this.addReceiptForm.invalid) {
       return;
     }
