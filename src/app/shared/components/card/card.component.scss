@@ -1,8 +1,10 @@
+@import '../../scss/variables.scss';
+
 @mixin border__linear-gradient {
-   border-width: 3px;
+   border-width: 1px;
    border-image-slice: 1;
    border-image-source: $gradient-text-color-blue-20;
-   box-shadow: 0 0 2px 0 rgb(135, 160, 212);
+   box-shadow: 1px 2px 2px 0px rgb(135, 160, 212);
 }
 
 .panel {
