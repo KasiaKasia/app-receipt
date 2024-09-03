@@ -1,11 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component,  model, ModelSignal } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard-heading',
   standalone: true,
   templateUrl: './dashboard-heading.component.html',
 })
-export class DashboardHeadingComponent {
-  @Input('titleDashboard')
-  title = '';
+export class DashboardHeadingComponent { 
+  dashboardHeaderTitle: ModelSignal<string> = model.required<string>();
 }

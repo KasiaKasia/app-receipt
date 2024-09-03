@@ -94,9 +94,7 @@ export class ListComponent {
     this.listOfReceipts$.pipe(takeUntilDestroyed()).subscribe((res: any) => {
       if (res && res.respons)
          this.dataSource = res.respons;
-      console.log(this.dataSource)
       this.listOfReceiptsWithProducts = [...res.respons];
-      console.log('res.respons', res.respons)
             this.listOfReceipts = this.listOfReceiptsWithProducts.filter((objectProduct: any, index: number, receipts: any) =>
               receipts.findIndex((v2: any) => (v2.receiptId === objectProduct.id)) === index)
     })

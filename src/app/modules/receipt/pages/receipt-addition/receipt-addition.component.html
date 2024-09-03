@@ -1,4 +1,4 @@
-<app-dashboard-heading [titleDashboard]="title" />
+<app-dashboard-heading [dashboardHeaderTitle]="title()" />
 <div class="dashboard__section">
     <form [formGroup]="addReceiptForm" (ngSubmit)="onSubmit()">
         <table class="table">

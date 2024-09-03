@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { HttpEventType } from '@angular/common/http';
-import { Subscription, finalize, tap } from 'rxjs';
+import { Subscription, finalize } from 'rxjs';
 import { FileService } from '../../receipt/service/file/file.service';
 import { ClickPosition, Point, Word } from '../../../shared/models/interface-receipt';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -15,7 +15,7 @@ import { NgIf } from '@angular/common';
   standalone: true,
   imports:[MatIcon,MatProgressBar, NgIf],
   templateUrl: './file-upload.component.html',
-  styleUrls: ['./file-upload.component.scss']
+  styleUrls: ['./file-upload.component.scss'],
 })
 export class FileUploadComponent { 
 
@@ -40,19 +40,20 @@ export class FileUploadComponent {
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
 
-    if (!input.files?.length) {
+    if (!input.files?.length) { 
       return;
     }
 
 
-    const file: File = input.files[0];
+    const fileDate: File = input.files[0];
 
-    if (file) { 
+    if (fileDate) {  
+      const formData = new FormData();  
+      formData.append('fileDate', fileDate, fileDate.name);
 
-      const formData = new FormData(); 
       const upload$ = this.fileService.upload(formData)
       .pipe(
-        finalize(() => this.reset()),
+        finalize(() => this.reset())
       );
 
       this.uploadSub = upload$.subscribe((eventUpload: any) => {

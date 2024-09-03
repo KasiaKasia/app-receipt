@@ -1,4 +1,4 @@
-import { Component, SecurityContext } from '@angular/core';
+import { Component, input, SecurityContext } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { User } from '../../../../shared/models/interface-user';
 import { ReceiptService } from '../../../../modules/receipt/service/receipt/receipt.service';
@@ -21,7 +21,9 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./receipt-list.component.scss']
 })
 export class ReceiptListComponent {
-  title = 'Lista paragonów';
+ 
+  title = input<string>('Lista paragonów');
+
   moment = _moment;
   private currentUser: User = {} = JSON.parse(this.authService.getCurrentDataUser()) as User;
   listOfReceipts$ = this.receiptService.getListOfReceipts(this.currentUser.userid) ?? []

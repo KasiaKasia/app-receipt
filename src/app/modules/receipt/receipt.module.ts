@@ -36,7 +36,7 @@ import { NipFormatPipe } from './pipe/nip-format.pipe';
         ListComponent,
         DatepickerComponent,
         ReceiptComponent,
-        NipFormatPipe,
+     
         ValidatorCharacterIsNumberDirective,
         FileUploadComponent,
         ReceiptAdditionComponent,

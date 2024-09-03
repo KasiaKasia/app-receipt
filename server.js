@@ -29,11 +29,11 @@ app.post('/upload', (req, res) => {
             success: false,
             message: 'No files were uploaded',
         });
-    } else if (req.files) {
+    } else if (req.files) { 
+     const fileName = req.files.fileDate.name;
 
-        const fileName = req.files.thumbnail.name;
         try {
-            let objectDetectedTexts$ = detectText(req.files.thumbnail.data)
+            let objectDetectedTexts$ = detectText(req.files.fileDate.data)
             const filrName$ = Promise.resolve(fileName);
             Promise.all([filrName$, objectDetectedTexts$]).then((values) => {
 
@@ -41,7 +41,7 @@ app.post('/upload', (req, res) => {
                     success: true,
                     message: 'The file has been uploaded ' + values[0],
                     respons: values[1],
-                    data: req.files.thumbnail.data
+                    data: req.files.fileDate.data
                 });
             });
         } catch (error) {
@@ -58,7 +58,7 @@ async function detectText(fileName) {
     // Creates a client
     const client = new vision.ImageAnnotatorClient();
     const [result] = await client.textDetection(fileName);
-   // const detections = result[0]['textAnnotations'];
+ //   const detections = result[0]['textAnnotations'];
     const detections = result.textAnnotations;
     let fileObjectCopy = [];
     let fileObject = [];

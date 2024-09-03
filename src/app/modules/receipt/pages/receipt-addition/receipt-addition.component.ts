@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, input, OnDestroy, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ReceiptService } from '../../service/receipt/receipt.service';
 import { ActivatedRoute } from '@angular/router';
@@ -27,7 +27,7 @@ const moment = _moment;
 })
 export class ReceiptAdditionComponent implements OnDestroy, AfterViewChecked {
   readonly subscriptions$ = new Subscription()
-  title = 'Dodaj paragon';
+  title = input<string>('Dodaj paragon');
   @ViewChild(FileUploadComponent)
   base64Ref!: FileUploadComponent;
   userId: User = {};
@@ -41,7 +41,7 @@ export class ReceiptAdditionComponent implements OnDestroy, AfterViewChecked {
       name: [''],
       base64: ['']
     })
-  }, { updateOn: 'submit'});
+  });
 
   get listProducts() {
     return this.addReceiptForm.get('listProducts') as FormArray;

@@ -1,11 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { ModalContentComponent } from '../modal-content/modal-content.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-modal-container',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './modal-container.component.html',
   styleUrls: ['./modal-container.component.scss']
 })

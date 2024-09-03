@@ -1,8 +1,18 @@
-<app-dashboard-heading [titleDashboard]="title"/>
+<app-dashboard-heading [dashboardHeaderTitle]="title()"/>
 <div class="dashboard__section">
     <div class="dashboard__heading">
         <h3>Lista paragonów</h3>
     </div>
+
+    <div class="cube">
+        <div class="face front">Pending</div>
+        <div class="face back">Please wait</div>
+        <div class="face left"></div>
+        <div class="face right"></div>
+        <div class="face top"></div>
+        <div class="face bottom"></div>
+      </div>
+
     <table class="table">
         <tr class="table__tr ">
             <th class="table__th" highlight>#</th>
@@ -30,7 +40,7 @@
                         {{ receipt.visibleReceipts ? 'Ukryj produkty': 'Pokaż produkty' }}
                     </button>
                     </div>
-                </td>
+                
                 <ng-container *ngFor="let products of productsReceipt[receipt.receiptId ]">
                     <ng-template [ngIf]="products.visibleReceipts">
                         <p>
@@ -41,8 +51,8 @@
                         </p>
                     </ng-template>
                 </ng-container>
-
-                <td class="table__td">
+            </td>
+                <td class="table__td">sss
                     <div class="grid-container-button">
                         <button type="button" class="button--reset"
                         (click)="showImage(receipt.receiptId)">

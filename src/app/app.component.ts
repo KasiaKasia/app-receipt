@@ -53,6 +53,7 @@ export const dynamicInjectionFn = () => {
 }
 @Component({
   selector: 'app-root',
+  interpolation: ['((', '))'],
   standalone: true,
   imports: [
    CommonModule,
