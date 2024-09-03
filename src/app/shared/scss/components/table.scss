@@ -19,7 +19,7 @@
                 height: 20px;
                 border-width: 2px;
                 border-image-slice: 1;
-                border-image-source: linear-gradient(to right, #25a5d5, rgb(17 59 95 / 91%) 20%);
+                border-image-source: $gradient-text-color-blue-20;
             }
             mat-form-field {
                 width: 100%;

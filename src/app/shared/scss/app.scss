@@ -1,6 +1,6 @@
 // @import "./reset.scss";
-@import "./components/text-color.scss";
-@import "./variables.scss";
+@import './components/text-color.scss';
+@import './variables.scss';
 
 .app {
     display: flex;
@@ -14,20 +14,19 @@
 }
 
 h2 {
-    @extend .gradient-text;
+    @extend .gradient-text-color-blue;
     font-size: $font-size-xl;
 }
 
 h3 {
-    @extend .gradient-text;
+    @extend .gradient-text-color-blue;
     font-size: $font-size-md;
     text-transform: uppercase;
 }
 
 label {
-    @extend .gradient-text;
-    font-size: $font-size-sm;
-   
+    @extend .gradient-text-color-blue;
+    font-size: $font-size-sm;   
 }
 
 .form-group {

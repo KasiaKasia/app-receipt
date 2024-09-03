@@ -1,4 +1,7 @@
-$boxShadow: inset -5px -5px 100px #1d5cb0, 5px 5px 5px #6684ae, inset 0 0 5px #ebeef2;
+$boxShadow:
+    inset -5px -5px 100px #1d5cb0,
+    5px 5px 5px #6684ae,
+    inset 0 0 5px #ebeef2;
 $boxShadowBlack: 0 0 3px 0 black;
 $border: 1px #222 solid;
 $font-size-xxs: 0.625rem;
@@ -18,3 +21,7 @@ $dark: rgba(#000, 0.87);
 $dark-secondary: rgba(#000, 0.54);
 $dark-disabled: rgba(#000, 0.38);
 $black: black;
+$gradient-text-color-red: linear-gradient(to right, #f59095e8 0%, $color-red 100%);
+$gradient-text-color-blue-20: linear-gradient(to right, #25a5d5, rgb(17 59 95 / 91%) 20%);
+$gradient-text-color-blue-70: linear-gradient(to right, #25a5d5, rgb(17 59 95 / 91%) 70%);
+$gradient-text-color-gray-70: linear-gradient(to right, #f0f0f0, rgba(95, 97, 99, 0.91) 70%);

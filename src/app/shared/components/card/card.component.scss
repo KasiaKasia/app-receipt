@@ -1,7 +1,7 @@
 @mixin border__linear-gradient {
    border-width: 3px;
    border-image-slice: 1;
-   border-image-source: linear-gradient(to right, #25a5d5, rgb(17 59 95 / 91%) 11%);
+   border-image-source: $gradient-text-color-blue-20;
    box-shadow: 0 0 2px 0 rgb(135, 160, 212);
 }
 

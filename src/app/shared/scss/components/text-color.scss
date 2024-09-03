@@ -1,3 +1,11 @@
+@import '../variables.scss';
+
+@mixin gradient-text-settings {
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+}
+
 @keyframes rainbow-text-simple-animation-rev {
     0% {
         background-size: 650%;
@@ -22,14 +30,26 @@
     }
 }
 
-.gradient-text {
-    background: linear-gradient(to right, #25a5d5, rgb(17 59 95 / 91%) 20%);
-    color: transparent;
-    background-clip: text;
+.gradient-text-color-blue {
+    background: $gradient-text-color-blue-20;
+    @include gradient-text-settings;
     display: inline-block;
     animation: rainbow-text-simple-animation-rev 3s ease forwards;
+    &:active,
+    &:hover,
+    &:visited {
+        animation: rainbow-text-simple-animation 2s linear forwards;
+    }
 }
 
-.gradient-text:hover {
-    animation: rainbow-text-simple-animation 2s linear forwards;
+.gradient-text-color-red {
+    background: $gradient-text-color-red;
+    @include gradient-text-settings;   
+    display: inline-block;
+    animation: rainbow-text-simple-animation-rev 3s ease forwards;
+    &:active,
+    &:hover,
+    &:visited {
+        animation: rainbow-text-simple-animation 2s linear forwards;
+    }
 }

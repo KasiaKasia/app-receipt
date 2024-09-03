@@ -1,11 +1,14 @@
-@import "./button.scss";
+@import './button.scss';
 @mixin grid-container {
     display: grid;
     grid-template-rows: auto auto auto auto;
     gap: 3px 0px;
     align-items: center;
 }
-
+@mixin gradient-border-settings {
+    border-width: 2px;
+    border-image-slice: 1;
+}
 .grid-container-form {
     @include grid-container;
     grid-template-columns: 1fr 2fr;
@@ -33,17 +36,15 @@
     grid-column: 2 / 3;
     width: 70%;
     height: 100%;
-    border-width: 2px;
-    border-image-slice: 1;
-    border-image-source: linear-gradient(to right, #25a5d5, rgb(17 59 95 / 91%) 20%);
+    @include gradient-border-settings;
+    border-image-source: $gradient-text-color-blue-20;
 }
 
 .panel--select {
     width: 72%;
     height: 127%;
-    border-width: 2px;
-    border-image-slice: 1;
-    border-image-source: linear-gradient(to right, #25a5d5, rgb(17 59 95 / 91%) 20%);
+    @include gradient-border-settings;
+    border-image-source: $gradient-text-color-blue-20;
 }
 
 .validation-feedback {
@@ -56,9 +57,8 @@
 
 .grid-container-form .panel--input.ng-invalid.ng-touched,
 .grid-container-form .panel--input.ng-invalid.ng-dirty {
-    border-width: 2px;
-    border-image-slice: 1;
-    border-image-source: linear-gradient(to right, #f59095e8 0%, #f13e3e 20%);
+    @include gradient-border-settings;
+    border-image-source: $gradient-text-color-red;
 }
 
 @media only screen and (max-width: 768px) {
