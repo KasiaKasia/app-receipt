@@ -30,7 +30,7 @@ app.post('/upload', (req, res) => {
             message: 'No files were uploaded',
         });
     } else if (req.files) { 
-     const fileName = req.files.fileDate.name;
+        const fileName = req.files.fileDate.name;
 
         try {
             let objectDetectedTexts$ = detectText(req.files.fileDate.data)

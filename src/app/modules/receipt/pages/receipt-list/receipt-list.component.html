@@ -24,14 +24,10 @@
                 <th class="table__th" highlight>Lista produktów</th>
                 <th class="table__th" highlight>Obraz paragonu</th>
             </tr>
-            <tbody class="table__tbody">
-    
-              
-                
+            <tbody class="table__tbody">    
     
                 @for (receipt of listOfReceipts; track $index) {
-                <tr class="table__tr">
-    
+                <tr class="table__tr">    
                     <td class="table__td">{{$index+1}}</td>
                     <td class="table__td">{{receipt.id}}</td>
                     <td class="table__td">{{receipt.storeName}}</td>
@@ -67,19 +63,16 @@
                             <app-modal-container [listOfReceiptsWithProducts]="listOfReceiptsWithProducts" [receiptId]="receipt.receiptId"/>
                         </div>
                     </td>
-                    @for (image of imageReceipt[receipt.receiptId]; track image) {
-    
-                        <ng-container>
-                            <ng-template [ngIf]="image.visibleImage">
-                                <img [src]="image.base64">
-                            </ng-template>
-                        </ng-container>
+                    @for (image of imageReceipt[receipt.receiptId]; track image) {    
+                    <ng-container>
+                        <ng-template [ngIf]="image.visibleImage">
+                            <img [src]="image.base64">
+                        </ng-template>
+                    </ng-container>
                     }
                 </tr>
             }
             </tbody>
         </table>
-    }
-
-    
+    }    
 </div>

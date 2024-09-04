@@ -11,7 +11,7 @@ export const RETRY_INTERCEPTOR_CONFIG = new InjectionToken<RetryConfig>(
   {
     providedIn: 'root',
     factory: () => {
-      return { count: 2, delay: 1000 } as RetryConfig;
+      return { count: 3, delay: 1000 } as RetryConfig;
     },
   }
 );

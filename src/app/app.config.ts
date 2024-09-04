@@ -8,6 +8,7 @@ import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptors, with
 import { AuthInterceptorService } from './shared/interceptors/auth-interceptor.service';
 import { LoggerDebugService, LoggerService } from './shared/logger/logger.service';
 import { loadingInterceptor } from './shared/interceptors/loading.interceptor';
+import { httpErrorInterceptor } from './shared/interceptors/http-error.interceptor';
 
 export const RetryInterceptorProvider: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -19,18 +20,18 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(
       withInterceptorsFromDi(),
-      withInterceptors([loadingInterceptor]),
+      withInterceptors([loadingInterceptor, httpErrorInterceptor]),
       withFetch()
     ),
     {
       provide: LoggerService,
       useClass: LoggerDebugService,
     },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptorService,
-      multi: true,
-    },
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: AuthInterceptorService,
+    //   multi: true,
+    // },
     provideRouter(routes),
     provideAnimations(),
     { provide: MAT_DATE_LOCALE, useValue: 'pl-PL' },
