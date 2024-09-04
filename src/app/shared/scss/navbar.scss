@@ -15,7 +15,7 @@
     flex-direction: row;
     justify-content: flex-end; // wartość domyślna flex-start dla justify-content
     background: linear-gradient(to right, #25a5d5, rgb(17 59 95 / 91%) 11%);
-
+    z-index: 1;
     box-shadow: $boxShadowBlack;
     padding-right: 50px;
     // animation: animation-navbar 20s ease-in-out;
