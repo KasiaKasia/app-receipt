@@ -20,7 +20,7 @@ export const RETRY_INTERCEPTOR_CONFIG = new InjectionToken<RetryConfig>(
 })
 export class AuthInterceptorService implements HttpInterceptor {
   private retryConfig = inject(RETRY_INTERCEPTOR_CONFIG);
-  constructor(private auth: AuthService, 
+  constructor(private auth: AuthService,
     private snackBar: MatSnackBar,
     private logger: LoggerService) {}
 
@@ -42,8 +42,11 @@ export class AuthInterceptorService implements HttpInterceptor {
         } else if (Error instanceof HttpErrorResponse && Error.status === 404) {
           this.logger.error('Not Found');
           return empty();
+        } else if (Error instanceof HttpErrorResponse && Error.status >= 500) {
+          this.logger.error('Server is currently offline. Please try again later.');
+          return empty();
         }
-        return throwError(Error);
+        return throwError(() => new Error('An issue occurred. Please try again later.'));
       })
     );
   }

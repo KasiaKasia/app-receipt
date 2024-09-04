@@ -11,7 +11,7 @@ import { DashboardHeadingComponent } from 'src/app/shared/components/dashboard-h
 @Component({
   selector: 'app-user-login',
   standalone: true,
-  imports: [SharedModule, ReactiveFormsModule, NgIf,DashboardHeadingComponent],
+  imports: [SharedModule, ReactiveFormsModule, NgIf, DashboardHeadingComponent ],
   templateUrl: './user-login.component.html',
   styleUrls: ['./user-login.component.scss']
 })

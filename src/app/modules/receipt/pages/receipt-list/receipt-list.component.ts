@@ -1,4 +1,4 @@
-import { Component, input, SecurityContext } from '@angular/core';
+import { Component, effect, input, SecurityContext } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { User } from '../../../../shared/models/interface-user';
 import { ReceiptService } from '../../../../modules/receipt/service/receipt/receipt.service';
@@ -10,18 +10,21 @@ import { Visible, Image, Receipt, Product } from '../../../../shared/models/inte
 import { LoggerService } from '../../../../shared/logger/logger.service';
 import { DashboardHeadingComponent } from 'src/app/shared/components/dashboard-heading/dashboard-heading.component';
 import { ModalContainerComponent } from 'src/app/shared/components/modal/modal-container/modal-container.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
+import { LoadingService } from '../../service/loading/loading.service';
 
 
 @Component({
   selector: 'app-receipt-list',
   standalone: true,
-  imports: [DashboardHeadingComponent, ModalContainerComponent, CommonModule],
+  imports: [DashboardHeadingComponent, ModalContainerComponent, NgIf, NgFor],
+ 
   templateUrl: './receipt-list.component.html',
   styleUrls: ['./receipt-list.component.scss']
 })
 export class ReceiptListComponent {
- 
+  isLoading = this.loadingService.getLoading()
+
   title = input<string>('Lista paragonów');
 
   moment = _moment;
@@ -36,8 +39,16 @@ export class ReceiptListComponent {
     private _sanitizer: DomSanitizer,
     public modalService: NgbModal,
     public activeModal: NgbActiveModal,
-    private logger: LoggerService
+    private logger: LoggerService,
+    private loadingService: LoadingService
   ) {
+
+     
+      effect(() => {
+        this.isLoading = this.loadingService.getLoading()
+      })
+    
+
     this.listOfReceipts$.pipe(takeUntilDestroyed()).subscribe((res: any) => {
       if (res && res.respons)
         this.listOfReceiptsWithProducts = [...res.respons];
