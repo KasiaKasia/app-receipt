@@ -1,5 +1,8 @@
 <app-dashboard-heading [dashboardHeaderTitle]="title()" />
-<div class="dashboard__section">
+<div class="dashboard__section-body">
+    <div class='dashboard__section-body--title'>
+        <h3>Wprowadz dane dla paragonu</h3>
+    </div>
     <form [formGroup]="addReceiptForm" (ngSubmit)="onSubmit()">
         <table class="table">
             <tr class="table__tr">
@@ -132,10 +135,10 @@
                         <td class="table__td">
                             <div class="grid-container-button">
                                 <button type="button" class="button--save" (click)="addProduct()">
-                                    +
+                                    Dodaj produkt
                                 </button>
                                 <button type="submit" class="button--delete" (click)="removeProduct($index)">
-                                    -
+                                    Usuń produkt
                                 </button>
                             </div>
 

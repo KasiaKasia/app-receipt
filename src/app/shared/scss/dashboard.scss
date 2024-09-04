@@ -1,22 +1,32 @@
-@import "./app.scss";
+@import './app.scss';
+
+@mixin dashboard__section { 
+    border-image-slice: 1;
+    border-image-source: $gradient-text-color-blue-20;
+    border-style: solid;
+    padding: 2rem 1rem;
+    margin: 15px;
+    box-shadow: 1px 2px 2px 0px rgb(135, 160, 212);
+}
 
 .dashboard {
-    margin: 9rem 3rem 3rem 3rem;
+    margin: 9rem 3rem 9rem 3rem;
 
-    .dashboard__heading {
-        margin-bottom: 2rem;
-        &.dashboard__heading--mail {
-            margin-bottom: 0;
-        }
-    }
-    .dashboard__section {
+    .dashboard__section-heading {
         border-width: 3px;
-        border-image-slice: 1;
-        border-image-source: linear-gradient(to right, #25a5d5, rgb(17 59 95 / 91%) 11%);
-        border-style: solid;
-        padding: 2rem 1rem;
-        margin: 15px;
-        box-shadow: 0 0 2px 0 rgb(135, 160, 212);
+        @include dashboard__section;
+    }
+
+    .dashboard__section-body {
+        border-width: 1px;
+        @include dashboard__section;
+        &--title{
+            margin-bottom: 40px;
+        }
+        &--error {
+            text-align: center;
+            margin: 10px 0px 10px 0px;
+        }
     }
 }
 

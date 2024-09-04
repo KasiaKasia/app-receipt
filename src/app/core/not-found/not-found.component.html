@@ -1,20 +1,17 @@
-<div class='dashboard__section dashboard__section--small'>
-    <div class='dashboard__heading dashboard__heading--mail'>
-        <div class='error-section'>
-            <h3 class='gradient-text-color-red'>Oops!</h3>
-        </div>
-        <div class='error-section'>
-            <h2 class='gradient-text-color-blue'>((status + ' ' + message))</h2>
-        </div>
-        <div class='error-section'>
-            Żądana strona nie została znaleziona!
-        </div>
-        <div class='error-section'>
-            <div>
-                <a class='gradient-text-color-blue' [routerLink]="'/home'">
-                    Wróć do strony głównej
-                </a>
-            </div>
-        </div>
+<div class='dashboard__section-body'>
+    <div class='dashboard__section-body--error'>
+        <h3 class='gradient-text-color-red'>Oops!</h3>
     </div>
+    <div class='dashboard__section-body--error'>
+        <h2 class='gradient-text-color-blue'>((status + ' ' + message))</h2>
+    </div>
+    <div class='dashboard__section-body--error'>
+        Żądana strona nie została znaleziona!
+    </div>
+    <div class='dashboard__section-body--error'>
+        <a class='gradient-text-color-blue' [routerLink]="'/home'">
+            Wróć do strony głównej
+        </a>
+    </div>
+
 </div>
