@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Session, User } from '../models/interface-user';
 import { Settings } from '../environments/settings';
 import { LoggerService } from '../logger/logger.service';
-import { catchError, share, take, tap } from 'rxjs/operators';
+import { catchError, share, switchMap, take, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -26,6 +26,7 @@ export class AuthService  {
   }
   
   getToken() {
+    console.log('localStorage.getItem("token") ', localStorage.getItem('token') )
     return localStorage.getItem('token');
   }
 
@@ -50,13 +51,15 @@ export class AuthService  {
   login(user: User) {
     return this.http.post<Session>(Settings.BASE_END_POINT + '/login', JSON.stringify(user), this.httpOptions
     ).pipe(
-      take(1),
+     // take(1),
       tap(state => {
+        console.log('state?.token', state?.token )
+        console.log('state', state )
         this.setToken(state?.token ?? '');
         this.setCurrentDataUser(state?.respons ?? {});
         this.setIsAuthenticated('true');
         this.userSession.next(state);
-      }), share())
+      }), share() )
   }
 
   registration(newUser: User): Observable<Session> {

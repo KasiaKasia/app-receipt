@@ -5,33 +5,28 @@ import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { INJECTION_TOKEN } from './app.component';
 import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
-import { AuthInterceptorService } from './shared/interceptors/auth-interceptor.service';
 import { LoggerDebugService, LoggerService } from './shared/logger/logger.service';
 import { loadingInterceptor } from './shared/interceptors/loading.interceptor';
 import { httpErrorInterceptor } from './shared/interceptors/http-error.interceptor';
+import { authorizationInterceptor } from './shared/interceptors/authorization.interceptor';
+import { CacheInterceptorService } from './shared/interceptors/cache-interceptor.service';
 
-export const RetryInterceptorProvider: Provider = {
+export const CacheInterceptorProvider: Provider = {
   provide: HTTP_INTERCEPTORS,
-  useClass: AuthInterceptorService,
+  useClass: CacheInterceptorService,
   multi: true,
 };
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(
-      withInterceptorsFromDi(),
-      withInterceptors([loadingInterceptor, httpErrorInterceptor]),
-      withFetch()
+      withInterceptors([authorizationInterceptor, loadingInterceptor, httpErrorInterceptor]),//authorizationInterceptor
     ),
     {
       provide: LoggerService,
       useClass: LoggerDebugService,
     },
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: AuthInterceptorService,
-    //   multi: true,
-    // },
+    CacheInterceptorProvider,
     provideRouter(routes),
     provideAnimations(),
     { provide: MAT_DATE_LOCALE, useValue: 'pl-PL' },

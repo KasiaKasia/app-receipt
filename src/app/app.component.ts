@@ -1,12 +1,10 @@
-import { Component, HostListener, InjectionToken, Injector, OnInit, Provider, inject } from '@angular/core';
+import { Component, HostListener, InjectionToken, Injector, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { CoreModule } from './core/core.module';
 import { UserModule } from './user/user.module';
 import { AuthService } from './shared/services/auth.service';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
-import { RETRY_INTERCEPTOR_CONFIG } from './shared/interceptors/auth-interceptor.service';
 import { ReceiptService } from './modules/receipt/service/receipt/receipt.service';
 import { ReceiptModule } from './modules/receipt/receipt.module';
 import { FileService } from './modules/receipt/service/file/file.service';
@@ -14,14 +12,9 @@ import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { LoggerDebugService, LoggerService } from './shared/logger/logger.service';
 import { DynamicTokenComponent } from './shared/components/dynamic-token/dynamic-token.component';
 import { DynamicTokenOutdatedComponent } from './shared/components/dynamic-token-outdated/dynamic-token-outdated.component';
-import { CacheInterceptorService } from './shared/interceptors/cache-interceptor.service';
+import { RETRY_INTERCEPTOR_CONFIG } from './shared/interceptors/http-error.interceptor';
 
 
-export const CacheInterceptorProvider: Provider = {
-  provide: HTTP_INTERCEPTORS,
-  useClass: CacheInterceptorService,
-  multi: true,
-};
 export const MY_DATE_FORMATS = {
   parse: {
     dateInput: 'YYYY.MM.DD',
@@ -48,16 +41,14 @@ export const dynamicInjectionFn = () => {
   selector: 'app-root',
   standalone: true,
   imports: [
-   CommonModule,
+    CommonModule,
     RouterOutlet,
     CoreModule,
     UserModule,
     SharedModule,
-    // HttpClientModule,
     ReceiptModule
   ],
   providers: [
-      CacheInterceptorProvider,
     {
       provide: RETRY_INTERCEPTOR_CONFIG,
       useValue: { count: 5, delay: 1000 }, // wartość 5 oznacza , że w przypadku odpwiedzi błędnej z serwera zapyanie zostanie wykonane dodatkowo 5 razy na sekundę  
