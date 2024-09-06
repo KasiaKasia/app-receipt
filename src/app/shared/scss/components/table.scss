@@ -5,7 +5,6 @@
     table-layout: fixed;
 
     .table__tr {
-
         .table__td {
             padding: 0px 0px 0px 10px;
             justify-content: left;
@@ -13,12 +12,12 @@
             font-size: $font-size-sm;
             color: $dark-secondary;
 
-            .table__td--group {
+            .table__td--group-button-row {
                 display: flex;
-                flex-direction: row;
+                justify-content: center;
             }
 
-            .table__td--group-button {
+            .table__td--group-button-column {
                 display: flex;
                 flex-direction: column;
             }
@@ -84,7 +83,6 @@
         }
 
         .table__tbody {
-
             .table__tr {
                 display: flex;
                 flex-direction: column;
@@ -95,6 +93,11 @@
                     height: 36px;
                     padding-top: 10px;
                     border-bottom: 1px solid #ddd;
+
+                    .table__td--group-button-row {
+                        flex-direction: column; // Na mniejszych ekranach przyciski ułożone pod sobą
+                        align-items: flex-start; // Ustawienie przycisków na początku
+                    }
                 }
 
                 .table__td:last-child {
@@ -106,6 +109,6 @@
         }
     }
     .table-list .table__tr .table__td:nth-of-type(7) {
-        height: auto;   
+        height: auto;
     }
 }

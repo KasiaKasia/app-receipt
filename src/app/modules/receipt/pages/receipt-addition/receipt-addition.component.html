@@ -14,7 +14,7 @@
             <tbody class="table__tbody">
                 <tr class="table__tr">
                     <td class="table__td">
-                        <input type="text" class="table__td--input" formControlName="shopName" />
+                        <input (click)="pasteTextIntoInput('shopName')" type="text" class="table__td--input" formControlName="shopName" />
                     
                         <div class='validation-feedback'>
                             @if(addReceiptForm.controls['shopName'].touched && addReceiptForm.controls['shopName'].invalid) {
@@ -25,7 +25,7 @@
                         </div>
                     </td>
                     <td class="table__td">
-                        <input type="text" class="table__td--input" formControlName="nip"
+                        <input  (click)="pasteTextIntoInput('nip')" type="text" class="table__td--input" formControlName="nip"
                             [value]="(addReceiptForm.get('nip')?.value) | nipFormat" />
                             <div class='validation-feedback'>
                                 @if(addReceiptForm.controls['nip'].touched && addReceiptForm.controls['nip'].invalid) {
@@ -36,7 +36,7 @@
                             </div>
                     </td>
                     <td class="table__td">
-                        <input type="text" class="table__td--input" formControlName="totalPrice"
+                        <input  (click)="pasteTextIntoInput('totalPrice')" type="text" class="table__td--input" formControlName="totalPrice"
                             validatorCharacterIsNumber />
                             <div class='validation-feedback'>
                             @if(addReceiptForm.controls['totalPrice'].touched && addReceiptForm.controls['totalPrice'].invalid) {
@@ -52,7 +52,7 @@
                     <td class="table__td">
                         <mat-form-field>
                             <mat-label>Wybierz datę zakupu</mat-label>
-                            <input matInput [matDatepicker]="picker" formControlName="dateOfPurchase">
+                            <input  (click)="pasteTextIntoInput('dateOfPurchase')" matInput [matDatepicker]="picker" formControlName="dateOfPurchase">
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
                         </mat-form-field>
@@ -79,7 +79,7 @@
                 <tr class="table__tr" formArrayName="listProducts">
                     <ng-container [formGroupName]="$index">
                         <td class="table__td">
-                            <input type="text" class="table__td--input" formControlName="productName" />
+                            <input (click)="pasteTextIntoInput('productName', $index)" type="text" class="table__td--input" formControlName="productName" />
                             <div class='validation-feedback'>
                                 @if(listProducts.controls[$index].get('productName')?.touched &&
                                 listProducts.controls[$index].get('productName')?.invalid){
@@ -90,7 +90,7 @@
                             </div>                        
                         </td>
                         <td class="table__td">
-                            <input type="text" class="table__td--input" formControlName="quantity" />
+                            <input (click)="pasteTextIntoInput('quantity', $index)" type="text" class="table__td--input" formControlName="quantity" />
                              <div class='validation-feedback'> 
                                 @if(listProducts.controls[$index].get('quantity')?.touched &&
                                     listProducts.controls[$index].get('quantity')?.invalid){
@@ -104,7 +104,7 @@
                             </div>                        
                         </td>
                         <td class="table__td">
-                            <input type="text" class="table__td--input" formControlName="price" validatorCharacterIsNumber />
+                            <input  (click)="pasteTextIntoInput('price', $index)" type="text" class="table__td--input" formControlName="price" validatorCharacterIsNumber />
                             <div class='validation-feedback'> 
                                 @if(listProducts.controls[$index].get('price')?.touched &&
                                     listProducts.controls[$index].get('price')?.invalid){
@@ -118,7 +118,7 @@
                             </div>
                         </td>
                         <td class="table__td">
-                            <input type="text" class="table__td--input" formControlName="totalPrice"
+                            <input (click)="pasteTextIntoInput('totalPrice', $index)" type="text" class="table__td--input" formControlName="totalPrice"
                                 validatorCharacterIsNumber />
                             <div class='validation-feedback'> 
                                 @if(listProducts.controls[$index].get('totalPrice')?.touched &&
@@ -133,15 +133,14 @@
                             </div>
                         </td>
                         <td class="table__td">
-                            <div class="grid-container-button">
-                                <button type="button" class="button--save" (click)="addProduct()">
+                            <div class="table__td--group-button-row">
+                                <button type="button" class="button--add" (click)="addProduct()">
                                     Dodaj produkt
                                 </button>
                                 <button type="submit" class="button--delete" (click)="removeProduct($index)">
                                     Usuń produkt
                                 </button>
                             </div>
-
                         </td>
                     </ng-container>
                 </tr>

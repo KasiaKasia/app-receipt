@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { HttpEventType } from '@angular/common/http';
 import { Subscription, finalize } from 'rxjs';
 import { FileService } from '../../receipt/service/file/file.service';
@@ -8,6 +8,7 @@ import { SnackBarAnnotatedComponent } from '../../../shared/components/snack-bar
 import { MatIcon } from '@angular/material/icon';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { NgIf } from '@angular/common';
+import { CharactersSignalsService } from '../../receipt/service/characters/characters-signals.service';
  
 
 @Component({
@@ -18,6 +19,7 @@ import { NgIf } from '@angular/common';
   styleUrls: ['./file-upload.component.scss'],
 })
 export class FileUploadComponent { 
+  private charactersSignalsService = inject(CharactersSignalsService)
 
   @Input( )
   requiredFileType = "image/*";
@@ -87,6 +89,7 @@ export class FileUploadComponent {
       if (listWords.word.isIn(clickPosition)) {
         this.openSnackBar('Kliknięto w słowo ' + listWords.word.value)
         navigator.clipboard.writeText(listWords.word.value);
+        this.set(listWords.word.value)
       }
     })
     return clickPosition;
@@ -156,6 +159,9 @@ export class FileUploadComponent {
   reset() {
     this.uploadProgress = 0;
     this.uploadSub = null;
+  }
+  set(value: string) {
+    this.charactersSignalsService.setCharacters(value )
   }
 }
 

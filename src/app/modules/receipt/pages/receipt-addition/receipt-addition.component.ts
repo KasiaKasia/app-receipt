@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, input, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, inject, input, OnDestroy, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ReceiptService } from '../../service/receipt/receipt.service';
 import { ActivatedRoute } from '@angular/router';
@@ -16,6 +16,8 @@ import { NipFormatPipe } from '../../pipe/nip-format.pipe';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { NgIf } from '@angular/common';
 import { ValidatorCharacterIsNumberDirective } from 'src/app/shared/validator-directive/validator-character-is-number.directive';
+import { CharactersSignalsService } from '../../service/characters/characters-signals.service';
+import { LoggerService } from 'src/app/shared/logger/logger.service';
 const moment = _moment;
 
 @Component({
@@ -27,11 +29,13 @@ const moment = _moment;
 })
 export class ReceiptAdditionComponent implements OnDestroy, AfterViewChecked {
   readonly subscriptions$ = new Subscription()
+  private charactersSignalsService = inject(CharactersSignalsService)
+  private logger = inject(LoggerService)
   title = input<string>('Dodaj paragon');
   @ViewChild(FileUploadComponent)
   base64Ref!: FileUploadComponent;
   userId: User = {};
-  addReceiptForm: FormGroup = this.fb.group({
+  protected addReceiptForm: FormGroup = this.fb.group({
     shopName: ['', Validators.required],
     nip: ['', Validators.required],
     totalPrice: ['', Validators.required],
@@ -48,9 +52,9 @@ export class ReceiptAdditionComponent implements OnDestroy, AfterViewChecked {
   }
 
   constructor(private fb: FormBuilder,
-              private _snackBar: MatSnackBar,
-              private receiptService: ReceiptService,
-              private activateRouter: ActivatedRoute) {}
+    private _snackBar: MatSnackBar,
+    private receiptService: ReceiptService,
+    private activateRouter: ActivatedRoute) { }
 
   ngAfterViewChecked(): void {
     this.addReceiptForm.controls['image'].get('name')?.setValue(this.base64Ref.imageName)
@@ -115,10 +119,29 @@ export class ReceiptAdditionComponent implements OnDestroy, AfterViewChecked {
   addProduct() {
     this.listProducts.push(this.createProduct())
   }
+
   removeProduct(index: number) {
     this.listProducts.removeAt(index);
   }
-  trackBy(index: number, listProductsForm: any) {
-    return listProductsForm.productName;
+
+  pasteTextIntoInput(event: string, $index = -1): void {
+    if ($index >= 0) {
+
+      this.listProducts.controls[$index].get(event)?.setValue(this.charactersSignalsService.getCharacters())
+    } if (event === 'dateOfPurchase') {
+      const clipboardText = this.charactersSignalsService.getCharacters()
+
+      const datePattern = /^\d{2}-\d{2}-\d{4}$/;
+      if (datePattern.test(clipboardText)) {
+        const [day, month, year] = clipboardText.split('-').map(Number);
+        const formattedDate = new Date(year, month - 1, day);
+        this.addReceiptForm.controls[event]?.setValue(formattedDate);
+      } else {
+        this.logger.error('Błędny format daty w schowku');
+      }
+    } else {
+      this.addReceiptForm.controls[event].setValue(this.charactersSignalsService.getCharacters())
+
+    }
   }
 }

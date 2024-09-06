@@ -50,10 +50,8 @@ export class AuthService  {
   login(user: User) {
     return this.http.post<Session>(Settings.BASE_END_POINT + '/login', JSON.stringify(user), this.httpOptions
     ).pipe(
-     // take(1),
-      tap(state => {
-        console.log('state?.token', state?.token )
-        console.log('state', state )
+      take(1),
+      tap(state => { 
         this.setToken(state?.token ?? '');
         this.setCurrentDataUser(state?.respons ?? {});
         this.setIsAuthenticated('true');

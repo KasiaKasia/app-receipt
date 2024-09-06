@@ -5,10 +5,14 @@
     justify-content: space-around;
     width: fit-content;
     flex-wrap: wrap;
-    margin: 10px 20px 10px 20px;
-    padding: 10px;
     color: white;
 }
+
+@mixin button-margin-padding {
+    margin: 10px 20px 10px 20px;
+    padding: 10px; 
+}
+
 @mixin button--border-image {
     border-width: 2px;
     border-image-slice: 1;
@@ -16,6 +20,7 @@
 
 .button--show-hide-products {
     @include button;
+    @include button-margin-padding;
     @include button--border-image;
     border-image-source: $gradient-text-color-blue-20;
     background-image: $gradient-text-color-blue-70;
@@ -23,18 +28,31 @@
 
 .button--save {
     @include button;
+    @include button-margin-padding;
     @include button--border-image;
     border-image-source: $gradient-text-color-blue-20;
     background-image: $gradient-text-color-blue-70;
 }
+.button--add {
+    @include button;
+    margin: 10px 5px 10px 5px;
+    padding: 10px;
+    @include button--border-image;
+    border-image-source: $gradient-text-color-blue-20;
+    background-image: $gradient-text-color-blue-70;
+}
+
 .button--delete {
     @include button;
+    margin: 10px 5px 10px 5px;
+    padding: 10px;
     @include button--border-image;
     border-image-source: $gradient-text-color-red;
     background-image: $gradient-text-color-red;
 }
 .button--reset {
     @include button;
+    @include button-margin-padding;
     @include button--border-image;
     border-image-source:  $gradient-text-color-blue-20;;
     background-image: $gradient-text-color-gray-70;
