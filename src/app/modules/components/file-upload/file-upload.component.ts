@@ -87,9 +87,8 @@ export class FileUploadComponent {
     const clickPosition = new Point(event.offsetX, event.offsetY);
     this.words.forEach(listWords => {
       if (listWords.word.isIn(clickPosition)) {
-        this.openSnackBar('Kliknięto w słowo ' + listWords.word.value)
-        navigator.clipboard.writeText(listWords.word.value);
-        this.set(listWords.word.value)
+        this.openSnackBar('Kliknięto w słowo ' + listWords.word.value)         
+        this.setCharactersSignalsService(listWords.word.value)
       }
     })
     return clickPosition;
@@ -160,7 +159,8 @@ export class FileUploadComponent {
     this.uploadProgress = 0;
     this.uploadSub = null;
   }
-  set(value: string) {
+  
+  setCharactersSignalsService(value: string) {
     this.charactersSignalsService.setCharacters(value )
   }
 }

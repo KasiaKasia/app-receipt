@@ -45,7 +45,7 @@ export class ReceiptAdditionComponent implements OnDestroy, AfterViewChecked {
       name: [''],
       base64: ['']
     })
-  });
+  }, { updateOn: 'change' || 'blur' || 'submit' });
 
   get listProducts() {
     return this.addReceiptForm.get('listProducts') as FormArray;
@@ -140,8 +140,13 @@ export class ReceiptAdditionComponent implements OnDestroy, AfterViewChecked {
         this.logger.error('Błędny format daty w schowku');
       }
     } else {
-      this.addReceiptForm.controls[event].setValue(this.charactersSignalsService.getCharacters())
+      this.addReceiptForm.controls[event]?.setValue(this.charactersSignalsService.getCharacters())
 
     }
+  }
+  clearClipboard() {
+    this.addReceiptForm.markAsUntouched()
+    this.listProducts.markAsUntouched()
+    this.charactersSignalsService.setCharacters('')
   }
 }
