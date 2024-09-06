@@ -25,7 +25,7 @@
                         </div>
                     </td>
                     <td class="table__td">
-                        <input  (click)="pasteTextIntoInput('nip')" type="text" class="table__td--input" formControlName="nip"
+                        <input maxlength="13" placeholder="XXX-XXX-XX-XX"  (focus)="pasteTextIntoInput('nip')" type="text" class="table__td--input" formControlName="nip"
                             [value]="(addReceiptForm.get('nip')?.value) | nipFormat" />
                             <div class='validation-feedback'>
                                 @if(addReceiptForm.controls['nip'].touched && addReceiptForm.controls['nip'].invalid) {

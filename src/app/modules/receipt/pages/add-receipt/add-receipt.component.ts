@@ -29,9 +29,6 @@ const moment = _moment;
 })
 export class AddReceiptComponent implements OnDestroy, AfterViewChecked {
   readonly subscriptions$ = new Subscription()
-  private charactersSignalsService = inject(CharactersSignalsService)
-  private logger = inject(LoggerService)
-  private formBuilder = inject(FormBuilder)
   protected readonly title = input<string>('Dodaj paragon');
 
   @ViewChild(FileUploadComponent)
@@ -53,10 +50,12 @@ export class AddReceiptComponent implements OnDestroy, AfterViewChecked {
     return this.addReceiptForm.get('listProducts') as FormArray;
   }
 
-  constructor( 
+  constructor(private logger: LoggerService,
+    private formBuilder: FormBuilder,
+    private charactersSignalsService: CharactersSignalsService,
     private _snackBar: MatSnackBar,
     private receiptService: ReceiptService,
-    private activateRouter: ActivatedRoute) { }
+    private activateRouter: ActivatedRoute) {}
 
   ngAfterViewChecked(): void {
     this.addReceiptForm.controls['image'].get('name')?.setValue(this.base64Ref.imageName)
