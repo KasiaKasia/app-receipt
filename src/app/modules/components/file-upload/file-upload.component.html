@@ -1,5 +1,5 @@
 <div class="file__section">
-    <input type="file" class="file-input" [accept]="requiredFileType" (change)="onFileSelected($event)" #fileUpload>
+    <input type="file"  [accept]="requiredFileType" (change)="onFileSelected($event)" #fileUpload>
     <canvas id="canvas" (click)="getPositionClick($event)"></canvas>
     @if(uploadProgress) {
         <mat-progress-bar class="progress-bar" mode="determinate" [value]="uploadProgress"></mat-progress-bar>

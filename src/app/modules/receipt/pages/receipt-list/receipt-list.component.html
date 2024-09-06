@@ -1,48 +1,48 @@
-<app-dashboard-heading [dashboardHeaderTitle]="title()"/>
+<app-dashboard-heading [dashboardHeaderTitle]="title()" />
 <div class="dashboard__section-body">
     <div class="dashboard__section-body--title">
         <h3>Lista paragonów</h3>
-    </div> 
-    @if(isLoading){   
-        <div class="container cube">
+    </div>
+    @if(isLoading){
+    <div class="container">
+        <div class="cube">
             <div class="face front">Pending</div>
             <div class="face back">Please wait</div>
             <div class="face left"></div>
             <div class="face right"></div>
             <div class="face top"></div>
             <div class="face bottom"></div>
-        </div>     
+        </div>
+    </div>
     } @else {
-        <table class="table">
-            <tr class="table__tr ">
-                <th class="table__th" highlight>#</th>
-                <th class="table__th" highlight>ID paragonu</th>
-                <th class="table__th" highlight>Nazwa sklepu</th>
-                <th class="table__th" highlight>NIP</th>
-                <th class="table__th" highlight>Cena </th>
-                <th class="table__th" highlight>Data zakupu</th>
-                <th class="table__th" highlight>Lista produktów</th>
-                <th class="table__th" highlight>Obraz paragonu</th>
-            </tr>
-            <tbody class="table__tbody">    
-    
-                @for (receipt of listOfReceipts; track $index) {
-                <tr class="table__tr">    
-                    <td class="table__td">{{$index+1}}</td>
-                    <td class="table__td">{{receipt.id}}</td>
-                    <td class="table__td">{{receipt.storeName}}</td>
-                    <td class="table__td">{{receipt.NIP}}</td>
-                    <td class="table__td">{{receipt.totalPrice}}</td>
-                    <td class="table__td">{{moment(receipt.dateOfPurchase).format('YYYY.MM.DD')}}</td>
-                    <td class="table__td">
-                        <div class="grid-container-button">
-                        <button type="button" class="button--save"
+    <table class="table-list">
+        <tr class="table__tr ">
+            <th class="table__th" highlight>#</th>
+            <th class="table__th" highlight>ID paragonu</th>
+            <th class="table__th" highlight>Nazwa sklepu</th>
+            <th class="table__th" highlight>NIP</th>
+            <th class="table__th" highlight>Cena </th>
+            <th class="table__th" highlight>Data zakupu</th>
+            <th class="table__th" highlight>Lista produktów</th>
+            <th class="table__th" highlight>Obraz paragonu</th>
+        </tr>
+        <tbody class="table__tbody">
+
+            @for (receipt of listOfReceipts; track $index) {
+            <tr class="table__tr">
+                <td class="table__td">{{$index+1}}</td>
+                <td class="table__td">{{receipt.id}}</td>
+                <td class="table__td">{{receipt.storeName}}</td>
+                <td class="table__td">{{receipt.NIP}}</td>
+                <td class="table__td">{{receipt.totalPrice}}</td>
+                <td class="table__td">{{moment(receipt.dateOfPurchase).format('YYYY.MM.DD')}}</td>
+                <td class="table__td">
+                    <button type="button" class="button--show-hide-products"
                             (click)="showProducts(receipt.receiptId)">
                             {{ receipt.visibleReceipts ? 'Ukryj produkty': 'Pokaż produkty' }}
-                        </button>
-                        </div>
+                    </button> 
                     @for (products of productsReceipt[receipt.receiptId ]; track products) {
-                    <ng-container  >
+                    <ng-container>
                         <ng-template [ngIf]="products.visibleReceipts">
                             <p>
                                 <strong> {{products.name}}</strong>
@@ -54,25 +54,26 @@
                     </ng-container>
                     }
                 </td>
-                    <td class="table__td">sss
-                        <div class="grid-container-button">
-                            <button type="button" class="button--reset"
-                            (click)="showImage(receipt.receiptId)">
+                <td class="table__td">
+                    <!-- <div class="grid-container-button"> -->
+                    <div class="table__td--group-button">
+                        <button type="button" class="button--reset" (click)="showImage(receipt.receiptId)">
                             {{ receipt.visibleImage ? 'Ukryj obraz': 'Pokaż obraz' }}
-                            </button>  
-                            <app-modal-container [listOfReceiptsWithProducts]="listOfReceiptsWithProducts" [receiptId]="receipt.receiptId"/>
-                        </div>
-                    </td>
-                    @for (image of imageReceipt[receipt.receiptId]; track image) {    
-                    <ng-container>
-                        <ng-template [ngIf]="image.visibleImage">
-                            <img [src]="image.base64">
-                        </ng-template>
-                    </ng-container>
-                    }
-                </tr>
+                        </button>
+                        <app-modal-container [listOfReceiptsWithProducts]="listOfReceiptsWithProducts"
+                            [receiptId]="receipt.receiptId" />
+                    </div>
+                </td>
+                @for (image of imageReceipt[receipt.receiptId]; track image) {
+                <ng-container>
+                    <ng-template [ngIf]="image.visibleImage">
+                        <img [src]="image.base64">
+                    </ng-template>
+                </ng-container>
+                }
+            </tr>
             }
-            </tbody>
-        </table>
-    }    
+        </tbody>
+    </table>
+    }
 </div>

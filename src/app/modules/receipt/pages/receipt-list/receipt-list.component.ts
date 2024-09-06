@@ -10,23 +10,20 @@ import { Visible, Image, Receipt, Product } from '../../../../shared/models/inte
 import { LoggerService } from '../../../../shared/logger/logger.service';
 import { DashboardHeadingComponent } from 'src/app/shared/components/dashboard-heading/dashboard-heading.component';
 import { ModalContainerComponent } from 'src/app/shared/components/modal/modal-container/modal-container.component';
-import { CommonModule, NgFor, NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { LoadingService } from '../../service/loading/loading.service';
 
 
 @Component({
   selector: 'app-receipt-list',
   standalone: true,
-  imports: [DashboardHeadingComponent, ModalContainerComponent, NgIf, NgFor],
- 
+  imports: [DashboardHeadingComponent, ModalContainerComponent, NgIf, NgFor], 
   templateUrl: './receipt-list.component.html',
   styleUrls: ['./receipt-list.component.scss']
 })
 export class ReceiptListComponent {
   isLoading = this.loadingService.getLoading()
-
   title = input<string>('Lista paragonów');
-
   moment = _moment;
   private currentUser: User = {} = JSON.parse(this.authService.getCurrentDataUser()) as User;
   listOfReceipts$ = this.receiptService.getListOfReceipts(this.currentUser.userid) ?? []
@@ -41,13 +38,10 @@ export class ReceiptListComponent {
     public activeModal: NgbActiveModal,
     private logger: LoggerService,
     private loadingService: LoadingService
-  ) {
-
-     
+  ) {     
       effect(() => {
         this.isLoading = this.loadingService.getLoading()
-      })
-    
+      })    
 
     this.listOfReceipts$.pipe(takeUntilDestroyed()).subscribe((res: any) => {
       if (res && res.respons)

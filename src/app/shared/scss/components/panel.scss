@@ -15,11 +15,9 @@
 }
 
 .grid-container-button {
-    @include grid-container;
-    grid-template-columns: 2fr;
-    grid-template-rows: auto auto auto auto;
-    gap: 3px 0px;
-    align-items: center;
+   display: flex;
+   justify-content: center;
+   margin: 10px;
 }
 
 .panel--form {

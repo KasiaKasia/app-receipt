@@ -1,6 +1,10 @@
 @import '../variables.scss';
 
 @mixin button {
+    display: flex;
+    justify-content: space-around;
+    width: fit-content;
+    flex-wrap: wrap;
     margin: 10px 20px 10px 20px;
     padding: 10px;
     color: white;
@@ -9,6 +13,14 @@
     border-width: 2px;
     border-image-slice: 1;
 }
+
+.button--show-hide-products {
+    @include button;
+    @include button--border-image;
+    border-image-source: $gradient-text-color-blue-20;
+    background-image: $gradient-text-color-blue-70;
+}
+
 .button--save {
     @include button;
     @include button--border-image;
@@ -29,6 +41,6 @@
 }
 input::file-selector-button {
     @extend .button--reset;
-    width: 42%;
+    width: 40%;
     cursor: pointer;
 }
