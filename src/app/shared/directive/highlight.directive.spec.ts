@@ -1,7 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA, ElementRef } from '@angular/core';
 import { HighlightDirective } from './highlight.directive';
 import { TestBed } from '@angular/core/testing';
-import { ReceiptListComponent } from 'src/app/modules/receipt/pages/receipt-list/receipt-list.component';
+import { ReceiptListComponent } from 'src/app/modules/receipt/pages/list-receipts/receipt-list.component';
 
 export class MockElementRef extends ElementRef { }
 

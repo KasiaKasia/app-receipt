@@ -21,27 +21,29 @@ import { LoggerService } from 'src/app/shared/logger/logger.service';
 const moment = _moment;
 
 @Component({
-  selector: 'app-receipt-addition',
+  selector: 'app-add-receipt',
   standalone: true,
   imports: [NgIf, NipFormatPipe, ValidatorCharacterIsNumberDirective, MatProgressBarModule, ReactiveFormsModule, FileUploadComponent, DashboardHeadingComponent, MatButtonModule, MatInputModule, MatDatepickerModule],
-  templateUrl: './receipt-addition.component.html',
-  styleUrls: ['./receipt-addition.component.scss']
+  templateUrl: './add-receipt.component.html',
+  styleUrls: ['./add-receipt.component.scss']
 })
-export class ReceiptAdditionComponent implements OnDestroy, AfterViewChecked {
+export class AddReceiptComponent implements OnDestroy, AfterViewChecked {
   readonly subscriptions$ = new Subscription()
   private charactersSignalsService = inject(CharactersSignalsService)
   private logger = inject(LoggerService)
-  title = input<string>('Dodaj paragon');
+  private formBuilder = inject(FormBuilder)
+  protected readonly title = input<string>('Dodaj paragon');
+
   @ViewChild(FileUploadComponent)
   base64Ref!: FileUploadComponent;
   userId: User = {};
-  protected addReceiptForm: FormGroup = this.fb.group({
+  protected addReceiptForm: FormGroup = this.formBuilder.group({
     shopName: ['', Validators.required],
     nip: ['', Validators.required],
     totalPrice: ['', Validators.required],
     dateOfPurchase: [''],
-    listProducts: this.fb.array([this.createProduct()]),
-    image: this.fb.group({
+    listProducts: this.formBuilder.array([this.createProduct()]),
+    image: this.formBuilder.group({
       name: [''],
       base64: ['']
     })
@@ -51,7 +53,7 @@ export class ReceiptAdditionComponent implements OnDestroy, AfterViewChecked {
     return this.addReceiptForm.get('listProducts') as FormArray;
   }
 
-  constructor(private fb: FormBuilder,
+  constructor( 
     private _snackBar: MatSnackBar,
     private receiptService: ReceiptService,
     private activateRouter: ActivatedRoute) { }
@@ -70,7 +72,7 @@ export class ReceiptAdditionComponent implements OnDestroy, AfterViewChecked {
     });
   }
   createProduct(): FormGroup {
-    const listProductsForm = this.fb.group({
+    const listProductsForm = this.formBuilder.group({
       productName: ['', Validators.required],
       quantity: ['', Validators.required],
       price: ['', Validators.required],
@@ -95,6 +97,7 @@ export class ReceiptAdditionComponent implements OnDestroy, AfterViewChecked {
     }
 
     if (this.addReceiptForm.dirty && this.addReceiptForm.valid) {
+
       let dateOfPurchase = moment(this.addReceiptForm.get('dateOfPurchase')?.value).format('YYYY.MM.DD');
       this.addReceiptForm.controls['dateOfPurchase'].setValue(dateOfPurchase)
       this.subscriptions$.add(this.activateRouter.params.subscribe(params => this.userId = params['id']))
@@ -111,7 +114,9 @@ export class ReceiptAdditionComponent implements OnDestroy, AfterViewChecked {
         requestReceipt: this.receiptService.addReceipt(receiptFormValue, this.userId)
       })
         .subscribe(req => {
-          this.openSnackBar('Paragon oraz obraz został dodany do bazy danych')
+          if(req) {
+            this.openSnackBar('Paragon oraz obraz został dodany do bazy danych')
+          }
         }))
     }
   }

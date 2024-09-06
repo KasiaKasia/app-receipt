@@ -1,7 +1,7 @@
 import { Component, effect, input, SecurityContext } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { User } from '../../../../shared/models/interface-user';
-import { ReceiptService } from '../../../../modules/receipt/service/receipt/receipt.service';
+import { ReceiptService } from '../../service/receipt/receipt.service';
 import { AuthService } from '../../../../shared/services/auth.service';
 import * as _moment from 'moment';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -15,13 +15,13 @@ import { LoadingService } from '../../service/loading/loading.service';
 
 
 @Component({
-  selector: 'app-receipt-list',
+  selector: 'app-list-receipts',
   standalone: true,
   imports: [DashboardHeadingComponent, ModalContainerComponent, NgIf, NgFor], 
-  templateUrl: './receipt-list.component.html',
-  styleUrls: ['./receipt-list.component.scss']
+  templateUrl: './list-receipts.component.html',
+  styleUrls: ['./list-receipts.component.scss']
 })
-export class ReceiptListComponent {
+export class ListReceiptsComponent {
   isLoading = this.loadingService.getLoading()
   title = input<string>('Lista paragonów');
   moment = _moment;
