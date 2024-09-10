@@ -37,12 +37,11 @@
                 <td class="table__td">{{receipt.totalPrice}}</td>
                 <td class="table__td">{{moment(receipt.dateOfPurchase).format('YYYY.MM.DD')}}</td>
                 <td class="table__td">
-                    <button type="button" class="button--show-hide-products"
-                            (click)="showProducts(receipt.receiptId)">
-                            {{ receipt.visibleReceipts ? 'Ukryj produkty': 'Pokaż produkty' }}
-                    </button> 
+                    <button type="button" class="button--show-hide-products" (click)="showProducts(receipt.receiptId)">
+                        {{ receipt.visibleReceipts ? 'Ukryj produkty': 'Pokaż produkty' }}
+                    </button>
                     @for (products of productsReceipt[receipt.receiptId ]; track products) {
-                    <ng-container>
+
                         <ng-template [ngIf]="products.visibleReceipts">
                             <p>
                                 <strong> {{products.name}}</strong>
@@ -51,25 +50,25 @@
                                 Łączna cena: {{products.productTotalPrice}}
                             </p>
                         </ng-template>
-                    </ng-container>
                     }
                 </td>
                 <td class="table__td">
                     <div class="table__td--group-button-column">
-                        <button type="button" class="button--reset" (click)="showImage(receipt.receiptId)">
-                            {{ receipt.visibleImage ? 'Ukryj obraz': 'Pokaż obraz' }}
+                        <button type="button" class="button--reset" (click)="showImageThumbnail(receipt.receiptId)">
+                            {{ receipt.visibleImageSmall ? 'Ukryj obraz': 'Pokaż obraz' }}
                         </button>
-                        <app-modal-container [listOfReceiptsWithProducts]="listOfReceiptsWithProducts"
-                            [receiptId]="receipt.receiptId" />
+                        <ng-template [ngIf]="receipt.visibleImageSmall">
+                            <img [src]="receipt.base64">
+                        </ng-template>
+
+                        <button type="button" class="button--reset" (click)="showImageinDialogue(receipt.receiptId)">
+                            {{receipt.visibleImageInDialog ? 'Ukryj obraz w dialog': 'Pokaż obraz w dialog' }}
+                        </button>
+                        <ng-template [ngIf]="receipt.visibleImageInDialog">
+                            <app-dialog />
+                        </ng-template>
                     </div>
                 </td>
-                @for (image of imageReceipt[receipt.receiptId]; track image) {
-                <ng-container>
-                    <ng-template [ngIf]="image.visibleImage">
-                        <img [src]="image.base64">
-                    </ng-template>
-                </ng-container>
-                }
             </tr>
             }
         </tbody>

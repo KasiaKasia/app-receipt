@@ -34,7 +34,7 @@ export class UserRegistrationComponent {
       const values = control.value
       if (values.password !== values.repeatPassword) {
         return {
-          password_match: true
+          passwordMatch: true
         }
       }
       return null;

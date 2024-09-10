@@ -7,7 +7,8 @@ export interface Image {
 }
 
 export interface Visible {
-  visibleImage?: boolean;
+  visibleImageSmall?: boolean;
+  visibleImageInDialog?: boolean;
   visibleReceipts?: boolean;
 }
 
@@ -29,6 +30,8 @@ export interface Product {
   productTotalPrice?: number;
   receiptId?: Receipt;
 }
+
+export type PartialReceiptDataSet = Partial<Visible> & Partial<Image> & Partial<Receipt> & Partial<Product>;
 
 export interface ClickPosition {
   readonly x?: number;

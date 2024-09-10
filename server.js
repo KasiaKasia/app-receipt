@@ -29,7 +29,7 @@ app.post('/upload', (req, res) => {
             success: false,
             message: 'No files were uploaded',
         });
-    } else if (req.files) { 
+    } else if (req.files) {
         const fileName = req.files.fileDate.name;
 
         try {
@@ -53,12 +53,12 @@ app.post('/upload', (req, res) => {
         }
     }
 });
- 
+
 async function detectText(fileName) {
     // Creates a client
     const client = new vision.ImageAnnotatorClient();
     const [result] = await client.textDetection(fileName);
- //   const detections = result[0]['textAnnotations'];
+    //   const detections = result[0]['textAnnotations'];
     const detections = result.textAnnotations;
     let fileObjectCopy = [];
     let fileObject = [];
@@ -75,14 +75,14 @@ async function detectText(fileName) {
         })
     });
     return fileObject;
-  }
+}
 
 app.post('/login', function (req, res) {
     const queryInnerleft = "SELECT * FROM [database].[dbo].[User] u "
         + "WHERE u.username ='" + req.body.username + "' AND u.password = '" + req.body.password + "'";
     sql.query(connectionString, queryInnerleft, (err, user) => {
         if (err) {
-      
+
             return res.status(500).json({
                 success: false,
                 code: 500,
@@ -142,7 +142,6 @@ app.post('/register', function (req, res) {
                 respons: user
             });
         } else if (user) {
-
             return res.status(200).json({
                 success: true,
                 message: 'User created successfully, please login to access your account.',
@@ -175,21 +174,25 @@ app.get('/receipt/list-of-receipts/:id', (req, res) => {
     });
 })
 
-app.put('/receipt/add-receipt-image/:id', (req, res) => {
-    const queryInsertImage = " INSERT INTO [database].[dbo].[Image] ([id], [name], [base64]) VALUES ( (select max([id]) + 1 from [database].[dbo].[Image]), '" + req.body.image.name + "'  ,  '" + req.body.image.base64 + "' ) ";
-    sql.query(connectionString, queryInsertImage, (err, rows) => {
 
+app.put('/receipt/add-receipt-image/:id', (req, res) => {
+    const queryInsertImage = `
+        INSERT INTO [database].[dbo].[Image] ([id], [name], [base64]) 
+        VALUES (
+            (SELECT MAX([id]) + 1 FROM [database].[dbo].[Image]), 
+            '${req.body.image.name}', 
+            '${req.body.image.base64}'
+        )`;
+
+    sql.query(connectionString, queryInsertImage, (err, rows) => {
+        if (res.headersSent) { return; }
         if (err) {
             return res.status(400).json(err);
         } else {
-            return res.status(200).json({
-                success: true,
-                message: 'The receipt image has been added to the database',
-                respons: rows
-            });
+            return res.status(200).json({rows});
         }
     });
-})
+});
 
 app.put('/receipt/add-receipt/:id', (req, res, next) => {
 
@@ -206,17 +209,22 @@ app.put('/receipt/add-receipt/:id', (req, res, next) => {
     let queryInsertReceiptAndListProduct = queryInsertReceipt + listProductsForReceipt;
 
     sql.query(connectionString, queryInsertReceiptAndListProduct, function (err, rows, fields) {
-
+        if (res.headersSent) {   return; }
         if (err) {
-            return res.status(400).send({
+            return res.status(400).json({
                 success: false,
                 message: 'Error processing request ' + err
             });
         } else {
-            return res.status(200).send();
+            return res.status(200).json({
+                success: true,
+                message: 'The receipt has been added to the database',
+                respons: rows
+            });
         }
     });
 })
+ 
 var server = app.listen(5000, function () {
     console.log('Server is running...');
 })

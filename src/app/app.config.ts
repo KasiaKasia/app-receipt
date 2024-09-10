@@ -4,7 +4,7 @@ import { routes } from './app.routes';
 import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { INJECTION_TOKEN } from './app.component';
-import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { LoggerDebugService, LoggerService } from './shared/logger/logger.service';
 import { loadingInterceptor } from './shared/interceptors/loading.interceptor';
 import { httpErrorInterceptor } from './shared/interceptors/http-error.interceptor';
@@ -20,7 +20,7 @@ export const CacheInterceptorProvider: Provider = {
 export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(
-      withInterceptors([authorizationInterceptor, loadingInterceptor, httpErrorInterceptor]),//authorizationInterceptor
+      withInterceptors([authorizationInterceptor, loadingInterceptor, httpErrorInterceptor])
     ),
     {
       provide: LoggerService,

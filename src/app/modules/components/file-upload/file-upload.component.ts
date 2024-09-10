@@ -14,7 +14,7 @@ import { CharactersSignalsService } from '../../receipt/service/characters/chara
 @Component({
   selector: 'app-file-upload',
   standalone: true,
-  imports:[MatIcon,MatProgressBar, NgIf],
+  imports:[MatIcon, MatProgressBar, NgIf],
   templateUrl: './file-upload.component.html',
   styleUrls: ['./file-upload.component.scss'],
 })
@@ -159,7 +159,7 @@ export class FileUploadComponent {
     this.uploadProgress = 0;
     this.uploadSub = null;
   }
-  
+
   setCharactersSignalsService(value: string) {
     this.charactersSignalsService.setCharacters(value )
   }

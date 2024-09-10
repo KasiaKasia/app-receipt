@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, inject, input, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, input, OnDestroy, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ReceiptService } from '../../service/receipt/receipt.service';
 import { ActivatedRoute } from '@angular/router';
@@ -55,7 +55,7 @@ export class AddReceiptComponent implements OnDestroy, AfterViewChecked {
     private charactersSignalsService: CharactersSignalsService,
     private _snackBar: MatSnackBar,
     private receiptService: ReceiptService,
-    private activateRouter: ActivatedRoute) {}
+    private activateRouter: ActivatedRoute) { }
 
   ngAfterViewChecked(): void {
     this.addReceiptForm.controls['image'].get('name')?.setValue(this.base64Ref.imageName)
@@ -96,11 +96,9 @@ export class AddReceiptComponent implements OnDestroy, AfterViewChecked {
     }
 
     if (this.addReceiptForm.dirty && this.addReceiptForm.valid) {
-
       let dateOfPurchase = moment(this.addReceiptForm.get('dateOfPurchase')?.value).format('YYYY.MM.DD');
       this.addReceiptForm.controls['dateOfPurchase'].setValue(dateOfPurchase)
       this.subscriptions$.add(this.activateRouter.params.subscribe(params => this.userId = params['id']))
-
 
       this.addReceiptForm.value.listProducts.length = this.addReceiptForm.value.listProducts.length
       let receiptFormValue = {
@@ -113,7 +111,7 @@ export class AddReceiptComponent implements OnDestroy, AfterViewChecked {
         requestReceipt: this.receiptService.addReceipt(receiptFormValue, this.userId)
       })
         .subscribe(req => {
-          if(req) {
+          if (req) {
             this.openSnackBar('Paragon oraz obraz został dodany do bazy danych')
           }
         }))
@@ -148,6 +146,7 @@ export class AddReceiptComponent implements OnDestroy, AfterViewChecked {
 
     }
   }
+
   clearClipboard() {
     this.addReceiptForm.markAsUntouched()
     this.listProducts.markAsUntouched()

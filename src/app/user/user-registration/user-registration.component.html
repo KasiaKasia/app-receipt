@@ -52,7 +52,7 @@
                 <input class="panel--input" required type="text" formControlName="repeatPassword" />
                 <div class="validation-feedback">
                     @if(registrationForm.controls['repeatPassword'].touched || registrationForm.controls['repeatPassword'].dirty){
-                        @if(registrationForm.hasError('password_match')){
+                        @if(registrationForm.hasError('passwordMatch')){
                             <span>Hasła muszą być identyczne</span>
                         }
                     }                    
