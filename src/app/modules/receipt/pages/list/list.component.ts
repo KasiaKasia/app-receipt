@@ -1,4 +1,4 @@
-import { Component, SecurityContext } from '@angular/core';
+import { Component, DestroyRef, inject, SecurityContext } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ReceiptService } from '../../service/receipt/receipt.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -11,6 +11,7 @@ import { ModalContainerComponent } from 'src/app/shared/components/modal/modal-c
 import { CommonModule } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { MatColumnDef, MatTable } from '@angular/material/table';
+import { ActivatedRoute } from '@angular/router';
 
 
 export enum KeyType {
@@ -73,6 +74,8 @@ type DerivedType = Exclude<BaseTypeColumns, ValueType.expand>;
   ],
 })
 export class ListComponent {
+  roleId = this.activatedRoute.snapshot.paramMap.get('id') as string;
+  private destroyRef = inject(DestroyRef);
   private currentUser: User = {} = JSON.parse(this.authService.getCurrentDataUser()) as User;
   listOfReceipts$ = this.receiptService.getListOfReceipts(this.currentUser.userid) ?? []
   dataSource = [];
@@ -86,12 +89,13 @@ export class ListComponent {
 
   productsReceipt: any[] = []
   imageReceipt: any[] = [];
-  constructor(public receiptService: ReceiptService,
+  constructor( private activatedRoute: ActivatedRoute,
+    public receiptService: ReceiptService,
     public authService: AuthService, 
     private _sanitizer: DomSanitizer,
     public modalService: NgbModal,
     public activeModal: NgbActiveModal, ) {
-    this.listOfReceipts$.pipe(takeUntilDestroyed()).subscribe((res: any) => {
+    this.listOfReceipts$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((res: any) => {
       if (res && res.respons)
          this.dataSource = res.respons;
       this.listOfReceiptsWithProducts = [...res.respons];

@@ -2,7 +2,7 @@ import { HttpClient, HttpContext, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, share, tap } from 'rxjs';
 import { Receipt } from '../../../../shared/models/interface-receipt';
-import { Settings } from '../../../../shared/environments/settings';
+import { Settings } from '../../../../shared/config/settings';
 import { User } from '../../../../shared/models/interface-user';
 import { Response } from '../../../../shared/models/interface-response';
 import { LoggerService } from '../../../../shared/logger/logger.service';

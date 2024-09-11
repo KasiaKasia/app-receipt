@@ -1,4 +1,4 @@
-import { Component, effect, input, SecurityContext } from '@angular/core';
+import { Component, DestroyRef, effect, inject, input, SecurityContext } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { User } from '../../../../shared/models/interface-user';
 import { ReceiptService } from '../../service/receipt/receipt.service';
@@ -14,6 +14,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { LoadingService } from '../../service/loading/loading.service';
 import { DialogComponent } from 'src/app/modules/components/dialog/dialog.component';
 import { ReceiptSignalsService } from '../../service/receipt/receipt-signals/receipt-signals.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -24,6 +25,7 @@ import { ReceiptSignalsService } from '../../service/receipt/receipt-signals/rec
   styleUrls: ['./list-receipts.component.scss']
 })
 export class ListReceiptsComponent {
+  destroyRef = inject(DestroyRef)
   isLoading = this.loadingService.getLoading()
   title = input<string>('Lista paragonów');
   moment = _moment;
@@ -40,13 +42,14 @@ export class ListReceiptsComponent {
     public activeModal: NgbActiveModal,
     private logger: LoggerService,
     private loadingService: LoadingService,
+    private router: Router,
     protected receiptSignalsService: ReceiptSignalsService
   ) {
     effect(() => {
       this.isLoading = this.loadingService.getLoading()
     })
 
-    this.listOfReceipts$.pipe(takeUntilDestroyed()).subscribe((res: any) => {
+    this.listOfReceipts$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((res: any) => {
       if (res && res.respons)
         this.listOfReceiptsWithProducts = [...res.respons];
       this.listOfReceipts = this.listOfReceiptsWithProducts.filter((objectProduct: any, index: number, receipts: any) =>
@@ -88,7 +91,9 @@ export class ListReceiptsComponent {
     })
     this.receiptSignalsService.setRecipt(this.imageReceipt[receiptId] as PartialReceiptDataSet[])
   }
-  
+  receiptDetails(receiptId: number){
+    this.router.navigate(['receipt/receipt-details/', receiptId]);
+  }
   notLoaded() {
     this.logger.error('The image could not be loaded');
   }

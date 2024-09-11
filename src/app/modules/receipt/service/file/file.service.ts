@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { share, takeLast } from 'rxjs';
-import { Settings } from 'src/app/shared/environments/settings';
+import { Settings } from 'src/app/shared/config/settings';
 
 @Injectable({
   providedIn: 'root'

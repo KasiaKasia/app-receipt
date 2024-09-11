@@ -1,12 +1,3 @@
-@keyframes animation-navbar {
-    0% {
-        background-position: 0% 50%;
-    }
-    100% {
-        background-position: 100% 50%;
-    }
-}
-
 .navbar {
     position: fixed;
     display: flex; 
@@ -15,9 +6,7 @@
     background: linear-gradient(to right, #25a5d5, rgb(17 59 95 / 91%) 11%);
     z-index: 1;
     box-shadow: $boxShadowBlack;
-    padding-right: 50px;
-    // animation: animation-navbar 20s ease-in-out;
-    animation: gradient-animation 5s linear infinite;
+    padding-right: 50px; 
 
     .navbar__wrapper {
         display: flex;

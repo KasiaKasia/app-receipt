@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Session, User } from '../models/interface-user';
-import { Settings } from '../environments/settings';
+import { Settings } from '../config/settings';
 import { LoggerService } from '../logger/logger.service';
 import { catchError, share, switchMap, take, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';

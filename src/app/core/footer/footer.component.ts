@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent {
-  protected readonly description ='© 2023 Copyright: Katarzyna Bulicka'
+  protected readonly description ='© 2024 Copyright: Katarzyna Bulicka'
 }

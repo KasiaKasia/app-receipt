@@ -5,6 +5,7 @@ import { GuardCanActivateCanDeactivateCanActivateChildCanLoadCanMatch } from 'sr
 import { ListReceiptsComponent } from './pages/list-receipts/list-receipts.component';
 import { AddReceiptComponent } from './pages/add-receipt/add-receipt.component';
 import { ListComponent } from './pages/list/list.component';
+import { DetailsReceiptComponent } from './pages/details-receipt/details-receipt.component';
 
 const routes: Routes = [{
   path: '',
@@ -16,9 +17,9 @@ const routes: Routes = [{
       data: { title: 'Lista paragonów' },
       component:  ListReceiptsComponent
     }, {
-      path: 'list/:id',
-      data: { title: 'Lista paragonów' },
-      component: ListComponent //ReceiptListComponent
+      path: 'receipt-details/:id',
+      data: { title: 'Szczegóły paragonu' },
+      component: DetailsReceiptComponent //ListComponent //ReceiptListComponent
     }, {
       path: 'add-receipt/:id',
       data: { title: 'Dodaj paragon' },
