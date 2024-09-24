@@ -92,7 +92,7 @@ export class AddReceiptComponent implements OnDestroy, AfterViewChecked {
     this.addReceiptForm.markAllAsTouched();
     this.listProducts.markAllAsTouched()
  
-    if (this.addReceiptForm.invalid) return;
+    if (this.addReceiptForm.invalid) { return };
  
     if (this.addReceiptForm.dirty && this.addReceiptForm.valid) {
       let dateOfPurchase = moment(this.addReceiptForm.get('dateOfPurchase')?.value).format('YYYY.MM.DD');

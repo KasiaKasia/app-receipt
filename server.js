@@ -124,10 +124,10 @@ app.post('/login', function (req, res) {
 
 app.post('/register', function (req, res) {
     const queryInnerleft = "INSERT INTO [database].[dbo].[User] ([id], [username], [password], [description], [email], [type], [address_id]) VALUES "
-        + " ((SELECT max(id)+1 from [database].[dbo].[User]), '" + req.body.username + "' , '" + req.body.password + "', '', '" + req.body.email + "', '" + req.body.type + "', 0)";
+        + " ((SELECT max([id])+1 from [database].[dbo].[User]), '" + req.body.username + "' , '" + req.body.password + "', '', '" + req.body.email + "', '" + req.body.type + "', 0)";
 
+      
     sql.query(connectionString, queryInnerleft, (err, user) => {
-
         if (err) {
             return res.status(400).json({
                 success: false,

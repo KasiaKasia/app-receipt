@@ -23,7 +23,8 @@ const routes: Routes = [{
     }, {
       path: 'add-receipt/:id',
       data: { title: 'Dodaj paragon' },
-      component: AddReceiptComponent
+      component: AddReceiptComponent,
+      canActivate: [GuardCanActivateCanDeactivateCanActivateChildCanLoadCanMatch] 
    //   canActivate: mapToCanActivate ([GuardCanActivateCanDeactivateCanActivateChildCanLoadCanMatch]) 
     }, 
   ]
