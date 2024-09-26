@@ -1,4 +1,4 @@
-import { Component, DestroyRef, effect, inject, input, SecurityContext } from '@angular/core';
+import { Component, DestroyRef, effect, HostListener, inject, input, SecurityContext } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { User } from '../../../../shared/models/interface-user';
 import { ReceiptService } from '../../service/receipt/receipt.service';
@@ -10,7 +10,7 @@ import { Visible, Image, Receipt, Product, PartialReceiptDataSet } from '../../.
 import { LoggerService } from '../../../../shared/logger/logger.service';
 import { DashboardHeadingComponent } from 'src/app/shared/components/dashboard-heading/dashboard-heading.component';
 import { ModalContainerComponent } from 'src/app/shared/components/modal/modal-container/modal-container.component';
-import { NgFor, NgIf } from '@angular/common';
+import { NgClass, NgFor, NgIf } from '@angular/common';
 import { LoadingService } from '../../service/loading/loading.service';
 import { DialogComponent } from 'src/app/modules/components/dialog/dialog.component';
 import { ReceiptSignalsService } from '../../service/receipt/receipt-signals/receipt-signals.service';
@@ -20,7 +20,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-list-receipts',
   standalone: true,
-  imports: [DashboardHeadingComponent, ModalContainerComponent, NgIf, NgFor, DialogComponent],
+  imports: [DashboardHeadingComponent, ModalContainerComponent, NgIf, NgFor, DialogComponent, NgClass],
   templateUrl: './list-receipts.component.html',
   styleUrls: ['./list-receipts.component.scss']
 })
@@ -35,6 +35,7 @@ export class ListReceiptsComponent {
   listOfReceiptsWithProducts!: Partial<Visible[]> & Partial<Image[]> & Partial<Receipt[]> & Partial<Product[]>
   productsReceipt: any[] = []
   imageReceipt: PartialReceiptDataSet[][] = [];
+  protected  isVisible = false;
   constructor(public receiptService: ReceiptService,
     public authService: AuthService,
     private _sanitizer: DomSanitizer,
@@ -56,7 +57,19 @@ export class ListReceiptsComponent {
         receipts.findIndex((v2: any) => (v2.receiptId === objectProduct.id)) === index)
     })
   }
+ 
+ 
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    this.isVisible = window.scrollY > 100; // Pokaż przycisk po przewinięciu o 200px
+  }
 
+  scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth' // Płynne przewijanie
+    });
+  }
   showProducts(receiptId: number) {
     this.productsReceipt[receiptId] = this.listOfReceiptsWithProducts.filter((listReceipts: any) =>
       listReceipts.receiptId === receiptId);
