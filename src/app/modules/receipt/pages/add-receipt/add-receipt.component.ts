@@ -1,5 +1,5 @@
 import { AfterViewChecked, Component, input, OnDestroy, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReceiptService } from '../../service/receipt/receipt.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -8,17 +8,10 @@ import { User } from 'src/app/shared/models/interface-user';
 import * as _moment from 'moment';
 import { Subscription, forkJoin } from 'rxjs';
 import { FileUploadComponent } from 'src/app/modules/components/file-upload/file-upload.component';
-import { DashboardHeadingComponent } from 'src/app/shared/components/dashboard-heading/dashboard-heading.component';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { NipFormatPipe } from '../../pipe/nip-format.pipe';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { NgIf } from '@angular/common';
-import { ValidatorCharacterIsNumberDirective } from 'src/app/shared/validator-directive/validator-character-is-number.directive';
 import { CharactersSignalsService } from '../../service/characters/characters-signals.service';
 import { LoggerService } from 'src/app/shared/logger/logger.service';
 import { ImportsModuleAddRecipt } from 'src/app/modules/imports-module/imports-modile-add-receipt';
+import { WordPosition, WordPositionAdapter } from '../../service/adapter/words.adapter';
 const moment = _moment;
 
 @Component({
@@ -56,7 +49,10 @@ export class AddReceiptComponent implements OnDestroy, AfterViewChecked {
     private charactersSignalsService: CharactersSignalsService,
     private _snackBar: MatSnackBar,
     private receiptService: ReceiptService,
-    private activateRouter: ActivatedRoute) { }
+    private activateRouter: ActivatedRoute) { 
+
+    
+    }
 
   ngAfterViewChecked(): void {
     this.addReceiptForm.controls['image'].get('name')?.setValue(this.base64Ref.imageName)
@@ -155,5 +151,21 @@ export class AddReceiptComponent implements OnDestroy, AfterViewChecked {
     this.addReceiptForm.markAsUntouched()
     this.listProducts.markAsUntouched()
     this.charactersSignalsService.setCharacters('')
+  }
+
+  pasteBasicReceiptInformation(){
+    const adapter = new WordPositionAdapter(this.wordPosition);
+    const basicReceiptInformation = adapter.adapt();
+ 
+    if(basicReceiptInformation){
+      this.addReceiptForm.controls['shopName'].setValue(basicReceiptInformation.shopName)
+      this.addReceiptForm.controls['nip'].setValue(basicReceiptInformation.nip)
+      this.addReceiptForm.controls['totalPrice'].setValue(basicReceiptInformation.totalPrice)
+    }
+  
+  }
+  wordPosition:WordPosition[] =[]
+  handleWordsAndPositions(wordsAndPositions: WordPosition[]): WordPosition[]{
+  return this.wordPosition = wordsAndPositions
   }
 }

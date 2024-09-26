@@ -64,7 +64,7 @@
              <tbody class="table__tbody">
                 <tr class="table__tr">
                     <td class="table__td">
-                        <app-file-upload />
+                        <app-file-upload (wordsAndPositionEmitted)="handleWordsAndPositions($event)"/>
                     </td>
                 </tr>
             </tbody>
@@ -154,6 +154,7 @@
         <div class="grid-container-button">
             <button type="submit" class="button--save">Zapisz paragon</button>
             <button type="button" class="button--reset" (click)="clearClipboard()">Czyść schowek</button>
+            <button type="button" class="button--reset" (click)="pasteBasicReceiptInformation()">Wklej podstawowe informacje paragonu</button>
 
         </div>
     </form>

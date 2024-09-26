@@ -13,9 +13,6 @@ export class GuardCanActivateCanDeactivateCanActivateChildCanLoadCanMatch {
  // readonly #logger = inject(LoggerService);
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
-    console.log('route ', route)
-    console.log('state ', state)
-    console.log('this.#authService.getIsAuthenticated() ', this.#authService.getIsAuthenticated())
     return this.#authService.getIsAuthenticated();
   }
 

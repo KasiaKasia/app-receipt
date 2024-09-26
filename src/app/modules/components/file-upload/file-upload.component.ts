@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, output } from '@angular/core';
 import { HttpEventType } from '@angular/common/http';
 import { Subscription, finalize } from 'rxjs';
 import { FileService } from '../../receipt/service/file/file.service';
@@ -9,6 +9,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { NgIf } from '@angular/common';
 import { CharactersSignalsService } from '../../receipt/service/characters/characters-signals.service';
+import { WordPosition } from '../../receipt/service/adapter/words.adapter';
  
 
 @Component({
@@ -19,6 +20,8 @@ import { CharactersSignalsService } from '../../receipt/service/characters/chara
   styleUrls: ['./file-upload.component.scss'],
 })
 export class FileUploadComponent { 
+  wordsAndPositionEmitted = output<WordPosition[]>({});
+
   private charactersSignalsService = inject(CharactersSignalsService)
 
   @Input( )
@@ -109,6 +112,8 @@ export class FileUploadComponent {
           ctx.drawImage(img, 0, 0);
           ctx.beginPath();
           const flatRespons = this.textPosition.flat();
+
+          this.wordsAndPositionEmitted.emit(flatRespons);
           flatRespons.forEach((value: any) => {
 
             if (value.id >= 1) {
@@ -135,7 +140,8 @@ export class FileUploadComponent {
                   maxY = vertices.y;
                 }
               });
-              const word = new Word(value.description, new Point(minX, minY), new Point(maxX, maxY));
+
+              const word = new Word(value.description, new Point(minX, minY), new Point(maxX, maxY));   
               this.words.push({ word });
               ctx.lineTo(startx, starty);
             }
