@@ -1,5 +1,5 @@
 import { AfterViewChecked, Component, input, OnDestroy, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ReceiptService } from '../../service/receipt/receipt.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -18,12 +18,13 @@ import { NgIf } from '@angular/common';
 import { ValidatorCharacterIsNumberDirective } from 'src/app/shared/validator-directive/validator-character-is-number.directive';
 import { CharactersSignalsService } from '../../service/characters/characters-signals.service';
 import { LoggerService } from 'src/app/shared/logger/logger.service';
+import { ImportsModuleAddRecipt } from 'src/app/modules/imports-module/imports-modile-add-receipt';
 const moment = _moment;
 
 @Component({
   selector: 'app-add-receipt',
   standalone: true,
-  imports: [NgIf, NipFormatPipe, ValidatorCharacterIsNumberDirective, MatProgressBarModule, ReactiveFormsModule, FileUploadComponent, DashboardHeadingComponent, MatButtonModule, MatInputModule, MatDatepickerModule],
+  imports: [ImportsModuleAddRecipt],
   templateUrl: './add-receipt.component.html',
   styleUrls: ['./add-receipt.component.scss']
 })
@@ -38,7 +39,7 @@ export class AddReceiptComponent implements OnDestroy, AfterViewChecked {
     shopName: ['', Validators.required],
     nip: ['', Validators.required],
     totalPrice: ['', Validators.required],
-    dateOfPurchase: [''],
+    dateOfPurchase: new FormControl(<Date[] | null>(null)),
     listProducts: this.formBuilder.array([this.createProduct()]),
     image: this.formBuilder.group({
       name: [''],
@@ -89,13 +90,17 @@ export class AddReceiptComponent implements OnDestroy, AfterViewChecked {
   }]
 
   onSubmit() {
-    this.addReceiptForm.markAllAsTouched();
-    this.listProducts.markAllAsTouched()
+    this.addReceiptForm.controls['shopName'].markAsTouched();
+    this.addReceiptForm.controls['nip'].markAsTouched();
+    this.addReceiptForm.controls['totalPrice'].markAsTouched();
+    this.listProducts.controls.forEach(control => control.markAsTouched());
 
     if (this.addReceiptForm.invalid) { return };
     if (this.addReceiptForm.valid) {
-      let dateOfPurchase = moment(this.addReceiptForm.get('dateOfPurchase')?.value).format('YYYY.MM.DD');
-      this.addReceiptForm.controls['dateOfPurchase'].setValue(dateOfPurchase)
+
+      const dateOfPurchase = moment(this.addReceiptForm.get('dateOfPurchase')?.value).format('YYYY.MM.DD');
+      this.addReceiptForm.controls['dateOfPurchase'].setValue(dateOfPurchase);
+
       this.subscriptions$.add(this.activateRouter.params.subscribe(params => this.userId = params['id']))
 
       this.addReceiptForm.value.listProducts.length = this.addReceiptForm.value.listProducts.length
@@ -111,6 +116,7 @@ export class AddReceiptComponent implements OnDestroy, AfterViewChecked {
         .subscribe(req => {
           if (req) {
             this.openSnackBar('Paragon oraz obraz został dodany do bazy danych')
+            this.addReceiptForm.reset()
           }
         }))
     }
