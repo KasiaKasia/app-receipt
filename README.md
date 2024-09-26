@@ -2,6 +2,7 @@
 ## Project in preparation
 # Project Adding Receipts (Angular v16) + Optical Character Recognition (OCR - Cloud Vision API)
 
+This project was generated with Angular CLI version 18.2.5.
 
 ## Installation of the environment
 - cd app-receipt
