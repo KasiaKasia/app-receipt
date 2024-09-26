@@ -40,7 +40,8 @@
               "src/styles.scss",
               "src/app/shared/scss/material/theme.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": ["moment"]
           },
           "configurations": {
             "production": {

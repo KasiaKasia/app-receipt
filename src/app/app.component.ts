@@ -8,11 +8,12 @@ import { SharedModule } from './shared/shared.module';
 import { ReceiptService } from './modules/receipt/service/receipt/receipt.service';
 import { ReceiptModule } from './modules/receipt/receipt.module';
 import { FileService } from './modules/receipt/service/file/file.service';
-import { MAT_DATE_FORMATS } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE  } from '@angular/material/core';
 import { LoggerDebugService, LoggerService } from './shared/logger/logger.service';
 import { DynamicTokenComponent } from './shared/components/dynamic-token/dynamic-token.component';
 import { DynamicTokenOutdatedComponent } from './shared/components/dynamic-token-outdated/dynamic-token-outdated.component';
 import { RETRY_INTERCEPTOR_CONFIG } from './shared/interceptors/http-error.interceptor';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
 
 
 export const MY_DATE_FORMATS = {
@@ -53,6 +54,7 @@ export const dynamicInjectionFn = () => {
       provide: RETRY_INTERCEPTOR_CONFIG,
       useValue: { count: 5, delay: 1000 }, // wartość 5 oznacza , że w przypadku odpwiedzi błędnej z serwera zapyanie zostanie wykonane dodatkowo 5 razy na sekundę  
     },
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
     AuthService,
     ReceiptService,

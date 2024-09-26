@@ -10,8 +10,8 @@ const connectionString = "server=DESKTOP-561O5CC\\MSSQLSERVER3;Database=database
 
 app.use(cors());
 
-app.use(express.json({ limit: '50mb' }));
-app.use(express.urlencoded({ limit: '50mb', extended: true}));
+app.use(express.json({ limit: '150mb' }));
+app.use(express.urlencoded({ limit: '150mb', extended: true}));
 app.use(express.json());
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -58,7 +58,7 @@ async function detectText(fileName) {
     // Creates a client
     const client = new vision.ImageAnnotatorClient();
     const [result] = await client.textDetection(fileName);
-    //   const detections = result[0]['textAnnotations'];
+ //     const detections = result[0]['textAnnotations'];
     const detections = result.textAnnotations;
     let fileObjectCopy = [];
     let fileObject = [];

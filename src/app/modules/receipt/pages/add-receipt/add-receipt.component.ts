@@ -51,7 +51,7 @@ export class AddReceiptComponent implements OnDestroy, AfterViewChecked {
   }
 
   constructor(private logger: LoggerService,
-    private formBuilder: FormBuilder,
+    public formBuilder: FormBuilder,
     private charactersSignalsService: CharactersSignalsService,
     private _snackBar: MatSnackBar,
     private receiptService: ReceiptService,
@@ -91,10 +91,9 @@ export class AddReceiptComponent implements OnDestroy, AfterViewChecked {
   onSubmit() {
     this.addReceiptForm.markAllAsTouched();
     this.listProducts.markAllAsTouched()
- 
+
     if (this.addReceiptForm.invalid) { return };
- 
-    if (this.addReceiptForm.dirty && this.addReceiptForm.valid) {
+    if (this.addReceiptForm.valid) {
       let dateOfPurchase = moment(this.addReceiptForm.get('dateOfPurchase')?.value).format('YYYY.MM.DD');
       this.addReceiptForm.controls['dateOfPurchase'].setValue(dateOfPurchase)
       this.subscriptions$.add(this.activateRouter.params.subscribe(params => this.userId = params['id']))
@@ -142,9 +141,9 @@ export class AddReceiptComponent implements OnDestroy, AfterViewChecked {
       }
     } else {
       this.addReceiptForm.controls[event]?.setValue(this.charactersSignalsService.getCharacters())
-
     }
   }
+
 
   clearClipboard() {
     this.addReceiptForm.markAsUntouched()

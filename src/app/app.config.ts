@@ -8,7 +8,6 @@ import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors } from '@angular
 import { LoggerDebugService, LoggerService } from './shared/logger/logger.service';
 import { loadingInterceptor } from './shared/interceptors/loading.interceptor';
 import { httpErrorInterceptor } from './shared/interceptors/http-error.interceptor';
-import { authorizationInterceptor } from './shared/interceptors/authorization.interceptor';
 import { CacheInterceptorService } from './shared/interceptors/cache-interceptor.service';
 
 export const CacheInterceptorProvider: Provider = {
@@ -20,7 +19,7 @@ export const CacheInterceptorProvider: Provider = {
 export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(
-      withInterceptors([authorizationInterceptor, loadingInterceptor, httpErrorInterceptor])
+      withInterceptors([loadingInterceptor, httpErrorInterceptor])// authorizationInterceptor, 
     ),
     {
       provide: LoggerService,
