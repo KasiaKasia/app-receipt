@@ -21,6 +21,12 @@ export const routes: Routes = [
         loadChildren: () => import('./modules/receipt/receipt.module').then(m => m.ReceiptModule)
     },
     {
+        path: 'analysis',
+        loadChildren: () => import('./modules/analysis/analysis.module').then(a => a.AnalysisModule),
+        data: { preload: true }
+
+    },
+    {
         path: '404',
         component: NotFoundComponent
     },

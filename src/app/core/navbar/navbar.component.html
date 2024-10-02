@@ -39,6 +39,14 @@
         </div>
         <div class="navbar__wrapper">
             <div class="navbar__section">
+                <a class="navbar__routerLink" [routerLink]="['/analysis/']"
+                    name='listOfReceipts'>
+                    Analiza
+                </a>
+            </div>
+        </div>
+        <div class="navbar__wrapper">
+            <div class="navbar__section">
                 <a class="navbar__routerLink" [routerLink]="['/receipt/add-receipt/', currentUser.userid ]"
                     name='addingAReceipt'>
                     Dodaj Paragon

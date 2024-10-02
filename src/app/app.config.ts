@@ -1,5 +1,5 @@
 import { ApplicationConfig, importProvidersFrom, Provider } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withPreloading } from '@angular/router';
 import { routes } from './app.routes';
 import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -9,6 +9,8 @@ import { LoggerDebugService, LoggerService } from './shared/logger/logger.servic
 import { loadingInterceptor } from './shared/interceptors/loading.interceptor';
 import { httpErrorInterceptor } from './shared/interceptors/http-error.interceptor';
 import { CacheInterceptorService } from './shared/interceptors/cache-interceptor.service';
+import { authorizationInterceptor } from './shared/interceptors/authorization.interceptor';
+import { PreloadingStrategyService } from './shared/preloading-strategy/preloading-strategy.service';
 
 export const CacheInterceptorProvider: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -19,14 +21,19 @@ export const CacheInterceptorProvider: Provider = {
 export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(
-      withInterceptors([loadingInterceptor, httpErrorInterceptor])// authorizationInterceptor, 
+      withInterceptors([authorizationInterceptor, loadingInterceptor, httpErrorInterceptor])// , 
     ),
     {
       provide: LoggerService,
       useClass: LoggerDebugService,
     },
     CacheInterceptorProvider,
-    provideRouter(routes),
+    provideRouter(routes,
+      /*
+       withPreloading(PreloadAllModules) - ładowanie modułów w tle, wszystkich na raz 
+       withPreloading(PreloadingStrategyService) - ustala które moduły lazy loading będą ładowane na początku startu aplikacji Nie w momecie klikniecia na trasę modułu 
+      */
+      withPreloading(PreloadingStrategyService)),
     provideAnimations(),
     { provide: MAT_DATE_LOCALE, useValue: 'pl-PL' },
     importProvidersFrom(MatNativeDateModule),

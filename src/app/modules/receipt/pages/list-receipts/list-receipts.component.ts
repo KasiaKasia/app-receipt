@@ -35,7 +35,7 @@ export class ListReceiptsComponent {
   listOfReceiptsWithProducts!: Partial<Visible[]> & Partial<Image[]> & Partial<Receipt[]> & Partial<Product[]>
   productsReceipt: any[] = []
   imageReceipt: PartialReceiptDataSet[][] = [];
-  protected  isVisible = false;
+  protected isVisible = false;
   constructor(public receiptService: ReceiptService,
     public authService: AuthService,
     private _sanitizer: DomSanitizer,
@@ -57,17 +57,17 @@ export class ListReceiptsComponent {
         receipts.findIndex((v2: any) => (v2.receiptId === objectProduct.id)) === index)
     })
   }
- 
- 
+
+
   @HostListener('window:scroll', [])
   onWindowScroll() {
-    this.isVisible = window.scrollY > 100; // Pokaż przycisk po przewinięciu o 200px
+    this.isVisible = window.scrollY > 200;
   }
 
   scrollToTop() {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth' // Płynne przewijanie
+      behavior: 'smooth'
     });
   }
   showProducts(receiptId: number) {
@@ -104,7 +104,7 @@ export class ListReceiptsComponent {
     })
     this.receiptSignalsService.setRecipt(this.imageReceipt[receiptId] as PartialReceiptDataSet[])
   }
-  receiptDetails(receiptId: number){
+  receiptDetails(receiptId: number) {
     this.router.navigate(['receipt/receipt-details/', receiptId]);
   }
   notLoaded() {
