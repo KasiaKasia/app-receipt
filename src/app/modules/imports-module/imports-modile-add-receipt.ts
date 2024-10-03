@@ -9,7 +9,8 @@ import { FileUploadComponent } from '../components/file-upload/file-upload.compo
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-
+import { HighlightDirective } from 'src/app/shared/directive/highlight.directive';
+ 
 @NgModule({
     imports: [
         NgIf, 
@@ -21,7 +22,8 @@ import { MatButtonModule } from '@angular/material/button';
         DashboardHeadingComponent,
         MatButtonModule,
         MatInputModule,
-        MatDatepickerModule
+        MatDatepickerModule,
+        HighlightDirective
     ],
     exports: [
         NgIf, 
@@ -33,7 +35,8 @@ import { MatButtonModule } from '@angular/material/button';
         MatButtonModule,
         MatDatepickerModule,
         MatProgressBarModule,     
-        MatInputModule       
+        MatInputModule,
+        HighlightDirective
     ]
 })
 export class ImportsModuleAddRecipt { }

@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, input, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewChecked, ChangeDetectionStrategy, Component, input, OnDestroy, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReceiptService } from '../../service/receipt/receipt.service';
 import { ActivatedRoute } from '@angular/router';
@@ -17,14 +17,15 @@ const moment = _moment;
 @Component({
   selector: 'app-add-receipt',
   standalone: true,
-  imports: [ImportsModuleAddRecipt],
+  imports: [ImportsModuleAddRecipt ],
   templateUrl: './add-receipt.component.html',
-  styleUrls: ['./add-receipt.component.scss']
+  styleUrls: ['./add-receipt.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddReceiptComponent implements OnDestroy, AfterViewChecked {
   readonly subscriptions$ = new Subscription()
   protected readonly title = input<string>('Dodaj paragon');
-
+  protected wordPosition: WordPosition[] = []
   @ViewChild(FileUploadComponent)
   base64Ref!: FileUploadComponent;
   userId: User = {};
@@ -49,12 +50,10 @@ export class AddReceiptComponent implements OnDestroy, AfterViewChecked {
     private charactersSignalsService: CharactersSignalsService,
     private _snackBar: MatSnackBar,
     private receiptService: ReceiptService,
-    private activateRouter: ActivatedRoute) { 
-
-    
-    }
-
-  ngAfterViewChecked(): void {
+    private activateRouter: ActivatedRoute) {}
+ 
+ 
+  ngAfterViewChecked(): void {  
     this.addReceiptForm.controls['image'].get('name')?.setValue(this.base64Ref.imageName)
     this.addReceiptForm.controls['image'].get('base64')?.setValue(this.base64Ref.base64)
   }
@@ -164,7 +163,7 @@ export class AddReceiptComponent implements OnDestroy, AfterViewChecked {
     }
   
   }
-  wordPosition:WordPosition[] =[]
+
   handleWordsAndPositions(wordsAndPositions: WordPosition[]): WordPosition[]{
   return this.wordPosition = wordsAndPositions
   }

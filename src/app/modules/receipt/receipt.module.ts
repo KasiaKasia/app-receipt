@@ -7,7 +7,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { DatepickerComponent } from '../components/datepicker/datepicker.component';
-import { HighlightDirective } from 'src/app/shared/directive/highlight.directive';
 import { MatIconModule } from '@angular/material/icon'
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FileUploadComponent } from '../components/file-upload/file-upload.component';
@@ -23,9 +22,6 @@ import { ListComponent } from './pages/list/list.component';
 import { AddReceiptComponent } from './pages/add-receipt/add-receipt.component';
  
 @NgModule({
-    declarations: [    
-        HighlightDirective
-    ],
     imports: [
         CommonModule,
         ListComponent,

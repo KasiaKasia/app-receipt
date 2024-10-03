@@ -1,29 +1,40 @@
-import { Directive, ElementRef, HostBinding, HostListener } from '@angular/core';
+import { Directive, ElementRef, HostBinding, HostListener, NgZone } from '@angular/core';
 
 @Directive({
-  selector: '[highlight]'
+  selector: '[highlight]',
+  standalone: true,
 })
 export class HighlightDirective {
 
-  constructor(private elementHtml: ElementRef) {}
+  constructor(private elementHtml: ElementRef, private ngZone: NgZone) {}
   @HostBinding('style.backgroundColor') bgColor: string = 'initial';
-
-  @HostListener('mouseenter')
-  hoverHighlight(): void {
-    this.elementHtml.nativeElement.style.color = '#1957a9';
-  }
+ 
 
   @HostListener('mouseleave')
   cancelhighlight(): void {
-    this.elementHtml.nativeElement.style.color = 'black';
+    this.ngZone.runOutsideAngular(() => {
+      this.ngZone.run(() => { 
+        this.elementHtml.nativeElement.style.color = 'black';
+      })
+    })
   }
 
   @HostListener('mouseover')
   onMouseAction() {
-    this.bgColor = '#ebeef2';
+    this.ngZone.runOutsideAngular(() => {
+      this.ngZone.run(() => { 
+        this.bgColor = '#ebeef2';   
+        this.elementHtml.nativeElement.style.color = '#1957a9'; 
+      })
+    })
   }
   @HostListener('mouseleave')
   onMouseLeave() {
-    this.bgColor = 'initial';
+    this.ngZone.runOutsideAngular(() => {
+      this.ngZone.run(() => { 
+        this.bgColor = 'initial';
+        this.elementHtml.nativeElement.style.color = 'initial'; 
+      })
+    })
   }
 }
