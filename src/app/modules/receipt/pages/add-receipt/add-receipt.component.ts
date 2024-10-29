@@ -1,5 +1,5 @@
 import { AfterViewChecked, ChangeDetectionStrategy, Component, input, OnDestroy, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder,  FormGroup } from '@angular/forms';
 import { ReceiptService } from '../../service/receipt/receipt.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -12,12 +12,13 @@ import { CharactersSignalsService } from '../../service/characters/characters-si
 import { LoggerService } from 'src/app/shared/logger/logger.service';
 import { ImportsModuleAddRecipt } from 'src/app/modules/imports-module/imports-modile-add-receipt';
 import { WordPosition, WordPositionAdapter } from '../../service/adapter/words.adapter';
+import { FormService } from '../../service/form/form.service';
 const moment = _moment;
 
 @Component({
   selector: 'app-add-receipt',
   standalone: true,
-  imports: [ImportsModuleAddRecipt ],
+  imports: [ImportsModuleAddRecipt],
   templateUrl: './add-receipt.component.html',
   styleUrls: ['./add-receipt.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -29,34 +30,26 @@ export class AddReceiptComponent implements OnDestroy, AfterViewChecked {
   @ViewChild(FileUploadComponent)
   base64Ref!: FileUploadComponent;
   userId: User = {};
-  protected addReceiptForm: FormGroup = this.formBuilder.group({
-    shopName: ['', Validators.required],
-    nip: ['', Validators.required],
-    totalPrice: ['', Validators.required],
-    dateOfPurchase: new FormControl(<Date[] | null>(null)),
-    listProducts: this.formBuilder.array([this.createProduct()]),
-    image: this.formBuilder.group({
-      name: [''],
-      base64: ['']
-    })
-  }, { updateOn: 'change' || 'blur' || 'submit' });
-
+  protected addReceiptForm: FormGroup = this.formService.createForm()
+  
   get listProducts() {
     return this.addReceiptForm.get('listProducts') as FormArray;
   }
 
   constructor(private logger: LoggerService,
     public formBuilder: FormBuilder,
+    private formService: FormService,
     private charactersSignalsService: CharactersSignalsService,
     private _snackBar: MatSnackBar,
     private receiptService: ReceiptService,
-    private activateRouter: ActivatedRoute) {}
- 
- 
-  ngAfterViewChecked(): void {  
+    private activateRouter: ActivatedRoute) { }
+
+
+  ngAfterViewChecked(): void {
     this.addReceiptForm.controls['image'].get('name')?.setValue(this.base64Ref.imageName)
     this.addReceiptForm.controls['image'].get('base64')?.setValue(this.base64Ref.base64)
   }
+  
   ngOnDestroy() {
     this.subscriptions$.unsubscribe()
   }
@@ -66,24 +59,6 @@ export class AddReceiptComponent implements OnDestroy, AfterViewChecked {
       data: word
     });
   }
-  createProduct(): FormGroup {
-    const listProductsForm = this.formBuilder.group({
-      productName: ['', Validators.required],
-      quantity: ['', Validators.required],
-      price: ['', Validators.required],
-      totalPrice: ['', Validators.required]
-    })
-    return listProductsForm
-  }
-
-  groups = [{
-    shopName: this.addReceiptForm.controls['shopName'].value,
-    nip: this.addReceiptForm.controls['nip'].value,
-    totalPrice: this.addReceiptForm.controls['totalPrice'].value,
-    dateOfPurchase: this.addReceiptForm.controls['dateOfPurchase'].value,
-    listProducts: this.addReceiptForm.controls['listProducts'].value
-  }]
-
   onSubmit() {
     this.addReceiptForm.controls['shopName'].markAsTouched();
     this.addReceiptForm.controls['nip'].markAsTouched();
@@ -118,7 +93,7 @@ export class AddReceiptComponent implements OnDestroy, AfterViewChecked {
   }
 
   addProduct() {
-    this.listProducts.push(this.createProduct())
+    this.listProducts.push(this.formService.createProduct())
   }
 
   removeProduct(index: number) {
@@ -152,19 +127,19 @@ export class AddReceiptComponent implements OnDestroy, AfterViewChecked {
     this.charactersSignalsService.setCharacters('')
   }
 
-  pasteBasicReceiptInformation(){
+  pasteBasicReceiptInformation() {
     const adapter = new WordPositionAdapter(this.wordPosition);
     const basicReceiptInformation = adapter.adapt();
- 
-    if(basicReceiptInformation){
+
+    if (basicReceiptInformation) {
       this.addReceiptForm.controls['shopName'].setValue(basicReceiptInformation.shopName)
       this.addReceiptForm.controls['nip'].setValue(basicReceiptInformation.nip)
       this.addReceiptForm.controls['totalPrice'].setValue(basicReceiptInformation.totalPrice)
     }
-  
+
   }
 
-  handleWordsAndPositions(wordsAndPositions: WordPosition[]): WordPosition[]{
-  return this.wordPosition = wordsAndPositions
+  handleWordsAndPositions(wordsAndPositions: WordPosition[]): WordPosition[] {
+    return this.wordPosition = wordsAndPositions
   }
 }
