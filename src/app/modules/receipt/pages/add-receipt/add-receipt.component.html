@@ -24,13 +24,16 @@
                             }
                         </div>
                     </td>
+ 
                     <td class="table__td">
-                        <input maxlength="13" placeholder="XXX-XXX-XX-XX"  (focus)="pasteTextIntoInput('nip')" type="text" class="table__td--input" formControlName="nip"
-                            [value]="(addReceiptForm.get('nip')?.value) | nipFormat" />
+                        <input maxlength="13" placeholder="XXX-XXX-XX-XX" type="text" class="table__td--input" formControlName="nip"
+                            (focus)="pasteTextIntoInput('nip')" 
+                            (input)="formatNip($event)" 
+                            />
                             <div class='validation-feedback'>
                                 @if(addReceiptForm.controls['nip'].touched && addReceiptForm.controls['nip'].invalid) {
                                     @if(addReceiptForm.controls['nip'].getError('required')){
-                                        <span>NIP jest wymagana!</span>
+                                        <span>NIP jest wymagany!</span>
                                     }                           
                                 }
                             </div>

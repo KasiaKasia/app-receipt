@@ -1,6 +1,5 @@
 import { NgIf } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { NipFormatPipe } from '../receipt/pipe/nip-format.pipe';
 import { ValidatorCharacterIsNumberDirective } from 'src/app/shared/validator-directive/validator-character-is-number.directive';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DashboardHeadingComponent } from 'src/app/shared/components/dashboard-heading/dashboard-heading.component';
@@ -13,8 +12,7 @@ import { HighlightDirective } from 'src/app/shared/directive/highlight.directive
  
 @NgModule({
     imports: [
-        NgIf, 
-        NipFormatPipe,
+        NgIf,  
         ValidatorCharacterIsNumberDirective,
         MatProgressBarModule,
         ReactiveFormsModule,
@@ -26,8 +24,7 @@ import { HighlightDirective } from 'src/app/shared/directive/highlight.directive
         HighlightDirective
     ],
     exports: [
-        NgIf, 
-        NipFormatPipe,
+        NgIf,  
         ReactiveFormsModule,
         ValidatorCharacterIsNumberDirective,     
         FileUploadComponent,

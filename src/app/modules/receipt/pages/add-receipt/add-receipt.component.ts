@@ -13,8 +13,9 @@ import { LoggerService } from 'src/app/shared/logger/logger.service';
 import { ImportsModuleAddRecipt } from 'src/app/modules/imports-module/imports-modile-add-receipt';
 import { WordPosition, WordPositionAdapter } from '../../service/adapter/words.adapter';
 import { FormService } from '../../service/form/form.service';
-const moment = _moment;
+import { NipService } from '../../service/nip-service/nip.service';
 
+const moment = _moment;
 @Component({
   selector: 'app-add-receipt',
   standalone: true,
@@ -39,6 +40,7 @@ export class AddReceiptComponent implements OnDestroy, AfterViewChecked {
   constructor(private logger: LoggerService,
     public formBuilder: FormBuilder,
     private formService: FormService,
+    private nipService: NipService,
     private charactersSignalsService: CharactersSignalsService,
     private _snackBar: MatSnackBar,
     private receiptService: ReceiptService,
@@ -49,16 +51,18 @@ export class AddReceiptComponent implements OnDestroy, AfterViewChecked {
     this.addReceiptForm.controls['image'].get('name')?.setValue(this.base64Ref.imageName)
     this.addReceiptForm.controls['image'].get('base64')?.setValue(this.base64Ref.base64)
   }
-  
+
   ngOnDestroy() {
     this.subscriptions$.unsubscribe()
   }
+
   openSnackBar(word: string) {
     this._snackBar.openFromComponent(SnackBarAnnotatedComponent, {
       duration: 5000,
       data: word
     });
   }
+
   onSubmit() {
     this.addReceiptForm.controls['shopName'].markAsTouched();
     this.addReceiptForm.controls['nip'].markAsTouched();
@@ -100,9 +104,12 @@ export class AddReceiptComponent implements OnDestroy, AfterViewChecked {
     this.listProducts.removeAt(index);
   }
 
+  formatNip(event: Event) {
+    this.nipService.formatNip(event, this.addReceiptForm); 
+  }
+  
   pasteTextIntoInput(event: string, $index = -1): void {
-    if ($index >= 0) {
-
+    if ($index >= 0) { 
       this.listProducts.controls[$index].get(event)?.setValue(this.charactersSignalsService.getCharacters())
     } if (event === 'dateOfPurchase') {
       const clipboardText = this.charactersSignalsService.getCharacters()
@@ -136,7 +143,6 @@ export class AddReceiptComponent implements OnDestroy, AfterViewChecked {
       this.addReceiptForm.controls['nip'].setValue(basicReceiptInformation.nip)
       this.addReceiptForm.controls['totalPrice'].setValue(basicReceiptInformation.totalPrice)
     }
-
   }
 
   handleWordsAndPositions(wordsAndPositions: WordPosition[]): WordPosition[] {
