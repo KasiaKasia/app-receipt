@@ -1,12 +1,12 @@
 import { AfterViewChecked, ChangeDetectionStrategy, Component, input, OnDestroy, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder,  FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ReceiptService } from '../../service/receipt/receipt.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackBarAnnotatedComponent } from 'src/app/shared/components/snack-bar/snack-bar-annotated/snack-bar-annotated.component';
 import { User } from 'src/app/shared/models/interface-user';
 import * as _moment from 'moment';
-import { Subscription, forkJoin } from 'rxjs';
+import { Subscription, concat, forkJoin } from 'rxjs';
 import { FileUploadComponent } from 'src/app/modules/components/file-upload/file-upload.component';
 import { CharactersSignalsService } from '../../service/characters/characters-signals.service';
 import { LoggerService } from 'src/app/shared/logger/logger.service';
@@ -32,7 +32,7 @@ export class AddReceiptComponent implements OnDestroy, AfterViewChecked {
   base64Ref!: FileUploadComponent;
   userId: User = {};
   protected addReceiptForm: FormGroup = this.formService.createForm()
-  
+
   get listProducts() {
     return this.addReceiptForm.get('listProducts') as FormArray;
   }
@@ -77,16 +77,15 @@ export class AddReceiptComponent implements OnDestroy, AfterViewChecked {
 
       this.subscriptions$.add(this.activateRouter.params.subscribe(params => this.userId = params['id']))
 
-      this.addReceiptForm.value.listProducts.length = this.addReceiptForm.value.listProducts.length
       let receiptFormValue = {
         ...this.addReceiptForm.getRawValue(),
         numberOfAddedProducts: this.addReceiptForm.value.listProducts.length
       }
 
-      this.subscriptions$.add(forkJoin({
-        requestImage: this.receiptService.addReceiptImage(receiptFormValue, this.userId),
-        requestReceipt: this.receiptService.addReceipt(receiptFormValue, this.userId)
-      })
+      this.subscriptions$.add(concat(
+        this.receiptService.addReceiptImage(receiptFormValue, this.userId),
+        this.receiptService.addReceipt(receiptFormValue, this.userId)
+      )
         .subscribe(req => {
           if (req) {
             this.openSnackBar('Paragon oraz obraz został dodany do bazy danych')
@@ -105,11 +104,11 @@ export class AddReceiptComponent implements OnDestroy, AfterViewChecked {
   }
 
   formatNip(event: Event) {
-    this.nipService.formatNip(event, this.addReceiptForm); 
+    this.nipService.formatNip(event, this.addReceiptForm);
   }
-  
+
   pasteTextIntoInput(event: string, $index = -1): void {
-    if ($index >= 0) { 
+    if ($index >= 0) {
       this.listProducts.controls[$index].get(event)?.setValue(this.charactersSignalsService.getCharacters())
     } if (event === 'dateOfPurchase') {
       const clipboardText = this.charactersSignalsService.getCharacters()

@@ -28,8 +28,7 @@
                     <td class="table__td">
                         <input maxlength="13" placeholder="XXX-XXX-XX-XX" type="text" class="table__td--input" formControlName="nip"
                             (focus)="pasteTextIntoInput('nip')" 
-                            (input)="formatNip($event)" 
-                            />
+                            (input)="formatNip($event)" />
                             <div class='validation-feedback'>
                                 @if(addReceiptForm.controls['nip'].touched && addReceiptForm.controls['nip'].invalid) {
                                     @if(addReceiptForm.controls['nip'].getError('required')){

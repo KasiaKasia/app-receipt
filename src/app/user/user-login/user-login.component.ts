@@ -1,33 +1,28 @@
 import { Component, DestroyRef, inject } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { LoggerService } from 'src/app/shared/logger/logger.service';
 import { Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { NgIf } from '@angular/common';
 import { DashboardHeadingComponent } from 'src/app/shared/components/dashboard-heading/dashboard-heading.component';
+import { BasicFormService } from 'src/app/shared/services/basic-form/basic-form.service';
 
 @Component({
   selector: 'app-user-login',
   standalone: true,
-  imports: [SharedModule, ReactiveFormsModule, NgIf, DashboardHeadingComponent ],
+  imports: [SharedModule, ReactiveFormsModule, DashboardHeadingComponent],
   templateUrl: './user-login.component.html',
   styleUrls: ['./user-login.component.scss']
 })
 export class UserLoginComponent {
   private destroyRef = inject(DestroyRef);
-  private fb = inject(FormBuilder);
-  public incorrectPasswordOrLogin = { status: false, text: 'incorrect password or login' }
-  title = 'Logowanie użytkownika';
-  loginForm: FormGroup = this.fb.group({
-    username: ['',  [Validators.required, Validators.minLength(3)]],
-    password: ['', Validators.required]
-  }, { updateOn: 'submit'});
+  private readonly basicFormService = inject(BasicFormService);
+  protected readonly loginForm = this.basicFormService.createForm()
+  protected readonly title = 'Logowanie użytkownika';
+
   constructor(
     private router: Router,
-    private authService: AuthService,
-    private logger: LoggerService) { }
+    private authService: AuthService) {}
 
   login() {
     this.loginForm.markAllAsTouched();
@@ -35,27 +30,12 @@ export class UserLoginComponent {
       return;
     }
     if (this.loginForm.dirty && this.loginForm.valid) {
-
-     this.authService.login(this.loginForm.value)
+      this.authService.login(this.loginForm.value)
       .pipe(
-        takeUntilDestroyed(this.destroyRef),
-      ).subscribe({
-        next: (data: any) => {
-          if (data.success && !!data.token) {
-            this.logger.success('Logged in successfully!');
-            this.router.navigate(['/']);
-          }
-          if (!data.success && data.code === 200) {
-            this.logger.success('Invalid username or password.');
-            this.incorrectPasswordOrLogin.status = true;
-          }
-        },
-        error: (error) => {
-          this.logger.error('ERROR ' + error)
-          this.logger.error('error.message ' + error.message)
-        },
-        complete: () => { }
-      })
+        takeUntilDestroyed(this.destroyRef),       
+      ).subscribe(() => {
+        this.router.navigate(['/home']);
+      });
     }
-  }
+  } 
 }

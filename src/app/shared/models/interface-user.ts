@@ -27,6 +27,7 @@ export interface User {
 
   export interface Session {
     success?: boolean;
+    code?: number;
     message?: string;
     respons?: User;
     token?: string;

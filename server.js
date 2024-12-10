@@ -2,14 +2,17 @@ const sql = require('msnodesqlv8');
 var express = require('express');
 const cors = require('cors');
 var jwt = require('jsonwebtoken');
+var fs = require('fs');
 var app = express();
 const vision = require('@google-cloud/vision');
 const fileUpload = require('express-fileupload');
-
 const connectionString = "server=DESKTOP-561O5CC\\MSSQLSERVER3;Database=database;Trusted_Connection=Yes;Driver={SQL Server Native Client 11.0}";
+const privateKey = fs.readFileSync('./src/app/environments/private.key', 'utf8');
 
-app.use(cors());
-
+app.use(cors({
+    origin: 'http://localhost:4200', // lub '*', ale to mniej bezpieczne
+    credentials: true, // Wymagane dla ciasteczek
+  }));
 app.use(express.json({ limit: '150mb' }));
 app.use(express.urlencoded({ limit: '150mb', extended: true}));
 app.use(express.json());
@@ -80,9 +83,9 @@ async function detectText(fileName) {
 app.post('/login', function (req, res) {
     const queryInnerleft = "SELECT * FROM [database].[dbo].[User] u "
         + "WHERE u.username ='" + req.body.username + "' AND u.password = '" + req.body.password + "'";
+
     sql.query(connectionString, queryInnerleft, (err, user) => {
         if (err) {
-
             return res.status(500).json({
                 success: false,
                 code: 500,
@@ -90,18 +93,14 @@ app.post('/login', function (req, res) {
                 respons: user
             });
         } if (!user.length) {
-            return res.status(200).json({
+            return res.status(401).json({
                 success: false,
-                code: 200,
+                code: 401,
                 message: 'Invalid username or password.',
                 respons: user
             });
         } else if (user.length) {
-
-            const token = jwt.sign({
-                data: user
-            }, 'secret', { expiresIn: 60 * 60 });
-            const copyUser = {
+            const userDataPayload = {
                 userid: user[0]?.id,
                 username: user[0]?.username,
                 password: user[0]?.password,
@@ -110,13 +109,39 @@ app.post('/login', function (req, res) {
                 type: user[0]?.type,
                 address_id: user[0]?.address_id,
             }
+            const accessToken = jwt.sign(userDataPayload, privateKey, { algorithm: 'RS256', expiresIn: '1m' }); //  60 seconds = 1 minute
+            const refreshToken = jwt.sign(userDataPayload, privateKey, { algorithm: 'RS256', expiresIn: '2m' });            
+           
+            jwt.verify(accessToken, publicKey, (err , decoded ) => {
+                if (err) {
+                    console.error('Access Token verification failed:', err);
+                } else {
+                    res.cookie('accessToken', accessToken, {
+                        httpOnly: true,
+                        secure: false,
+                        sameSite: 'strict',
+                        maxAge: decoded.exp
+                    });
+                }
+            });
+            jwt.verify(refreshToken, publicKey, (err, decoded ) => {
+                if (err) {
+                    console.error('Refresh Token verification failed:', err);
+                } else {
+                    res.cookie('refreshToken', refreshToken, {
+                        httpOnly: true, // niedostępne dla JS (ogranicza ataki XSS) Wskazuje przeglądarce, że ciasteczko nie może być dostępne przez JavaScript.
+                        secure: false, // Zmień na true, jeśli używasz HTTPS. Ciasteczka powinny być przesyłane wyłącznie przez szyfrowane połączenia (HTTPS).
+                        sameSite: 'strict', // przeglądarka dołączy ciasteczko jedynie do żądań pochodzących i kierowanych do tej samej strony, co strona, z której pochodzi ciasteczko.
+                        maxAge: decoded.exp
+                    });
+                }
+              });
 
             return res.status(200).json({
                 success: true,
                 code: 200,
                 message: 'Login was successful.',
-                respons: copyUser,
-                token: token
+                respons: userDataPayload                
             });
         }
     });
@@ -225,6 +250,6 @@ app.put('/receipt/add-receipt/:id', (req, res, next) => {
     });
 })
  
-var server = app.listen(5000, function () {
+var server = app.listen(5001, function () {
     console.log('Server is running...');
 })
