@@ -9,11 +9,23 @@ This project was generated with Angular CLI version 18.2.5.
 - `npm cache clean --force`
 - `npm install` or `npm i`
 
-## before running the server connecting to the database you must install 
-- `npm install msnodesqlv8, jsonwebtoken, express, cors, @google-cloud/vision, express-fileupload` 
+## Before running the server connecting to the database you must install 
+- `npm install msnodesqlv8, jsonwebtoken, express, cors, @google-cloud/vision, express-fileupload, fs` 
 
    or 
-- `npm i msnodesqlv8, jsonwebtoken, express, cors, @google-cloud/vision, express-fileupload`
+- `npm i msnodesqlv8, jsonwebtoken, express, cors, @google-cloud/vision, express-fileupload, fs`
+
+## Key Generation
+In the directory: `app-receipt\src\app\environments`, execute the following commands:  
+``` 
+openssl genpkey -algorithm RSA -out private.key -pkeyopt rsa_keygen_bits:2048  
+openssl rsa -pubout -in private.key -out public.key  
+```  
+These commands will generate two files: `private.key` and `public.key`.
+
+## Cookies
+In my opinion, the access token (`accessToken`) and the refresh token (`refreshToken`) should be stored in cookies. This is because setting the `httpOnly` option to `true` when creating a cookie prevents the content of the cookie from being read via JavaScript (`document.cookie`).
+
 
 ## Run the server connecting to the MS SQL Server database
 - `node server`
@@ -34,6 +46,9 @@ This project was generated with Angular CLI version 18.2.5.
           },
  ...
 ```
+
+
+
 
 ## Development server
 
