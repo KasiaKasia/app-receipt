@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { CoreModule } from './core/core.module';
 import { UserModule } from './user/user.module';
-import { AuthService } from './shared/services/auth.service';
+import { AuthService } from './shared/services/auth/auth.service';
 import { SharedModule } from './shared/shared.module';
 import { ReceiptService } from './modules/receipt/service/receipt/receipt.service';
 import { ReceiptModule } from './modules/receipt/receipt.module';

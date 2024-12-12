@@ -29,6 +29,5 @@ export interface User {
     success?: boolean;
     code?: number;
     message?: string;
-    respons?: User;
-    token?: string;
+    respons?: User; 
   }

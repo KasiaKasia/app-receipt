@@ -1,19 +1,18 @@
 import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Route, RouterStateSnapshot, UrlSegment, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
-import { LoggerService } from '../logger/logger.service';
-import { AuthService } from '../services/auth.service';
+import { Observable } from 'rxjs'; 
 import { UserRegistrationComponent } from 'src/app/user/user-registration/user-registration.component';
+import { IsAuthenticatedLocalStorageService } from '../services/local-storage/is-authenticated/is-authenticated-local-storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GuardCanActivateCanDeactivateCanActivateChildCanLoadCanMatch {
-  readonly #authService = inject(AuthService);
- // readonly #logger = inject(LoggerService);
+  readonly #isAuthenticatedLocalStorageService = inject(IsAuthenticatedLocalStorageService);
+  // readonly #logger = inject(LoggerService);
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
-    return this.#authService.getIsAuthenticated();
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean > | Promise<boolean  > {
+    return this.#isAuthenticatedLocalStorageService.getIsAuthenticated()  ;
   }
 
   canDeactivate(component: UserRegistrationComponent): boolean | Observable<boolean> | Promise<boolean> {
@@ -21,7 +20,7 @@ export class GuardCanActivateCanDeactivateCanActivateChildCanLoadCanMatch {
   }
 
   canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-    return this.#authService.getIsAuthenticated();
+    return this.#isAuthenticatedLocalStorageService.getIsAuthenticated();
   }
 
   canLoad(route: Route, segments: UrlSegment[]): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
@@ -34,6 +33,6 @@ export class GuardCanActivateCanDeactivateCanActivateChildCanLoadCanMatch {
   }
 
   canMatch(route: Route, segments: UrlSegment[]): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-      return this.#authService.getIsAuthenticated()  ? true : false
+      return this.#isAuthenticatedLocalStorageService.getIsAuthenticated() 
   }
 }

@@ -1,7 +1,7 @@
 import { Component, DestroyRef, inject, SecurityContext } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ReceiptService } from '../../service/receipt/receipt.service';
-import { AuthService } from 'src/app/shared/services/auth.service';
+import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { User } from 'src/app/shared/models/interface-user';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Visible, Image, Receipt, Product } from '../../../../shared/models/interface-receipt';
@@ -76,8 +76,7 @@ type DerivedType = Exclude<BaseTypeColumns, ValueType.expand>;
 export class ListComponent {
   roleId = this.activatedRoute.snapshot.paramMap.get('id') as string;
   private destroyRef = inject(DestroyRef);
-  private currentUser: User = {} = JSON.parse(this.authService.getCurrentDataUser()) as User;
-  listOfReceipts$ = this.receiptService.getListOfReceipts(this.currentUser.userid) ?? []
+  listOfReceipts$ = this.receiptService.getListOfReceipts(this.authService.user().userid) ?? []
   dataSource = [];
   listOfReceipts: any[] = []
   columnsToDisplay = ['id', 'receiptId', 'symbol', 'position'];

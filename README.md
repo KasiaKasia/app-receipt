@@ -10,10 +10,10 @@ This project was generated with Angular CLI version 18.2.5.
 - `npm install` or `npm i`
 
 ## Before running the server connecting to the database you must install 
-- `npm install msnodesqlv8, jsonwebtoken, express, cors, @google-cloud/vision, express-fileupload, fs` 
+- `npm install msnodesqlv8, jsonwebtoken, express, cors, @google-cloud/vision, express-fileupload, fs, cookie-parser` 
 
    or 
-- `npm i msnodesqlv8, jsonwebtoken, express, cors, @google-cloud/vision, express-fileupload, fs`
+- `npm i msnodesqlv8, jsonwebtoken, express, cors, @google-cloud/vision, express-fileupload, fs, cookie-parser`
 
 ## Key Generation
 In the directory: `app-receipt\src\app\environments`, execute the following commands:  

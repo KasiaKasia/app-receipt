@@ -1,22 +1,20 @@
-import { NgIf } from '@angular/common';
-import { AfterContentChecked, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { User } from 'src/app/shared/models/interface-user';
-import { AuthService } from 'src/app/shared/services/auth.service';
+import { AuthService } from 'src/app/shared/services/auth/auth.service';
+import { IsAuthenticatedLocalStorageService } from 'src/app/shared/services/local-storage/is-authenticated/is-authenticated-local-storage.service';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterModule,NgIf],
+  imports: [RouterModule],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements AfterContentChecked {
-  currentUser: User = {}
-  constructor(public auth: AuthService) {}
-  ngAfterContentChecked() {
-    this.currentUser = this.auth.getIsAuthenticated() ? JSON.parse(this.auth.getCurrentDataUser()) as User : {}
-  }
+export class NavbarComponent  {
+  constructor( 
+    public isAuthenticatedLocalStorageService: IsAuthenticatedLocalStorageService,
+    public auth: AuthService) {}
+ 
   loginOut(): void {
     this.auth.loginOut();
   }

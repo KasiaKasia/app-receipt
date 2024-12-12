@@ -2,7 +2,7 @@ import { Component, DestroyRef, effect, HostListener, inject, input, SecurityCon
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { User } from '../../../../shared/models/interface-user';
 import { ReceiptService } from '../../service/receipt/receipt.service';
-import { AuthService } from '../../../../shared/services/auth.service';
+import { AuthService } from '../../../../shared/services/auth/auth.service';
 import * as _moment from 'moment';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -29,8 +29,7 @@ export class ListReceiptsComponent {
   isLoading = this.loadingService.getLoading()
   title = input<string>('Lista paragonów');
   moment = _moment;
-  private currentUser: User = {} = JSON.parse(this.authService.getCurrentDataUser()) as User;
-  listOfReceipts$ = this.receiptService.getListOfReceipts(this.currentUser.userid) ?? []
+  listOfReceipts$ = this.receiptService.getListOfReceipts(this.authService.user().userid) ?? []
   listOfReceipts: any[] = []
   listOfReceiptsWithProducts!: Partial<Visible[]> & Partial<Image[]> & Partial<Receipt[]> & Partial<Product[]>
   productsReceipt: any[] = []

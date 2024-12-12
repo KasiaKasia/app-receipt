@@ -4,7 +4,7 @@
             <a class="navbar__routerLink" [routerLink]="'/home'" name='home'>Start</a>
         </div>
     </div>
-    @if(!auth.getIsAuthenticated()){
+    @if(!isAuthenticatedLocalStorageService.getIsAuthenticated()){
         <ng-container>
             <div class="navbar__wrapper">
                 <div class="navbar__section">
@@ -21,7 +21,7 @@
         </ng-container>
     }
 
-    @if(auth.getIsAuthenticated()){
+    @if(!!isAuthenticatedLocalStorageService.getIsAuthenticated()){
 
         <div class="navbar__wrapper">
             <div class="navbar__section">
@@ -31,8 +31,8 @@
 
         <div class="navbar__wrapper">
             <div class="navbar__section">
-                <a class="navbar__routerLink" [routerLink]="['/receipt/list-of-receipts/', currentUser.userid ]"
-                    name='listOfReceipts'>
+                <a class="navbar__routerLink" [routerLink]="['/receipt/list-of-receipts/', auth.user().userid ]"  
+                   name='listOfReceipts'>
                     Lista paragonów
                 </a>
             </div>
@@ -47,7 +47,7 @@
         </div>
         <div class="navbar__wrapper">
             <div class="navbar__section">
-                <a class="navbar__routerLink" [routerLink]="['/receipt/add-receipt/', currentUser.userid ]"
+                <a class="navbar__routerLink" [routerLink]="['/receipt/add-receipt/', auth.user().userid ]"
                     name='addingAReceipt'>
                     Dodaj Paragon
                 </a>
@@ -56,7 +56,7 @@
 
         <div class="navbar__wrapper">
             <div class="navbar__section">
-                <strong> Cześć, {{currentUser.username }}</strong>
+                <strong> Cześć, {{auth.user().username }}</strong>
             </div>
         </div>
     }
