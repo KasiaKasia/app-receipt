@@ -4,33 +4,25 @@ import { routes } from './app.routes';
 import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { INJECTION_TOKEN } from './app.component';
-import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { LoggerDebugService, LoggerService } from './shared/logger/logger.service';
 import { loadingInterceptor } from './shared/interceptors/loading.interceptor';
 import { httpErrorInterceptor } from './shared/interceptors/http-error.interceptor';
-// import { CacheInterceptorService } from './shared/interceptors/cache-interceptor.service';
-// import { authorizationInterceptor } from './shared/interceptors/authorization.interceptor';
 import { PreloadingStrategyService } from './shared/preloading-strategy/preloading-strategy.service';
 import { withCredentialsInterceptor } from './shared/interceptors/with-credentials.interceptor';
 
-// export const CacheInterceptorProvider: Provider = {
-//   provide: HTTP_INTERCEPTORS,
-//   useClass: CacheInterceptorService,
-//   multi: true,
-// };
+ 
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideHttpClient(
-      
+    provideHttpClient(      
       withInterceptors([withCredentialsInterceptor, loadingInterceptor, httpErrorInterceptor]),
-      withFetch(),// , authorizationInterceptor, loadingInterceptor,httpErrorInterceptor,withCredentialsInterceptor
+      withFetch(),
     ),
     {
       provide: LoggerService,
       useClass: LoggerDebugService,
     },
-  //  CacheInterceptorProvider,
   
     provideRouter(routes,
       /*
